@@ -1,0 +1,186 @@
+{
+  "_comment": "Bron voor de Vonk-boodschappen. Elke key = boodschap-id. title/body = schermtekst (NAAM wordt client-side ingevuld). audio = bijbehorend sulafat-fragment (zonder naam). icon = icoonsleutel.",
+  "opening": {
+    "audio": "vonk-opening.mp3",
+    "script": "Hey jij. Ik heb even goed naar je antwoorden gekeken. En weet je wat me opvalt? Een paar heel bijzondere dingen. Luister maar."
+  },
+  "closing": {
+    "audio": "vonk-closing.mp3",
+    "script": "Dit is wat er vandaag bij jou uitspringt. Het is een momentopname, dus dit mag nog groeien en veranderen. Maar één ding is nu al duidelijk: jij kan echt iets bijzonders. Knap gedaan."
+  },
+  "acc_Analyse": {
+    "icon": "search",
+    "title": "Jij wil eerst snappen hoe iets werkt",
+    "body": "Voordat je begint, wil je echt begrijpen hoe iets in elkaar zit. Dat is goud waard. Jij bouwt op een stevige basis, en daar word je sterk van.",
+    "audio": "vonk-analyse.mp3",
+    "script": "Iets wat opvalt: jij wil eerst snappen hoe iets in elkaar zit voor je begint. Dat is goud waard. Jij bouwt op een stevige basis, en daar word je sterk van."
+  },
+  "acc_Coaching": {
+    "icon": "chat",
+    "title": "Jij leert het liefst samen",
+    "body": "Praten, uitleggen, samen ontdekken: zo komt het bij jou echt binnen. Mensen om je heen voelen zich gehoord bij jou. Dat is een echt talent.",
+    "audio": "vonk-coaching.mp3",
+    "script": "Iets wat opvalt: jij leert het liefst samen. Praten, uitleggen, samen ontdekken, zo komt het bij jou echt binnen. Mensen voelen zich gehoord bij jou, en dat is een echt talent."
+  },
+  "acc_Facilitatie": {
+    "icon": "people",
+    "title": "Jij krijgt een groep mee",
+    "body": "Jij laat een groep op een positieve manier samenwerken, soms zelfs zonder dat het moeite kost. En je voelt aan waar het echt om draait. Daar maak jij verschil.",
+    "audio": "vonk-facilitatie.mp3",
+    "script": "Iets wat opvalt: jij krijgt een groep mee. Jij laat mensen op een positieve manier samenwerken, soms zonder dat het moeite kost. En je voelt aan waar het echt om draait."
+  },
+  "acc_Resultaat": {
+    "icon": "target",
+    "title": "Jij weet waar je naartoe wil",
+    "body": "Jij ziet het eindplaatje voor je en werkt er gericht naartoe. Die helderheid is zeldzaam, en ze brengt je verder dan je denkt.",
+    "audio": "vonk-resultaat.mp3",
+    "script": "Iets wat opvalt: jij weet waar je naartoe wil. Jij ziet het eindplaatje voor je en werkt er gericht naartoe. Die helderheid is zeldzaam, en ze brengt je ver."
+  },
+  "acc_Constructief onderscheidend": {
+    "icon": "spark",
+    "title": "Jij maakt er je eigen versie van",
+    "body": "Jij neemt niet zomaar over wat er is, je hertekent het tot iets van jezelf. Die eigen kijk is precies wat jou laat opvallen.",
+    "audio": "vonk-onderscheidend.mp3",
+    "script": "Iets wat opvalt: jij maakt er graag je eigen versie van. Jij neemt niet zomaar over wat er is, je hertekent het tot iets van jezelf. Die eigen kijk laat jou opvallen."
+  },
+  "focus_Bedenken/creatie": {
+    "icon": "bulb",
+    "title": "Jij zit vol ideeën",
+    "body": "Nieuwe dingen bedenken geeft jou energie. Jouw verbeelding is een motor, gebruik hem, want daar zit veel van jou in.",
+    "audio": "vonk-bedenken.mp3",
+    "script": "Jij zit vol ideeën. Nieuwe dingen bedenken geeft jou energie. Jouw verbeelding is een motor, en daar zit veel van jou in."
+  },
+  "focus_Uitzoeken/onderzoek": {
+    "icon": "search",
+    "title": "Jij wil het tot op de bodem uitzoeken",
+    "body": "Vragen stellen, dingen uitpluizen, ontdekken hoe het echt zit: daar krijg jij energie van. Die nieuwsgierigheid brengt je ver.",
+    "audio": "vonk-uitzoeken.mp3",
+    "script": "Jij wil dingen tot op de bodem uitzoeken. Vragen stellen, uitpluizen, ontdekken hoe het echt zit, daar krijg jij energie van. Die nieuwsgierigheid brengt je ver."
+  },
+  "focus_Doen/uitvoeren": {
+    "icon": "bolt",
+    "title": "Jij komt graag in actie",
+    "body": "Niet eindeloos praten, maar gewoon doen: zo zit jij in elkaar. Die daadkracht zorgt dat dingen ook echt af raken.",
+    "audio": "vonk-doen.mp3",
+    "script": "Jij komt graag in actie. Niet eindeloos praten, maar gewoon doen, zo zit jij in elkaar. Die daadkracht zorgt dat dingen ook echt af raken."
+  },
+  "focus_Leren/overdragen": {
+    "icon": "book",
+    "title": "Jij geeft graag door wat je weet",
+    "body": "Iets leren en het dan aan iemand uitleggen: daar word jij blij van. Jij tilt anderen mee omhoog, en dat is een mooi talent.",
+    "audio": "vonk-leren.mp3",
+    "script": "Jij geeft graag door wat je weet. Iets leren en het dan uitleggen aan iemand, daar word jij blij van. Jij tilt anderen mee omhoog."
+  },
+  "focus_Samenwerken": {
+    "icon": "people",
+    "title": "Jij bloeit op in een groep",
+    "body": "Samen iets maken geeft jou energie. Jij verbindt mensen en zorgt dat het samen beter loopt. Dat voelt iedereen.",
+    "audio": "vonk-samenwerken.mp3",
+    "script": "Jij bloeit op in een groep. Samen iets maken geeft jou energie. Jij verbindt mensen en zorgt dat het samen beter loopt."
+  },
+  "int_Realistisch": {
+    "icon": "wrench",
+    "title": "Jij houdt van iets concreets in je handen",
+    "body": "Bouwen, maken, met je handen bezig zijn: dat trekt jou aan. En dat past mooi bij hoe je in elkaar zit.",
+    "audio": "vonk-realistisch.mp3",
+    "script": "Jij houdt van iets concreets in je handen. Bouwen, maken, bezig zijn, dat trekt jou aan, en dat past mooi bij hoe je in elkaar zit."
+  },
+  "int_Investigative": {
+    "icon": "search",
+    "title": "Jij wil de wereld begrijpen",
+    "body": "Onderzoeken, uitzoeken, snappen waarom: dat trekt jou aan. Jouw nieuwsgierigheid en hoe je in elkaar zit, wijzen dezelfde kant op.",
+    "audio": "vonk-investigative.mp3",
+    "script": "Jij wil de wereld begrijpen. Onderzoeken, uitzoeken, snappen waarom, dat trekt jou aan. Jouw nieuwsgierigheid en hoe je in elkaar zit wijzen dezelfde kant op."
+  },
+  "int_Artistiek": {
+    "icon": "palette",
+    "title": "Jij hebt een creatieve antenne",
+    "body": "Iets maken dat van jou is, vorm en verbeelding: daar voel jij je thuis. Die creatieve kant maakt jou echt bijzonder.",
+    "audio": "vonk-artistiek.mp3",
+    "script": "Jij hebt een creatieve antenne. Iets maken dat van jou is, vorm en verbeelding, daar voel jij je thuis. Die creatieve kant maakt jou bijzonder."
+  },
+  "int_Sociaal": {
+    "icon": "people",
+    "title": "Jij wil iets voor mensen betekenen",
+    "body": "Mensen helpen, begeleiden, er zijn voor anderen: dat trekt jou aan. En het past bij hoe warm je met mensen omgaat.",
+    "audio": "vonk-sociaal.mp3",
+    "script": "Jij wil iets voor mensen betekenen. Mensen helpen, er zijn voor anderen, dat trekt jou aan. En het past bij hoe warm je met mensen omgaat."
+  },
+  "int_Ondernemend": {
+    "icon": "rocket",
+    "title": "Jij durft dingen op gang te trekken",
+    "body": "Iets opstarten, anderen meekrijgen, kansen zien: dat trekt jou aan. Die ondernemende vonk heeft niet iedereen.",
+    "audio": "vonk-ondernemend.mp3",
+    "script": "Jij durft dingen op gang te trekken. Iets opstarten, anderen meekrijgen, kansen zien, dat trekt jou aan. Die ondernemende vonk heeft niet iedereen."
+  },
+  "int_Conventioneel": {
+    "icon": "grid",
+    "title": "Jij houdt van overzicht en orde",
+    "body": "Dingen netjes en geordend houden, structuur aanbrengen: daar voel jij je goed bij. Daar bouwen anderen graag op verder.",
+    "audio": "vonk-conventioneel.mp3",
+    "script": "Jij houdt van overzicht en orde. Dingen netjes en geordend houden, daar voel jij je goed bij. En daar bouwen anderen graag op verder."
+  },
+  "driver_TryHard": {
+    "icon": "star",
+    "title": "Jij gaat ver voor wie in je gelooft",
+    "body": "Als er iemand is die voor jou belangrijk is en die in je gelooft, dan haal jij het beste uit jezelf. Nu werkt dat als een gaspedaal: het duwt je recht naar je talenten.",
+    "audio": "vonk-tryhard.mp3",
+    "script": "Iets moois: jij gaat ver voor wie in je gelooft. Als er iemand belangrijk voor je is en in je gelooft, haal jij het beste uit jezelf. Nu werkt dat als een gaspedaal, het duwt je recht naar je talenten."
+  },
+  "driver_BeStrong": {
+    "icon": "shield",
+    "title": "Jij neemt zelf verantwoordelijkheid",
+    "body": "Jij neemt graag zelf het heft in handen, zeker als je gelooft dat je het tot een goed einde brengt. Nu werkt dat als een gaspedaal: het zet jou in beweging richting je talenten.",
+    "audio": "vonk-bestrong.mp3",
+    "script": "Iets wat opvalt: jij neemt zelf verantwoordelijkheid. Jij pakt graag zelf het heft in handen, zeker als je gelooft dat je het tot een goed einde brengt. Nu werkt dat als een gaspedaal richting je talenten."
+  },
+  "driver_BePerfect": {
+    "icon": "check",
+    "title": "Jij wil alles zo juist mogelijk doen",
+    "body": "Jij legt de lat hoog en wil dat iets echt klopt voor je het loslaat. Nu krijg je daar de ruimte voor, en dan werkt dat als een gaspedaal richting je talenten.",
+    "audio": "vonk-beperfect.mp3",
+    "script": "Iets wat opvalt: jij wil alles zo juist mogelijk doen. Jij legt de lat hoog en wil dat iets echt klopt. Nu krijg je daar de ruimte voor, en dan werkt dat als een gaspedaal richting je talenten."
+  },
+  "driver_PleaseOthers": {
+    "icon": "heart",
+    "title": "Jij maakt het graag goed voor anderen",
+    "body": "Jij voelt je het best tussen mensen die jou waarderen, en jij zorgt dat iedereen mee is. Nu werkt dat als een gaspedaal: je voelt je veilig en zet je talenten volop in.",
+    "audio": "vonk-pleaseothers.mp3",
+    "script": "Iets wat opvalt: jij maakt het graag goed voor anderen. Jij voelt je het best tussen mensen die jou waarderen, en je zorgt dat iedereen mee is. Nu werkt dat als een gaspedaal voor je talenten."
+  },
+  "driver_HurryUp": {
+    "icon": "bolt",
+    "title": "Jij pakt graag veel tegelijk aan",
+    "body": "Jij neemt graag veel op tegelijk en wil snel resultaat zien. Nu werkt dat als een gaspedaal: die vaart zet dingen in beweging en brengt je richting je talenten.",
+    "audio": "vonk-hurryup.mp3",
+    "script": "Iets wat opvalt: jij pakt graag veel tegelijk aan en wil snel resultaat zien. Nu werkt dat als een gaspedaal, die vaart zet dingen in beweging richting je talenten."
+  },
+  "energy_full": {
+    "icon": "battery",
+    "title": "Jij bracht een volle batterij mee",
+    "body": "Je zit lekker in je energie vandaag. Dat is een mooie kracht om mee te werken, gebruik ze voor wat jou blij maakt.",
+    "audio": "vonk-energie.mp3",
+    "script": "Iets moois: jij bracht vandaag een volle batterij mee. Je zit lekker in je energie. Dat is een mooie kracht, gebruik ze voor wat jou blij maakt."
+  },
+  "meaning": {
+    "icon": "compass",
+    "title": "Jij wil iets betekenen",
+    "body": "Naast wat je kan, wil je ook iets betekenen. Die richting in jou is misschien wel het mooiste van allemaal.",
+    "audio": "vonk-betekenis.mp3",
+    "script": "En misschien wel het mooiste: jij wil niet alleen iets kunnen, je wil ook iets betekenen. Die richting in jou is heel waardevol."
+  },
+  "growth_thin": {
+    "icon": "seedling",
+    "title": "Dit is nog maar een eerste glimp",
+    "body": "Je gaf vandaag een eerste blik op wie je bent. Er zit vast nog veel meer in jou, en dat ontdek je samen met je begeleider.",
+    "audio": "vonk-groei.mp3",
+    "script": "Dit is nog maar een eerste glimp. Je gaf vandaag een eerste blik op wie je bent. Er zit vast nog veel meer in jou, en dat ontdek je samen met je begeleider."
+  },
+  "context_brake": {
+    "icon": "compass",
+    "title": "Eén ding mag je echt weten",
+    "body": "Jouw belangrijkste motor staat vandaag een beetje op de rem. Niet omdat er iets mis is met jou, maar omdat er nu iets in je omgeving niet lekker zit. Praat hier zeker over met je begeleider, samen krijg je die motor weer aan het trekken.",
+    "audio": "vonk-context.mp3",
+    "script": "En eén ding mag je echt weten. Jouw belangrijkste motor staat vandaag een beetje op de rem. Niet omdat er iets mis is met jou, maar omdat er nu iets in je omgeving niet lekker zit. Praat hier zeker over met je begeleider. Samen krijg je die motor weer aan het trekken. En geloof me, dat lukt."
+  }
+}

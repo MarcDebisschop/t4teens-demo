@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T4Teens - ontdek jouw vonk</title>
+<style>
+:root{
+  --teal:#01696F;
+  --teal-d:#014b50;
+  --teal-l:#0a8a92;
+  --teal-soft:#e6f2f2;
+  --teal-softer:#f3f9f9;
+  --ink:#1f2d2e;
+  --ink-soft:#4a5b5c;
+  --bg:#fbfcfc;
+  --card:#ffffff;
+  --line:#dde8e8;
+  --amber:#f4a24b;
+  --coral:#ff6b5e;
+  --sun:#ffc857;
+  --shadow:0 4px 24px rgba(1,105,111,.10);
+  --shadow-soft:0 2px 10px rgba(1,105,111,.06);
+  --radius:18px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.55;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+}
+.app{max-width:680px;margin:0 auto;padding:0 18px 60px;min-height:100vh}
+
+/* ---------- Topbar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(251,252,252,.92);
+  backdrop-filter:blur(8px);
+  padding:14px 0 10px;
+  margin:0 -18px;
+  border-bottom:1px solid var(--line);
+}
+.topbar.hidden{display:none}
+.topbar-inner{max-width:680px;margin:0 auto;padding:0 18px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--teal);letter-spacing:.2px}
+.brand .dot{width:12px;height:12px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--teal-soft)}
+.brand small{font-weight:600;color:var(--ink-soft);font-size:13px;letter-spacing:0}
+.progress-wrap{margin-top:10px;display:flex;align-items:center;gap:10px}
+.progress{flex:1;height:8px;background:var(--teal-soft);border-radius:99px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--teal-l),var(--teal));border-radius:99px;transition:width .35s cubic-bezier(.4,0,.2,1)}
+.progress-label{font-size:13px;color:var(--ink-soft);font-weight:600;white-space:nowrap;min-width:42px;text-align:right}
+
+/* ---------- screens ---------- */
+.screen{animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-soft);
+  padding:26px 24px;
+  margin-top:22px;
+}
+
+/* ---------- LANDING (full-bleed cover) ---------- */
+.landing{
+  min-height:100vh;min-height:100dvh;
+  margin:0 -18px;padding:0;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;overflow:hidden;
+  color:#fff;background:#0c0a12;
+}
+.landing .cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;z-index:0;animation:coverIn 1.5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes coverIn{from{opacity:0;transform:scale(1.08)}to{opacity:1;transform:scale(1)}}
+.landing .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to top, rgba(8,6,14,.94) 0%, rgba(8,6,14,.78) 24%, rgba(8,6,14,.30) 50%, rgba(8,6,14,.06) 70%, rgba(8,6,14,.34) 100%)}
+.landing-inner{position:relative;z-index:2;width:100%;max-width:560px;margin:0 auto;padding:0 28px 54px;text-align:center;animation:landIn .85s cubic-bezier(.2,.7,.2,1) .3s both}
+@keyframes landIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.landing .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--sun);text-shadow:0 2px 14px rgba(0,0,0,.8);margin-bottom:14px}
+.landing .kicker .spk{font-size:16px}
+.landing h1{font-size:56px;line-height:1.0;font-weight:800;margin:0 0 14px;letter-spacing:-1.2px;text-shadow:0 4px 34px rgba(0,0,0,.65)}
+.landing h1 .hl{color:var(--sun)}
+.landing .sub{font-size:18px;color:rgba(255,255,255,.95);margin:0 auto 4px;max-width:440px;line-height:1.5;text-shadow:0 2px 16px rgba(0,0,0,.8)}
+.landing .micro{font-size:14.5px;color:rgba(255,255,255,.82);margin-top:6px;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.cta{
+  background:var(--sun);color:#3a2b00;border:none;border-radius:99px;
+  font-family:inherit;font-size:20px;font-weight:800;padding:18px 46px;cursor:pointer;
+  box-shadow:0 10px 34px rgba(255,200,87,.5);transition:.18s;letter-spacing:.2px;
+  display:inline-flex;align-items:center;gap:10px;margin-top:28px;
+  animation:pulse 2.4s ease-in-out infinite;
+}
+.cta:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 14px 42px rgba(255,200,87,.65)}
+.cta:active{transform:translateY(0) scale(.99)}
+@keyframes pulse{0%,100%{box-shadow:0 10px 34px rgba(255,200,87,.5)}50%{box-shadow:0 10px 34px rgba(255,200,87,.8),0 0 0 9px rgba(255,200,87,.14)}}
+.cta .arrow{font-size:22px}
+.landing .time-note{margin-top:18px;font-size:13.5px;color:rgba(255,255,255,.8);text-shadow:0 2px 12px rgba(0,0,0,.8)}
+
+/* ---------- Vriendelijke melding (nog niet volledig) ---------- */
+.q-hint{
+  display:flex;align-items:flex-start;gap:11px;
+  background:#fff7e6;border:1px solid #ffe2a8;border-left:5px solid var(--sun);
+  border-radius:14px;padding:13px 16px;margin-top:18px;
+  color:#7a5a00;font-size:15px;font-weight:600;line-height:1.4;
+  max-height:0;opacity:0;overflow:hidden;padding-top:0;padding-bottom:0;margin-top:0;border-width:0;
+  transition:max-height .35s ease,opacity .3s ease,padding .35s ease,margin .35s ease;
+}
+.q-hint.show{max-height:140px;opacity:1;padding-top:13px;padding-bottom:13px;margin-top:18px;border-width:1px;border-left-width:5px;animation:hintNudge .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes hintNudge{0%{transform:translateY(-6px)}60%{transform:translateY(2px)}100%{transform:translateY(0)}}
+.q-hint .h-ic{flex-shrink:0;width:22px;height:22px;color:var(--amber);margin-top:1px}
+.q-hint .h-ic svg{width:22px;height:22px;display:block}
+
+/* ---------- Aanmoediging-slide (full-bleed tussen vragen) ---------- */
+.boost{position:fixed;inset:0;z-index:60;display:flex;overflow:hidden;background:#0c0a12;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s}
+.boost.show{opacity:1;visibility:visible}
+.boost .boost-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.boost.show .boost-img{animation:coverIn 1.3s cubic-bezier(.2,.7,.2,1) both}
+.boost .boost-scrim{position:absolute;inset:0;z-index:1}
+.boost.left .boost-scrim{background:linear-gradient(to right, rgba(8,6,14,.88) 0%, rgba(8,6,14,.55) 40%, rgba(8,6,14,0) 72%)}
+.boost.right .boost-scrim{background:linear-gradient(to left, rgba(8,6,14,.88) 0%, rgba(8,6,14,.55) 42%, rgba(8,6,14,0) 74%)}
+.boost-inner{position:relative;z-index:2;max-width:520px;margin:auto 0;padding:0 30px;width:100%}
+.boost.show .boost-inner{animation:landIn .8s cubic-bezier(.2,.7,.2,1) .25s both}
+.boost.left .boost-inner{text-align:left}
+.boost.right .boost-inner{text-align:right;margin-left:auto}
+.boost .b-kicker{font-size:13.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--sun);text-shadow:0 2px 14px rgba(0,0,0,.85);margin-bottom:10px}
+.boost .b-text{font-size:36px;line-height:1.1;font-weight:800;color:#fff;letter-spacing:-.6px;text-shadow:0 3px 26px rgba(0,0,0,.8)}
+.boost .b-go{
+  margin-top:28px;background:var(--sun);color:#3a2b00;border:none;border-radius:99px;
+  font-family:inherit;font-size:17px;font-weight:800;padding:14px 32px;cursor:pointer;
+  box-shadow:0 8px 26px rgba(255,200,87,.45);transition:.18s;
+  display:inline-flex;align-items:center;gap:9px;
+}
+.boost .b-go:hover{transform:translateY(-2px)}
+.boost .b-go .arrow{font-size:19px}
+
+/* ---------- Toestemming / wie ben jij ---------- */
+.consent h1{font-size:25px;line-height:1.25;margin:0 0 6px;color:var(--ink)}
+.consent .lead-sub{color:var(--ink-soft);font-size:16px;margin:0 0 18px}
+.step-label{font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--teal-d);margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+.step-label .n{width:22px;height:22px;border-radius:50%;background:var(--teal-soft);color:var(--teal-d);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.role-opt{display:flex;flex-direction:column;align-items:flex-start;gap:4px;border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px 14px;cursor:pointer;transition:.16s;text-align:left;font-family:inherit;color:var(--ink)}
+.role-opt:hover{border-color:var(--teal-l);background:var(--teal-softer)}
+.role-opt.sel{border-color:var(--teal);background:var(--teal-soft)}
+.role-opt .r-ic{font-size:22px;line-height:1}
+.role-opt .r-t{font-weight:700;font-size:15.5px}
+.role-opt .r-d{font-size:12.5px;color:var(--ink-soft);line-height:1.3}
+.field{margin-top:6px}
+.field label{display:block;font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:7px}
+.field .hint-txt{font-size:13px;color:var(--ink-soft);font-weight:500;margin-bottom:9px}
+.field input[type=text],.field input[type=number]{width:100%;font-family:inherit;font-size:16.5px;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:13px;padding:13px 15px;transition:.16s}
+.field input:focus{outline:none;border-color:var(--teal)}
+.age-row{display:flex;gap:10px;flex-wrap:wrap}
+.age-row .age-pick{flex:1;min-width:120px}
+.privacy-box{background:var(--teal-softer);border:1px solid var(--teal-soft);border-radius:16px;padding:18px 18px 14px;margin-top:10px}
+.privacy-box h2{font-size:16px;margin:0 0 10px;color:var(--teal-d);display:flex;align-items:center;gap:8px}
+.privacy-box .lock{width:18px;height:18px;color:var(--teal)}
+.privacy-box ul{margin:0;padding:0;list-style:none}
+.privacy-box li{position:relative;padding:6px 0 6px 26px;font-size:14.5px;color:var(--ink-soft);line-height:1.45}
+.privacy-box li::before{content:"";position:absolute;left:4px;top:14px;width:8px;height:8px;border-radius:50%;background:var(--teal-l)}
+.privacy-box li b{color:var(--ink)}
+.privacy-more{margin-top:10px;font-size:13px}
+.privacy-more summary{cursor:pointer;color:var(--teal-d);font-weight:700;list-style:none}
+.privacy-more summary::-webkit-details-marker{display:none}
+.privacy-more summary::before{content:"\25B8  ";color:var(--teal-l)}
+.privacy-more[open] summary::before{content:"\25BE  "}
+.privacy-more .more-body{margin-top:8px;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+.consent-check{display:flex;align-items:flex-start;gap:12px;margin-top:18px;padding:15px 16px;border:2px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;transition:.16s}
+.consent-check:hover{border-color:var(--teal-l)}
+.consent-check.checked{border-color:var(--teal);background:var(--teal-soft)}
+.consent-check .box{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.16s;background:#fff}
+.consent-check.checked .box{background:var(--teal);border-color:var(--teal)}
+.consent-check .box svg{width:16px;height:16px;color:#fff;opacity:0;transition:.16s}
+.consent-check.checked .box svg{opacity:1}
+.consent-check .ct{font-size:15px;font-weight:650;color:var(--ink);line-height:1.4}
+.guardian-note{margin-top:14px;background:#fff7e6;border:1px solid #ffe2a8;border-left:5px solid var(--sun);border-radius:14px;padding:13px 16px;font-size:14px;color:#7a5a00;line-height:1.45;display:none}
+.guardian-note.show{display:block}
+.guardian-note b{color:#5e4500}
+.block-note{margin-top:14px;background:#fdecec;border:1px solid #f6c9c5;border-left:5px solid var(--coral);border-radius:14px;padding:13px 16px;font-size:14px;color:#8a322b;line-height:1.45;display:none}
+.block-note.show{display:block}
+@media(max-width:430px){
+  .role-grid{grid-template-columns:1fr}
+  .consent h1{font-size:22px}
+}
+
+/* ---------- Intro (rustig) ---------- */
+.intro-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--teal-soft);color:var(--teal-d);
+  font-size:13px;font-weight:700;padding:6px 13px;border-radius:99px;
+  margin-bottom:16px;letter-spacing:.3px;text-transform:uppercase;
+}
+.intro h1{font-size:25px;line-height:1.25;margin:0 0 14px;color:var(--ink)}
+.moment-box{
+  background:var(--teal-softer);
+  border:1px solid var(--teal-soft);
+  border-left:5px solid var(--teal);
+  border-radius:14px;
+  padding:18px 20px;
+  margin:18px 0;
+  font-size:17px;color:var(--ink);
+}
+.moment-box .lead{font-weight:700;color:var(--teal-d);display:block;margin-bottom:6px}
+.intro ul{margin:14px 0 0;padding-left:0;list-style:none}
+.intro ul li{position:relative;padding:7px 0 7px 30px;color:var(--ink-soft);font-size:15.5px}
+.intro ul li::before{content:"";position:absolute;left:4px;top:14px;width:9px;height:9px;border-radius:50%;background:var(--teal-l)}
+
+/* ---------- Question ---------- */
+.q-top{display:flex;align-items:center;justify-content:flex-end;margin-bottom:8px}
+.q-text{font-size:21px;line-height:1.35;font-weight:650;margin:2px 0 20px;color:var(--ink)}
+
+/* Listen button */
+.listen{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--teal-soft);color:var(--teal-d);
+  border:1px solid transparent;
+  border-radius:99px;padding:8px 14px 8px 11px;
+  font-size:14px;font-weight:700;cursor:pointer;
+  transition:.18s;flex-shrink:0;
+}
+.listen:hover{background:#d6eaea}
+.listen:active{transform:scale(.97)}
+.listen.playing{background:var(--teal);color:#fff}
+.listen svg{width:18px;height:18px;display:block}
+
+/* Answer controls */
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{
+  display:flex;align-items:center;gap:13px;
+  border:2px solid var(--line);background:#fff;border-radius:14px;
+  padding:15px 16px;cursor:pointer;font-size:16.5px;color:var(--ink);
+  transition:.16s;text-align:left;width:100%;font-family:inherit;
+}
+.opt:hover{border-color:var(--teal-l);background:var(--teal-softer)}
+.opt .mark{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.16s}
+.opt.sel{border-color:var(--teal);background:var(--teal-soft);font-weight:650}
+.opt.sel .mark{border-color:var(--teal);background:var(--teal)}
+.opt.sel .mark::after{content:"";width:9px;height:9px;border-radius:50%;background:#fff}
+
+.sjt .opt{padding:18px 18px;font-size:17px}
+.sjt .opt .tag{width:30px;height:30px;border-radius:9px;background:var(--teal-soft);color:var(--teal-d);font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.sjt .opt.sel .tag{background:var(--teal);color:#fff}
+
+/* Battery */
+.battery-wrap{text-align:center;padding:6px 4px}
+.battery-icon{width:120px;height:56px;margin:6px auto 18px;border:4px solid var(--teal-d);border-radius:12px;position:relative;background:#fff}
+.battery-icon::after{content:"";position:absolute;right:-12px;top:16px;width:8px;height:20px;background:var(--teal-d);border-radius:0 4px 4px 0}
+.battery-fill{position:absolute;left:4px;top:4px;bottom:4px;border-radius:6px;background:linear-gradient(90deg,var(--teal-l),var(--teal));transition:width .25s}
+.battery-val{font-size:34px;font-weight:800;color:var(--teal-d);line-height:1}
+.battery-val small{font-size:16px;color:var(--ink-soft);font-weight:600}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:14px;border-radius:99px;background:var(--teal-soft);outline:none;margin:20px 0 8px;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:34px;border-radius:50%;background:var(--teal);border:4px solid #fff;box-shadow:0 2px 8px rgba(1,105,111,.4);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:34px;height:34px;border-radius:50%;background:var(--teal);border:4px solid #fff;box-shadow:0 2px 8px rgba(1,105,111,.4);cursor:pointer}
+.range-ends{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft);margin-top:2px}
+
+/* Energy block (begeleid) */
+.energy-block{margin-top:22px;padding:18px 16px 16px;border:1px dashed var(--teal-soft);background:var(--teal-softer);border-radius:14px}
+.energy-q{font-size:16px;font-weight:700;color:var(--teal-d);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.energy-q .spark{color:var(--amber)}
+.energy-help{font-size:14px;color:var(--ink-soft);margin:0 0 13px;line-height:1.4}
+.energy-scale{display:flex;gap:7px}
+.energy-opt{flex:1;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 4px;cursor:pointer;text-align:center;transition:.16s;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:inherit}
+.energy-opt:hover{border-color:var(--teal-l)}
+.energy-opt .emoji{font-size:21px;line-height:1}
+.energy-opt .lab{font-size:11px;color:var(--ink-soft);font-weight:600;line-height:1.2}
+.energy-opt.sel{border-color:var(--teal);background:var(--teal-soft)}
+.energy-opt.sel .lab{color:var(--teal-d)}
+
+/* Nav */
+.nav{display:flex;gap:12px;margin-top:26px}
+.btn{font-family:inherit;font-size:16.5px;font-weight:700;border-radius:13px;padding:15px 22px;cursor:pointer;border:none;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary{background:var(--teal);color:#fff;flex:1;box-shadow:0 3px 12px rgba(1,105,111,.28)}
+.btn-primary:hover{background:var(--teal-d)}
+.btn-primary:active{transform:translateY(1px)}
+.btn-primary:disabled{background:#b9cccc;cursor:not-allowed;box-shadow:none}
+.btn-ghost{background:#fff;color:var(--teal-d);border:2px solid var(--line)}
+.btn-ghost:hover{border-color:var(--teal-l)}
+.btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+
+
+/* ---------- Vonkmoment ---------- */
+.vonk-screen{
+  position:fixed;inset:0;z-index:60;overflow-y:auto;
+  background:radial-gradient(120% 90% at 50% 0%, #0a4a4f 0%, #06363a 38%, #04181b 100%);
+}
+.vonk-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.20;filter:saturate(1.05)}
+.vonk-bg-scrim{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 0%, rgba(4,24,27,.35) 0%, rgba(4,24,27,.78) 60%, rgba(4,24,27,.96) 100%)}
+.vonk-inner{position:relative;z-index:2;max-width:560px;margin:0 auto;padding:46px 24px 40px;display:flex;flex-direction:column;align-items:center}
+.vonk-kicker{display:flex;align-items:center;gap:8px;color:var(--sun);font-weight:800;letter-spacing:2.5px;font-size:12.5px;text-transform:uppercase;margin-bottom:14px}
+.vonk-kicker .spark{font-size:16px;line-height:1}
+.vonk-title{color:#fff;font-size:32px;font-weight:800;line-height:1.12;text-align:center;margin:0 0 6px;max-width:440px}
+.vonk-title .nm{color:var(--sun)}
+.vonk-sub{color:#bfe3e3;font-size:16px;text-align:center;margin:0 0 22px;max-width:420px;line-height:1.45}
+.vonk-listen{margin:0 0 26px}
+.vonk-listen button{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.10);border:1.5px solid rgba(255,255,255,.30);color:#fff;font-family:inherit;font-weight:700;font-size:15px;padding:11px 20px;border-radius:99px;cursor:pointer;transition:.16s}
+.vonk-listen button:hover{background:rgba(255,255,255,.18)}
+.vonk-listen button svg{width:18px;height:18px}
+.vonk-listen button.playing{background:var(--sun);border-color:var(--sun);color:#3a2a00}
+.vonk-cards{width:100%;display:flex;flex-direction:column;gap:14px}
+.vonk-card{
+  background:rgba(255,255,255,.97);border-radius:18px;padding:18px 18px 18px 16px;
+  display:flex;gap:14px;align-items:flex-start;box-shadow:0 10px 34px rgba(0,0,0,.28);
+  border-left:5px solid var(--sun);
+  opacity:0;transform:translateY(16px) scale(.98);
+  animation:vonkIn .55s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes vonkIn{to{opacity:1;transform:translateY(0) scale(1)}}
+.vonk-card .vi{flex-shrink:0;width:46px;height:46px;border-radius:13px;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;color:var(--teal-d)}
+.vonk-card .vi svg{width:25px;height:25px}
+.vonk-card.lit .vi{background:var(--sun);color:#3a2a00}
+.vonk-card .vc h3{margin:0 0 4px;font-size:17.5px;font-weight:800;color:var(--ink);line-height:1.2}
+.vonk-card .vc p{margin:0;font-size:15px;color:var(--ink-soft);line-height:1.45}
+.vonk-card.playing{outline:3px solid var(--sun);outline-offset:1px}
+.vonk-foot{margin:26px 0 0;text-align:center}
+.vonk-momentnote{color:#9fd0d0;font-size:13.5px;line-height:1.5;max-width:400px;margin:0 auto 20px}
+.vonk-next{background:var(--sun);color:#3a2a00;border:none;font-family:inherit;font-weight:800;font-size:18px;padding:16px 44px;border-radius:99px;cursor:pointer;box-shadow:0 8px 26px rgba(255,200,87,.35);transition:.16s;display:inline-flex;align-items:center;gap:10px}
+.vonk-next:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,200,87,.45)}
+/* confetti */
+.vonk-confetti{position:absolute;inset:0;overflow:hidden;z-index:1;pointer-events:none}
+.vonk-confetti i{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;opacity:.9;animation:confFall linear forwards}
+@keyframes confFall{0%{transform:translateY(-20px) rotate(0)}100%{transform:translateY(108vh) rotate(540deg)}}
+@media(max-width:430px){
+  .vonk-title{font-size:27px}
+  .vonk-inner{padding:38px 20px 34px}
+  .vonk-card .vc h3{font-size:16.5px}
+}
+
+/* Done */
+.done{text-align:center;padding:40px 24px}
+.done .check{width:78px;height:78px;border-radius:50%;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:pop .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.done .check svg{width:42px;height:42px;color:var(--teal)}
+.done h1{font-size:26px;margin:0 0 12px}
+.done p{color:var(--ink-soft);font-size:17px;max-width:440px;margin:0 auto 8px}
+.demo-note{margin-top:28px;text-align:center;font-size:12.5px;color:#9aabab}
+
+/* ---------- Aanmoediging toast + glimlach ---------- */
+.cheer{
+  position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(40px);
+  background:#fff;border:1px solid var(--teal-soft);
+  box-shadow:0 8px 30px rgba(1,105,111,.18);
+  border-radius:99px;padding:11px 20px 11px 14px;
+  display:flex;align-items:center;gap:11px;z-index:50;
+  opacity:0;pointer-events:none;transition:.0s;
+  max-width:90vw;
+}
+.cheer.show{opacity:1;transform:translateX(-50%) translateY(0);transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .35s}
+.cheer .smiley{width:38px;height:38px;flex-shrink:0}
+.cheer .txt{font-size:15.5px;font-weight:700;color:var(--teal-d);line-height:1.25}
+/* animated smiley */
+.smiley svg{width:38px;height:38px;display:block}
+.smiley .face{transform-origin:center;animation:smileyPop .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes smileyPop{0%{transform:scale(0) rotate(-30deg)}70%{transform:scale(1.18)}100%{transform:scale(1) rotate(0)}}
+
+/* ---------- Eindfoto ---------- */
+.done .done-photo{width:100%;max-width:440px;border-radius:18px;margin:4px auto 22px;display:block;box-shadow:var(--shadow);animation:pop .6s cubic-bezier(.2,.8,.2,1)}
+.done .next-actions{display:grid;grid-template-columns:1fr;gap:12px;max-width:440px;margin:26px auto 6px;text-align:left}
+.done .na-card{display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.done .na-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--teal-l)}
+.done .na-ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:1.4rem;flex-shrink:0;color:#fff}
+.done .na-card.primary .na-ic{background:var(--amber)}
+.done .na-card.read .na-ic{background:var(--teal)}
+.done .na-card.pdf .na-ic{background:var(--teal-l)}
+.done .na-tx{flex:1}
+.done .na-tx b{display:block;font-size:1.02rem;margin-bottom:2px}
+.done .na-tx span{font-size:.88rem;color:var(--ink-soft);line-height:1.4}
+.done .na-arrow{color:var(--ink-soft);font-size:1.2rem;flex-shrink:0}
+.done .na-hint{max-width:440px;margin:8px auto 0;font-size:.84rem;color:var(--ink-soft);text-align:center}
+
+@media(max-width:430px){
+  body{font-size:16px}
+  .card{padding:22px 18px}
+  .q-text{font-size:19px}
+  .intro h1{font-size:22px}
+  .landing-inner{padding:0 22px 46px}
+  .landing h1{font-size:42px}
+  .landing .sub{font-size:16.5px}
+  .landing .kicker{font-size:12px;letter-spacing:2px}
+  .cta{font-size:18px;padding:16px 36px}
+  .boost-inner{padding:0 24px}
+  .boost .b-text{font-size:28px}
+  .boost.left .boost-scrim{background:linear-gradient(to top, rgba(8,6,14,.92) 0%, rgba(8,6,14,.62) 46%, rgba(8,6,14,.12) 80%)}
+  .boost.right .boost-scrim{background:linear-gradient(to top, rgba(8,6,14,.92) 0%, rgba(8,6,14,.62) 46%, rgba(8,6,14,.12) 80%)}
+  .boost.left .boost-inner,.boost.right .boost-inner{text-align:left;margin:auto 0 8vh}
+  .energy-opt .lab{font-size:10px}
+  .energy-scale{gap:5px}
+  .listen span.txt{display:none}
+  .listen{padding:9px 11px}
+}
+</style>
+</head>
+<body>
+<div class="topbar hidden" id="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span>T4Teens <small>&nbsp;jouw momentopname</small></div>
+    <div class="progress-wrap" id="progressWrap" style="display:none">
+      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-label" id="progressLabel"></div>
+    </div>
+  </div>
+</div>
+<div class="app"><div id="root"></div></div>
+<div class="boost left" id="boost1"><img class="boost-img" src="img/lachende-vrouw.jpg" alt=""><div class="boost-scrim"></div><div class="boost-inner"><div class="b-kicker">Je bent goed bezig</div><div class="b-text">Mooi. Je bent al een flink eind op weg.</div><button class="b-go" data-boost="1">Verder <span class="arrow">&rarr;</span></button></div></div><div class="boost left" id="boost2"><img class="boost-img" src="img/danser-kleurpoeder.jpg" alt=""><div class="boost-scrim"></div><div class="boost-inner"><div class="b-kicker">Bijna klaar</div><div class="b-text">Nog even. Blijf gewoon eerlijk antwoorden.</div><button class="b-go" data-boost="2">Verder <span class="arrow">&rarr;</span></button></div></div>
+<audio id="player"></audio>
+
+<script>
+const DATA = {
+  "instrumentId": "t4teens",
+  "intro": "Dit gaat over hoe jij het vandaag ziet. Er zijn geen goede of foute antwoorden. En je beeld mag later veranderen, dat is heel normaal. Neem rustig de tijd voor elke vraag.",
+  "items": [
+    {
+      "id": "I1",
+      "type": "battery",
+      "text": "Hoe vol zit je batterij vandaag? Schuif hem naar waar jij je voelt.",
+      "family": "Energie",
+      "min": 0,
+      "max": 10
+    },
+    {
+      "id": "D1",
+      "type": "recognition",
+      "text": "Ik wil dat iets echt klopt voordat ik het loslaat - ook al kost dat meer tijd.",
+      "family": "Drivers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "type": "recognition",
+      "text": "Ik vind het fijn als iedereen om me heen het naar zijn zin heeft, soms zet ik mezelf daarvoor opzij.",
+      "family": "Drivers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "type": "recognition",
+      "text": "Er is iemand die ik echt ken en naar wie ik opkijk - en als ik weet dat die in mij gelooft, doe ik alles om te laten zien wat ik kan.",
+      "family": "Drivers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "type": "recognition",
+      "text": "Wachten en traag vooruitgaan vind ik lastig - het mag voor mij snel gaan.",
+      "family": "Drivers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ]
+    },
+    {
+      "id": "D5",
+      "type": "sjt",
+      "text": "Stel: jullie moeten met de groep iets oplossen en het loopt vast. Wat doe jij het liefst?",
+      "family": "Drivers",
+      "options": [
+        {
+          "key": "a",
+          "label": "Ik pak het zelf vast en regel het."
+        },
+        {
+          "key": "b",
+          "label": "Ik vraag of we het samen kunnen aanpakken."
+        }
+      ]
+    },
+    {
+      "id": "D6",
+      "type": "sjt",
+      "text": "Stel: je hebt iemand iets beloofd, maar er komt iets leukers tussen. Wat doe jij?",
+      "family": "Drivers",
+      "options": [
+        {
+          "key": "a",
+          "label": "Ik doe wat ik beloofd had, een belofte is een belofte."
+        },
+        {
+          "key": "b",
+          "label": "Ik schat in wat op dat moment het belangrijkst is."
+        }
+      ]
+    },
+    {
+      "id": "V1",
+      "type": "recognition+energy",
+      "text": "Ik wil eerst snappen hoe iets in elkaar zit voor ik begin - en daar krijg ik energie van.",
+      "family": "Talent-versnellers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ],
+      "energyOptions": [
+        {
+          "value": -2,
+          "label": "Kost me veel energie"
+        },
+        {
+          "value": -1,
+          "label": "Kost me energie"
+        },
+        {
+          "value": 0,
+          "label": "Maakt niet veel uit"
+        },
+        {
+          "value": 1,
+          "label": "Geeft me energie"
+        },
+        {
+          "value": 2,
+          "label": "Geeft me veel energie"
+        }
+      ]
+    },
+    {
+      "id": "V2",
+      "type": "recognition+energy",
+      "text": "Ik leer het best als ik er met iemand over kan praten of het mag uitleggen.",
+      "family": "Talent-versnellers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ],
+      "energyOptions": [
+        {
+          "value": -2,
+          "label": "Kost me veel energie"
+        },
+        {
+          "value": -1,
+          "label": "Kost me energie"
+        },
+        {
+          "value": 0,
+          "label": "Maakt niet veel uit"
+        },
+        {
+          "value": 1,
+          "label": "Geeft me energie"
+        },
+        {
+          "value": 2,
+          "label": "Geeft me veel energie"
+        }
+      ]
+    },
+    {
+      "id": "V3",
+      "type": "recognition+energy",
+      "text": "Ik help graag dat alles vlot en geordend loopt voor de groep.",
+      "family": "Talent-versnellers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ],
+      "energyOptions": [
+        {
+          "value": -2,
+          "label": "Kost me veel energie"
+        },
+        {
+          "value": -1,
+          "label": "Kost me energie"
+        },
+        {
+          "value": 0,
+          "label": "Maakt niet veel uit"
+        },
+        {
+          "value": 1,
+          "label": "Geeft me energie"
+        },
+        {
+          "value": 2,
+          "label": "Geeft me veel energie"
+        }
+      ]
+    },
+    {
+      "id": "V4",
+      "type": "recognition+energy",
+      "text": "Ik wil dat wat ik doe echt iets verandert of betekent - dan zet ik door.",
+      "family": "Talent-versnellers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ],
+      "energyOptions": [
+        {
+          "value": -2,
+          "label": "Kost me veel energie"
+        },
+        {
+          "value": -1,
+          "label": "Kost me energie"
+        },
+        {
+          "value": 0,
+          "label": "Maakt niet veel uit"
+        },
+        {
+          "value": 1,
+          "label": "Geeft me energie"
+        },
+        {
+          "value": 2,
+          "label": "Geeft me veel energie"
+        }
+      ]
+    },
+    {
+      "id": "V5",
+      "type": "recognition+energy",
+      "text": "Ik wil vooral zien wat het oplevert; ik werk graag naar een duidelijk eindresultaat toe.",
+      "family": "Talent-versnellers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ],
+      "energyOptions": [
+        {
+          "value": -2,
+          "label": "Kost me veel energie"
+        },
+        {
+          "value": -1,
+          "label": "Kost me energie"
+        },
+        {
+          "value": 0,
+          "label": "Maakt niet veel uit"
+        },
+        {
+          "value": 1,
+          "label": "Geeft me energie"
+        },
+        {
+          "value": 2,
+          "label": "Geeft me veel energie"
+        }
+      ]
+    },
+    {
+      "id": "V6",
+      "type": "recognition+energy",
+      "text": "Ik bedenk vaak een eigen, andere manier om iets aan te pakken.",
+      "family": "Talent-versnellers",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ],
+      "energyOptions": [
+        {
+          "value": -2,
+          "label": "Kost me veel energie"
+        },
+        {
+          "value": -1,
+          "label": "Kost me energie"
+        },
+        {
+          "value": 0,
+          "label": "Maakt niet veel uit"
+        },
+        {
+          "value": 1,
+          "label": "Geeft me energie"
+        },
+        {
+          "value": 2,
+          "label": "Geeft me veel energie"
+        }
+      ]
+    },
+    {
+      "id": "F1",
+      "type": "recognition+energy",
+      "text": "Ik vind het leuk om nieuwe dingen te bedenken die er nog niet zijn - daar kan ik in opgaan.",
+      "family": "Talent-foci",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ],
+      "energyOptions": [
+        {
+          "value": -2,
+          "label": "Kost me veel energie"
+        },
+        {
+          "value": -1,
+          "label": "Kost me energie"
+        },
+        {
+          "value": 0,
+          "label": "Maakt niet veel uit"
+        },
+        {
+          "value": 1,
+          "label": "Geeft me energie"
+        },
+        {
+          "value": 2,
+          "label": "Geeft me veel energie"
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "type": "recognition+energy",
+      "text": "Ik krijg er energie van om iets uit te zoeken of een probleem te ontrafelen.",
+      "family": "Talent-foci",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ],
+      "energyOptions": [
+        {
+          "value": -2,
+          "label": "Kost me veel energie"
+        },
+        {
+          "value": -1,
+          "label": "Kost me energie"
+        },
+        {
+          "value": 0,
+          "label": "Maakt niet veel uit"
+        },
+        {
+          "value": 1,
+          "label": "Geeft me energie"
+        },
+        {
+          "value": 2,
+          "label": "Geeft me veel energie"
+        }
+      ]
+    },
+    {
+      "id": "F3",
+      "type": "sjt",
+      "text": "Stel: er moet iets concreet gemaakt of uitgevoerd worden. Voel jij je daar goed bij?",
+      "family": "Talent-foci",
+      "options": [
+        {
+          "key": "a",
+          "label": "Ja, zeker met een duidelijk plan."
+        },
+        {
+          "key": "b",
+          "label": "Liever niet, dat is me te veel herhaling."
+        }
+      ]
+    },
+    {
+      "id": "F4",
+      "type": "recognition+energy",
+      "text": "Ik vind het fijn om iemand iets te leren of uit te leggen.",
+      "family": "Talent-foci",
+      "scale": "recognition",
+      "options": [
+        {
+          "value": 0,
+          "label": "Niet ik"
+        },
+        {
+          "value": 1,
+          "label": "Soms wel"
+        },
+        {
+          "value": 2,
+          "label": "Vaak ik"
+        },
+        {
+          "value": 3,
+          "label": "Helemaal ik"
+        }
+      ],
+      "energyOptions": [
+        {
+          "value": -2,
+          "label": "Kost me veel energie"
+        },
+        {
+          "value": -1,
+          "label": "Kost me energie"
+        },
+        {
+          "value": 0,
+          "label": "Maakt niet veel uit"
+        },
+        {
+          "value": 1,
+          "label": "Geeft me energie"
+        },
+        {
+          "value": 2,
+          "label": "Geeft me veel energie"
+        }
+      ]
+    },
+    {
+      "id": "F5",
+      "type": "sjt",
+      "text": "Stel: je mag kiezen om iets alleen of samen met anderen te doen. Waar word je blijer van?",
+      "family": "Talent-foci",
+      "options": [
+        {
+          "key": "a",
+          "label": "Samen met anderen."
+        },
+        {
+          "key": "b",
+          "label": "Liever alleen."
+        }
+      ]
+    },
+    {
+      "id": "R1",
+      "type": "interest",
+      "text": "Dingen maken, bouwen, herstellen of met je handen en machines werken.",
+      "family": "Interesse",
+      "scale": "interest",
+      "options": [
+        {
+          "value": 0,
+          "label": "Nee, niets voor mij"
+        },
+        {
+          "value": 1,
+          "label": "Een beetje"
+        },
+        {
+          "value": 2,
+          "label": "Ja, trekt me aan"
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "type": "interest",
+      "text": "Uitzoeken hoe iets werkt: onderzoek, computers, meten of berekenen.",
+      "family": "Interesse",
+      "scale": "interest",
+      "options": [
+        {
+          "value": 0,
+          "label": "Nee, niets voor mij"
+        },
+        {
+          "value": 1,
+          "label": "Een beetje"
+        },
+        {
+          "value": 2,
+          "label": "Ja, trekt me aan"
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "type": "interest",
+      "text": "Iets creatiefs doen: film, muziek, toneel, schilderen of vormgeven.",
+      "family": "Interesse",
+      "scale": "interest",
+      "options": [
+        {
+          "value": 0,
+          "label": "Nee, niets voor mij"
+        },
+        {
+          "value": 1,
+          "label": "Een beetje"
+        },
+        {
+          "value": 2,
+          "label": "Ja, trekt me aan"
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "type": "interest",
+      "text": "Met en voor mensen bezig zijn: helpen, verzorgen, begeleiden.",
+      "family": "Interesse",
+      "scale": "interest",
+      "options": [
+        {
+          "value": 0,
+          "label": "Nee, niets voor mij"
+        },
+        {
+          "value": 1,
+          "label": "Een beetje"
+        },
+        {
+          "value": 2,
+          "label": "Ja, trekt me aan"
+        }
+      ]
+    },
+    {
+      "id": "R5",
+      "type": "interest",
+      "text": "De leiding nemen, overtuigen, iets organiseren of ondernemen.",
+      "family": "Interesse",
+      "scale": "interest",
+      "options": [
+        {
+          "value": 0,
+          "label": "Nee, niets voor mij"
+        },
+        {
+          "value": 1,
+          "label": "Een beetje"
+        },
+        {
+          "value": 2,
+          "label": "Ja, trekt me aan"
+        }
+      ]
+    },
+    {
+      "id": "R6",
+      "type": "interest",
+      "text": "Orde en overzicht houden: plannen, administratie, alles op zijn plek.",
+      "family": "Interesse",
+      "scale": "interest",
+      "options": [
+        {
+          "value": 0,
+          "label": "Nee, niets voor mij"
+        },
+        {
+          "value": 1,
+          "label": "Een beetje"
+        },
+        {
+          "value": 2,
+          "label": "Ja, trekt me aan"
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "type": "meaning",
+      "text": "Waar zou jij iets willen betekenen voor anderen of voor de wereld?",
+      "family": "Betekenis",
+      "options": [
+        {
+          "key": "mensen",
+          "label": "Voor mensen dichtbij me"
+        },
+        {
+          "key": "samenleving",
+          "label": "Voor de samenleving"
+        },
+        {
+          "key": "natuur",
+          "label": "Voor de natuur en de planeet"
+        },
+        {
+          "key": "maken",
+          "label": "Door iets moois of nuttigs te maken"
+        },
+        {
+          "key": "kennis",
+          "label": "Door kennis en ontdekking"
+        }
+      ]
+    }
+  ]
+};
+
+const ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+const ICON_STOP = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>';
+const ICON_CHECK_SM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+const ICON_LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+const ICON_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
+const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+
+const VICON = {
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>',
+  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+  target:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>',
+  spark:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.3L20.5 9l-5 4 1.8 6.4L12 16l-5.3 3.4L8.5 13l-5-4 6.3-.7z"/></svg>',
+  bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>',
+  bolt:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg>',
+  book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M19 3v18"/></svg>',
+  people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6"/><path d="M17.5 14.4A5.5 5.5 0 0 1 20.5 20"/></svg>',
+  wrench:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a3.5 3.5 0 0 0 4.6 4.6L21 13l-8 8-2-2 1.9-1.9a3.5 3.5 0 0 0-4.6-4.6L3 4.6 4.6 3z"/></svg>',
+  palette:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0 0 18c1.7 0 2-1.3 1.2-2.2-.8-.9-.3-2.1 1-2.1H17a4 4 0 0 0 4-4c0-4.4-4-7.7-9-7.7z"/><circle cx="7.5" cy="11" r="1.1" fill="currentColor"/><circle cx="11" cy="7.5" r="1.1" fill="currentColor"/><circle cx="15" cy="8.5" r="1.1" fill="currentColor"/></svg>',
+  rocket:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M9 11a8 8 0 0 1 9-7 8 8 0 0 1-7 9l-3 3-2-2z"/><circle cx="14.5" cy="9.5" r="1.4"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.8.6-5.1 4.5 1.5 6.7L12 17.3 5.9 20.6l1.5-6.7L2.3 9.4l6.8-.6z"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+  battery:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="17" height="10" rx="2.5"/><path d="M22 10v4"/><rect x="4.5" y="9.5" width="9" height="5" rx="1" fill="currentColor" stroke="none"/></svg>',
+  compass:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor" stroke="none"/></svg>',
+  seedling:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8"/><path d="M12 13C12 9 9 7 4 7c0 4 3 6 8 6z"/><path d="M12 11c0-3 2.5-5 7-5 0 3.5-2.5 5-7 5z"/></svg>'
+};
+const SMILEY = '<svg viewBox="0 0 44 44"><g class="face"><circle cx="22" cy="22" r="20" fill="#FFC857"/><circle cx="15" cy="18" r="2.6" fill="#3a2b00"/><circle cx="29" cy="18" r="2.6" fill="#3a2b00"/><path d="M13 26 Q22 34 31 26" fill="none" stroke="#3a2b00" stroke-width="3" stroke-linecap="round"/></g></svg>';
+
+// Aanmoediging-slides: na welke vraag-index (0-based) welke full-screen slide tonen.
+// Streng: precies 2 momenten, mooi gespreid over de vragenlijst.
+const BOOSTS = { 9: 'boost1', 17: 'boost2' };
+
+const items = DATA.items;
+const answers = {};
+const energy = {};
+const participant = { role:null, ageBand:null, ageValue:null, name:'', consent:false, guardianConsent:false };
+let idx = -2;   // -2 = landing, -1 = intro, 0..n-1 = vragen, n = done
+const player = document.getElementById('player');
+const root = document.getElementById('root');
+const topbar = document.getElementById('topbar');
+let currentBtn = null;
+let pendingIdx = null;  // doel-index nadat een boost-slide is weggeklikt
+document.querySelectorAll('.boost .b-go').forEach(b=>{ b.onclick = ()=> closeBoost(); });
+
+player.addEventListener('ended', resetListenBtn);
+player.addEventListener('pause', resetListenBtn);
+function resetListenBtn(){
+  if(currentBtn){ currentBtn.classList.remove('playing'); const ic=currentBtn.querySelector('.ic'); if(ic) ic.innerHTML = ICON_PLAY; currentBtn = null; }
+}
+function playAudio(file, btn){
+  if(currentBtn === btn){ player.pause(); player.currentTime=0; resetListenBtn(); return; }
+  resetListenBtn();
+  player.src = 'audio/' + file;
+  player.play().catch(()=>{});
+  currentBtn = btn;
+  btn.classList.add('playing');
+  btn.querySelector('.ic').innerHTML = ICON_STOP;
+}
+function playVoice(file){
+  resetListenBtn();
+  player.src = 'audio/' + file;
+  player.currentTime = 0;
+  player.play().catch(()=>{});
+}
+function listenBtn(file, label){
+  return '<button class="listen" data-audio="'+file+'"><span class="ic">'+ICON_PLAY+'</span><span class="txt">'+(label||'Beluister')+'</span></button>';
+}
+function energyEmoji(v){ return {'-2':'😣','-1':'😕','0':'😐','1':'🙂','2':'😄'}[String(v)]; }
+
+function showBoost(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeBoost(){
+  document.querySelectorAll('.boost.show').forEach(el=>el.classList.remove('show'));
+  document.body.style.overflow='';
+  if(pendingIdx!==null){ idx=pendingIdx; pendingIdx=null; render(); window.scrollTo({top:0}); }
+}
+
+function render(){
+  player.pause(); resetListenBtn();
+  const pw = document.getElementById('progressWrap');
+  if(idx === -2){ topbar.classList.add('hidden'); renderLanding(); return; }
+  if(idx === -3){ topbar.classList.add('hidden'); renderConsent(); return; }
+  topbar.classList.remove('hidden');
+  if(idx === -1){ renderIntro(); pw.style.display='none'; return; }
+  if(idx === items.length){ topbar.classList.add('hidden'); renderVonk(); pw.style.display='none'; return; }
+  if(idx > items.length){ topbar.classList.remove('hidden'); renderDone(); pw.style.display='none'; return; }
+  pw.style.display='flex';
+  document.getElementById('progressBar').style.width = ((idx)/items.length*100)+'%';
+  document.getElementById('progressLabel').textContent = (idx+1)+' / '+items.length;
+  renderQuestion(items[idx]);
+}
+
+// --- T4Teens lift-off geluid (synthetisch, eenmalig bij Start) ---
+// =============================================================================
+// liftoff — subtiel, aanmoedigend "opstijg"-geluid bij Start (vrouw met vleugels).
+//
+// Volledig synthetisch via de Web Audio API: geen audiobestand, geen externe
+// asset, werkt ook na publicatie. Eenmalig (one-shot), niet doorlopend.
+//
+// Karakter: een warme straalmotor/raket-whoosh die snel opzwelt ("stuwkracht
+// pakt"), even kracht geeft, en dan zacht uitfadet omdat we "in de lucht zijn".
+// Bewust discreet qua volume — bemoedigend, nooit schril of schrikwekkend.
+//
+// Opbouw:
+//   - gefilterde bruine ruis (de luchtstroom/stuwkracht) met een lowpass die
+//     opent terwijl de motor pakt en weer dichtgaat bij het wegdrijven;
+//   - een lage zaagtand die een octaaf omhoog glijdt (motor spoelt op / stijgt);
+//   - een korte, hoge "shimmer" sine die meeliftet voor een hoopvol tintje;
+//   - envelope: snelle swell-in (~0.35s), korte top, daarna vloeiende uitfade
+//     naar stilte over ~2.6s ("we zijn in de lucht").
+// =============================================================================
+(function(){
+  // Mute-status in-memory (geen opslag-API nodig in de preview).
+  function geluidUit(){
+    return window.__t4teensGeluidUit === true;
+  }
+
+  function maakRuisBuffer(ctx, secs){
+    var len = Math.floor(ctx.sampleRate * secs);
+    var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    var data = buf.getChannelData(0);
+    var last = 0;
+    for (var i=0;i<len;i++){
+      var white = Math.random()*2 - 1;
+      // bruine ruis: zachter/warmer dan witte (geen sissen)
+      last = (last + 0.02*white) / 1.02;
+      data[i] = last * 3.2;
+    }
+    return buf;
+  }
+
+  // Eenmalige lift-off. Wordt aangeroepen vanuit een klik (gebruikersgebaar),
+  // dus audio mag starten.
+  function liftoff(){
+    if (geluidUit()) return;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      var ctx = new AC();
+      var now = ctx.currentTime;
+
+      var DUUR = 2.6;          // totale lengte tot stilte
+      var TOP_GAIN = 0.07;     // discreet pieksvolume
+
+      // ---- Master + zachte low-pass zodat niets schel klinkt ----
+      var master = ctx.createGain();
+      master.gain.setValueAtTime(0.0001, now);
+      var masterLp = ctx.createBiquadFilter();
+      masterLp.type = "lowpass";
+      masterLp.frequency.setValueAtTime(2600, now);
+      masterLp.Q.setValueAtTime(0.5, now);
+      master.connect(masterLp);
+      masterLp.connect(ctx.destination);
+
+      // ---- Stuwkracht: bruine ruis door een vegende band/lowpass ----
+      var ruisBron = ctx.createBufferSource();
+      ruisBron.buffer = maakRuisBuffer(ctx, DUUR + 0.3);
+      var ruisLp = ctx.createBiquadFilter();
+      ruisLp.type = "lowpass";
+      // filter opent terwijl de motor pakt, sluit weer bij het wegdrijven
+      ruisLp.frequency.setValueAtTime(280, now);
+      ruisLp.frequency.exponentialRampToValueAtTime(1700, now + 0.45); // stuwkracht
+      ruisLp.frequency.exponentialRampToValueAtTime(420, now + DUUR);  // wegdrijven
+      ruisLp.Q.setValueAtTime(0.8, now);
+      var ruisGain = ctx.createGain();
+      ruisGain.gain.setValueAtTime(0.0001, now);
+      ruisGain.gain.exponentialRampToValueAtTime(0.9, now + 0.30);     // snelle swell
+      ruisGain.gain.exponentialRampToValueAtTime(0.55, now + 0.9);     // top voorbij
+      ruisGain.gain.exponentialRampToValueAtTime(0.0001, now + DUUR);  // uitfade
+      ruisBron.connect(ruisLp);
+      ruisLp.connect(ruisGain);
+      ruisGain.connect(master);
+      ruisBron.start(now);
+
+      // ---- Motor spoelt op: lage zaagtand glijdt een octaaf omhoog ----
+      var motor = ctx.createOscillator();
+      motor.type = "sawtooth";
+      motor.frequency.setValueAtTime(70, now);
+      motor.frequency.exponentialRampToValueAtTime(150, now + 0.8);    // opspoelen / stijgen
+      motor.frequency.exponentialRampToValueAtTime(96, now + DUUR);    // vermindert, drijft weg
+      var motorLp = ctx.createBiquadFilter();
+      motorLp.type = "lowpass";
+      motorLp.frequency.setValueAtTime(700, now);
+      motorLp.frequency.exponentialRampToValueAtTime(1400, now + 0.5);
+      motorLp.frequency.exponentialRampToValueAtTime(500, now + DUUR);
+      var motorGain = ctx.createGain();
+      motorGain.gain.setValueAtTime(0.0001, now);
+      motorGain.gain.exponentialRampToValueAtTime(0.5, now + 0.28);
+      motorGain.gain.exponentialRampToValueAtTime(0.0001, now + DUUR);
+      motor.connect(motorLp);
+      motorLp.connect(motorGain);
+      motorGain.connect(master);
+      motor.start(now);
+
+      // ---- Hoopvolle shimmer: hoge sine die kort meeliftet en wegzweeft ----
+      var shimmer = ctx.createOscillator();
+      shimmer.type = "sine";
+      shimmer.frequency.setValueAtTime(520, now);
+      shimmer.frequency.exponentialRampToValueAtTime(880, now + 1.0);  // omhoog, optimistisch
+      shimmer.frequency.exponentialRampToValueAtTime(1180, now + DUUR);// zweeft de hoogte in
+      var shimmerGain = ctx.createGain();
+      shimmerGain.gain.setValueAtTime(0.0001, now);
+      shimmerGain.gain.exponentialRampToValueAtTime(0.12, now + 0.4);
+      shimmerGain.gain.exponentialRampToValueAtTime(0.0001, now + DUUR); // vervliegt
+      shimmer.connect(shimmerGain);
+      shimmerGain.connect(master);
+      shimmer.start(now);
+
+      // ---- Masterenvelope: snelle swell-in, korte top, vloeiende uitfade ----
+      master.gain.setValueAtTime(0.0001, now);
+      master.gain.exponentialRampToValueAtTime(TOP_GAIN, now + 0.35);  // we stijgen op
+      master.gain.exponentialRampToValueAtTime(TOP_GAIN * 0.6, now + 1.0);
+      master.gain.exponentialRampToValueAtTime(0.0001, now + DUUR);    // in de lucht -> zacht stil
+
+      // Netjes afbreken na de uitfade.
+      var stoppen = [ruisBron, motor, shimmer];
+      window.setTimeout(function(){
+        stoppen.forEach(function(n){ try { n.stop(); } catch(e){} });
+        try { ctx.close(); } catch(e){}
+      }, (DUUR + 0.25) * 1000);
+    } catch(e){ /* stil falen — geluid is nice-to-have */ }
+  }
+
+  window.t4teensLiftoff = liftoff;
+})();
+
+function renderLanding(){
+  document.body.style.overflow='';
+  root.innerHTML =
+    '<div class="landing screen">'+
+      '<img class="cover-img" src="img/jetpack-vrouw.jpg" alt="">'+
+      '<div class="scrim"></div>'+
+      '<div class="landing-inner">'+
+        '<div class="kicker"><span class="spk">&#10024;</span> T4Teens</div>'+
+        '<h1>Ontdek <span class="hl">jouw vonk</span></h1>'+
+        '<p class="sub">Een paar leuke vragen over wat jou blij maakt, wat je boeit en hoe jij in elkaar zit.</p>'+
+        '<p class="micro">Geen toets. Geen punten. Gewoon jij.</p>'+
+        '<button class="cta" id="goBtn">Start <span class="arrow">&rarr;</span></button>'+
+        '<p class="time-note">Klaar in ongeveer 8 minuten &middot; je kan alles beluisteren</p>'+
+      '</div>'+
+    '</div>';
+  document.getElementById('goBtn').onclick = ()=>{ try{ if(window.t4teensLiftoff) window.t4teensLiftoff(); }catch(e){} idx=-3; render(); window.scrollTo({top:0}); };
+}
+
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function renderConsent(){
+  document.body.style.overflow='';
+  root.innerHTML =
+    '<div class="screen"><div class="card consent">'+
+      '<span class="intro-badge">Eerst even dit</span>'+
+      '<h1>Voor we beginnen</h1>'+
+      '<p class="lead-sub">Heel kort: wie vult dit in, en hoe gaan we met jouw antwoorden om?</p>'+
+      '<div style="margin:2px 0 6px">'+listenBtn('privacy.mp3','Lees voor')+'</div>'+
+
+      '<div class="step-label"><span class="n">1</span> Wie vult dit in?</div>'+
+      '<div class="role-grid" data-role="who">'+
+        roleOpt('jongere','&#128100;','Ik ben de jongere','Ik vul dit zelf in')+
+        roleOpt('ouder','&#128106;','Ouder of voogd','Ik vul in voor mijn kind')+
+        roleOpt('leerkracht','&#127979;','Leerkracht','Ik begeleid de leerling')+
+        roleOpt('coach','&#129309;','Coach of begeleider','Ik begeleid de jongere')+
+      '</div>'+
+
+      '<div class="step-label"><span class="n">2</span> Hoe oud is de jongere?</div>'+
+      '<div class="field"><p class="hint-txt">We vragen dit alleen om te weten of er toestemming van een ouder nodig is. We bewaren geen geboortedatum.</p>'+
+        '<div class="age-row" data-role="age">'+
+          ageOpt('u13','Jonger dan 13')+
+          ageOpt('1317','13 tot 17 jaar')+
+          ageOpt('18','18 jaar of ouder')+
+        '</div>'+
+      '</div>'+
+
+      '<div class="step-label"><span class="n">3</span> Hoe mogen we de jongere noemen?</div>'+
+      '<div class="field"><p class="hint-txt">Een voornaam of bijnaam volstaat. Je hoeft geen echte naam te geven. Geen achternaam, geen e-mail.</p>'+
+        '<input type="text" id="pName" maxlength="40" placeholder="Voornaam of bijnaam (mag je leeg laten)" autocomplete="off">'+
+      '</div>'+
+
+      '<div class="step-label"><span class="n">4</span> Onze afspraak over jouw gegevens</div>'+
+      '<div class="privacy-box">'+
+        '<h2><span class="lock">'+ICON_LOCK+'</span> Zo gaan we ermee om</h2>'+
+        '<ul>'+
+          '<li>We gebruiken je antwoorden <b>alleen</b> om jou en je begeleider een beeld van je talenten te geven.</li>'+
+          '<li>We vragen <b>niet meer dan nodig</b>: geen achternaam, geen adres, geen e-mail van jou.</li>'+
+          '<li>Je antwoorden zijn <b>niet zomaar zichtbaar</b> voor anderen.</li>'+
+          '<li>Je mag <b>altijd stoppen</b>, en later vragen om <b>alles te wissen</b>.</li>'+
+          '<li>Dit is een <b>momentopname</b> en wordt nooit gebruikt om je te beoordelen of af te rekenen.</li>'+
+        '</ul>'+
+        '<details class="privacy-more"><summary>Meer weten over je rechten</summary>'+
+          '<div class="more-body">Jij (of je ouder) kan altijd vragen welke gegevens we bewaren, ze laten verbeteren of laten verwijderen, en je toestemming intrekken. De begeleider of school die deze scan aanbiedt, is verantwoordelijk voor je gegevens en is je aanspreekpunt. We bewaren je antwoorden niet langer dan nodig voor de begeleiding.</div>'+
+        '</details>'+
+      '</div>'+
+
+      '<div class="guardian-note" id="guardNote"><b>Toestemming van een ouder of voogd nodig.</b> Omdat dit een beeld van je talenten opbouwt, vragen we dat een ouder of voogd dit mee goedkeurt. Vink hieronder aan dat dit gebeurt samen met een ouder of voogd.</div>'+
+      '<div class="block-note" id="blockNote"><b>Even samen met een volwassene.</b> Onder de 13 jaar kan je dit niet helemaal alleen invullen. Vraag een ouder, voogd of leerkracht om er even bij te zijn en het samen te starten.</div>'+
+
+      '<div class="consent-check" id="consentBox" data-role="consent">'+
+        '<span class="box">'+ICON_CHECK_SM+'</span>'+
+        '<span class="ct" id="consentText">Ik begrijp dit en wil starten.</span>'+
+      '</div>'+
+
+      '<div class="nav">'+
+        '<button class="btn btn-ghost" id="backBtn">&larr;</button>'+
+        '<button class="btn btn-primary" id="toIntroBtn">Verder &rarr;</button>'+
+      '</div>'+
+    '</div></div>';
+
+  bindListen();
+  bindConsent();
+}
+function roleOpt(val,ic,t,d){
+  return '<button class="role-opt'+(participant.role===val?' sel':'')+'" data-val="'+val+'">'+
+    '<span class="r-ic">'+ic+'</span><span class="r-t">'+t+'</span><span class="r-d">'+d+'</span></button>';
+}
+function ageOpt(val,label){
+  return '<button class="role-opt age-pick'+(participant.ageBand===val?' sel':'')+'" data-val="'+val+'" style="align-items:center;text-align:center"><span class="r-t" style="font-size:14.5px">'+label+'</span></button>';
+}
+function updateConsentUI(){
+  const guard=document.getElementById('guardNote'), block=document.getElementById('blockNote');
+  const ct=document.getElementById('consentText'), next=document.getElementById('toIntroBtn');
+  const box=document.getElementById('consentBox');
+  if(!guard) return;
+  const band=participant.ageBand, role=participant.role;
+  // reset meldingen
+  guard.classList.remove('show'); block.classList.remove('show');
+  box.style.display='flex';
+  // <13: niet zelfstandig door de jongere
+  if(band==='u13' && role==='jongere'){
+    block.classList.add('show');
+    box.style.display='none';
+    participant.consent=false; box.classList.remove('checked');
+  } else if(band==='u13'){
+    // ouder/leerkracht/coach vult in voor <13: ouderlijke toestemming
+    ct.textContent='Als ouder, voogd of begeleider geef ik toestemming om deze talenten-momentopname samen met dit kind in te vullen.';
+  } else if(band==='1317'){
+    // 13-17: profielopbouw -> ook ouderlijke betrokkenheid vragen
+    guard.classList.add('show');
+    ct.textContent = (role==='jongere')
+      ? 'Ik begrijp dit, wil starten, en doe dit met medeweten van mijn ouder of voogd.'
+      : 'Ik begrijp dit en geef als ouder, voogd of begeleider toestemming om dit samen met de jongere in te vullen.';
+  } else if(band==='18'){
+    ct.textContent='Ik begrijp dit en wil starten.';
+  } else {
+    ct.textContent='Ik begrijp dit en wil starten.';
+  }
+  // knop pas actief bij volledige keuze + aangevinkt
+  const ready = participant.role && participant.ageBand && participant.consent
+    && !(band==='u13' && role==='jongere');
+  if(next) next.disabled = !ready;
+}
+function bindConsent(){
+  root.querySelectorAll('[data-role=who] .role-opt').forEach(b=>{
+    b.onclick=()=>{ root.querySelectorAll('[data-role=who] .role-opt').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel'); participant.role=b.dataset.val; updateConsentUI(); };
+  });
+  root.querySelectorAll('[data-role=age] .role-opt').forEach(b=>{
+    b.onclick=()=>{ root.querySelectorAll('[data-role=age] .role-opt').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel'); participant.ageBand=b.dataset.val; updateConsentUI(); };
+  });
+  const nameEl=document.getElementById('pName');
+  if(nameEl){ nameEl.value=participant.name||''; nameEl.oninput=()=>{ participant.name=nameEl.value.trim(); }; }
+  const box=document.getElementById('consentBox');
+  box.onclick=()=>{ participant.consent=!participant.consent; box.classList.toggle('checked',participant.consent); updateConsentUI(); };
+  document.getElementById('backBtn').onclick=()=>{ idx=-2; render(); window.scrollTo({top:0}); };
+  document.getElementById('toIntroBtn').onclick=()=>{ idx=-1; render(); window.scrollTo({top:0}); };
+  updateConsentUI();
+}
+
+function renderIntro(){
+  root.innerHTML =
+    '<div class="screen"><div class="card intro">'+
+      '<span class="intro-badge">Even rustig beginnen</span>'+
+      '<h1>'+(participant.name? ('Klaar, '+escapeHtml(participant.name)+'? ') : 'Klaar? ')+'Dit is hoe het werkt.</h1>'+
+      '<div style="margin:-4px 0 10px">'+listenBtn('intro.mp3','Lees voor')+'</div>'+
+      '<div class="moment-box"><span class="lead">Dit is een momentopname.</span>'+DATA.intro+'</div>'+
+      '<ul>'+
+        '<li>Er zijn geen goede of foute antwoorden.</li>'+
+        '<li>Antwoord zoals het vandaag voor jou voelt.</li>'+
+        '<li>Bij elke vraag kan je op <b>Lees voor</b> drukken om hem te horen.</li>'+
+        '<li>Je beeld mag later veranderen, dat hoort erbij.</li>'+
+      '</ul>'+
+      '<div class="nav"><button class="btn btn-primary" id="startBtn">Eerste vraag &nbsp;&rarr;</button></div>'+
+    '</div></div>';
+  document.getElementById('startBtn').onclick = ()=>{ idx=0; render(); window.scrollTo({top:0}); };
+  bindListen();
+}
+
+function renderQuestion(it){
+  let body = '';
+  if(it.type==='battery') body = batteryHtml(it);
+  else if(it.type==='recognition') body = recognitionHtml(it);
+  else if(it.type==='recognition+energy') body = recognitionHtml(it) + energyHtml(it);
+  else if(it.type==='interest') body = optsHtml(it, it.options.map(o=>({val:o.value,label:o.label})));
+  else if(it.type==='sjt') body = sjtHtml(it);
+  else if(it.type==='meaning') body = optsHtml(it, it.options.map(o=>({val:o.key,label:o.label})));
+
+  root.innerHTML =
+    '<div class="screen"><div class="card '+(it.type==='sjt'?'sjt':'')+'">'+
+      '<div class="q-top">'+listenBtn(it.id+'.mp3','Lees voor')+'</div>'+
+      '<div class="q-text">'+it.text+'</div>'+
+      body+
+      '<div class="q-hint" id="qHint"><span class="h-ic">'+ICON_BELL+'</span><span class="h-txt" id="qHintTxt"></span></div>'+
+      '<div class="nav">'+
+        '<button class="btn btn-ghost" id="prevBtn"'+(idx===0?' disabled':'')+'>&larr;</button>'+
+        '<button class="btn btn-primary" id="nextBtn">'+(idx===items.length-1?'Afronden':'Volgende &rarr;')+'</button>'+
+      '</div>'+
+    '</div></div>';
+  bindQuestion(it);
+  bindListen();
+  updateNext(it);
+}
+
+function recognitionHtml(it){
+  return '<div class="opts" data-role="main">'+ it.options.map(o=>
+    '<button class="opt'+(answers[it.id]===o.value?' sel':'')+'" data-val="'+o.value+'"><span class="mark"></span><span>'+o.label+'</span></button>'
+  ).join('')+'</div>';
+}
+function optsHtml(it, opts){
+  return '<div class="opts" data-role="main">'+ opts.map(o=>
+    '<button class="opt'+(answers[it.id]===o.val?' sel':'')+'" data-val="'+o.val+'"><span class="mark"></span><span>'+o.label+'</span></button>'
+  ).join('')+'</div>';
+}
+function sjtHtml(it){
+  return '<div class="opts" data-role="main">'+ it.options.map(o=>
+    '<button class="opt'+(answers[it.id]===o.key?' sel':'')+'" data-val="'+o.key+'"><span class="tag">'+o.key.toUpperCase()+'</span><span>'+o.label+'</span></button>'
+  ).join('')+'</div>';
+}
+function energyHtml(it){
+  return '<div class="energy-block"><div class="energy-q"><span class="spark">&#9889;</span> En word je daar blij van?</div>'+
+    '<p class="energy-help">Niet of je het kan, maar of je er blij van wordt. Kies de smiley die het best past.</p>'+
+    '<div class="energy-scale" data-role="energy">'+ it.energyOptions.map(o=>
+      '<button class="energy-opt'+(energy[it.id]===o.value?' sel':'')+'" data-val="'+o.value+'"><span class="emoji">'+energyEmoji(o.value)+'</span><span class="lab">'+energyLabel(o.value)+'</span></button>'
+    ).join('')+'</div></div>';
+}
+function energyLabel(v){ return {'-2':'Word ik niet blij van','-1':'Niet zo blij','0':'Maakt niet uit','1':'Word ik blij van','2':'Word ik super blij van'}[String(v)]; }
+function batteryHtml(it){
+  const v = (it.id in answers)?answers[it.id]:5;
+  return '<div class="battery-wrap">'+
+      '<div class="battery-icon"><div class="battery-fill" id="batFill" style="width:'+(v/10*100)+'%"></div></div>'+
+      '<div class="battery-val"><span id="batVal">'+v+'</span><small> / 10</small></div>'+
+      '<input type="range" min="0" max="10" step="1" value="'+v+'" id="batRange">'+
+      '<div class="range-ends"><span>Bijna leeg</span><span>Helemaal vol</span></div>'+
+    '</div>';
+}
+
+function bindListen(){
+  root.querySelectorAll('.listen').forEach(b=>{ b.onclick = ()=> playAudio(b.dataset.audio, b); });
+}
+function bindQuestion(it){
+  const prev=document.getElementById('prevBtn');
+  if(prev) prev.onclick = ()=>{ if(idx>0){idx--;render();window.scrollTo({top:0});}};
+  document.getElementById('nextBtn').onclick = ()=>{ goNext(); };
+
+  if(it.type==='battery'){
+    const r=document.getElementById('batRange'), val=document.getElementById('batVal'), fill=document.getElementById('batFill');
+    answers[it.id] = parseInt(r.value,10);
+    r.oninput = ()=>{ const x=parseInt(r.value,10); answers[it.id]=x; val.textContent=x; fill.style.width=(x/10*100)+'%'; updateNext(it); };
+    return;
+  }
+  root.querySelectorAll('[data-role=main] .opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      root.querySelectorAll('[data-role=main] .opt').forEach(x=>x.classList.remove('sel'));
+      btn.classList.add('sel');
+      let v = btn.dataset.val;
+      if(it.type==='recognition'||it.type==='recognition+energy'||it.type==='interest') v=parseInt(v,10);
+      answers[it.id]=v; updateNext(it);
+    };
+  });
+  root.querySelectorAll('[data-role=energy] .energy-opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      root.querySelectorAll('[data-role=energy] .energy-opt').forEach(x=>x.classList.remove('sel'));
+      btn.classList.add('sel');
+      energy[it.id]=parseInt(btn.dataset.val,10); updateNext(it);
+    };
+  });
+}
+function goNext(){
+  const finishing = idx === items.length-1;
+  const before = idx;
+  const it = items[idx];
+  if(it && !isAnswered(it)){
+    // nog niet (helemaal) ingevuld: vriendelijk benoemen i.p.v. doorgaan
+    const needEnergy = (it.type==='recognition+energy') && (it.id in answers) && !(it.id in energy);
+    showHint(needEnergy ? 'energy' : 'main');
+    return;
+  }
+  hideHint();
+  if(!finishing && BOOSTS[before]){
+    // toon eerst de full-screen aanmoediging; ga daarna pas naar de volgende vraag
+    pendingIdx = idx+1;
+    showBoost(BOOSTS[before]);
+    return;
+  }
+  idx++;
+  render(); window.scrollTo({top:0});
+}
+function isAnswered(it){
+  if(it.type==='battery') return true;
+  if(!(it.id in answers)) return false;
+  if(it.type==='recognition+energy') return (it.id in energy);
+  return true;
+}
+function updateNext(it){
+  // knop blijft altijd klikbaar; bij onvolledig antwoord begeleidt de stem.
+  if(isAnswered(it)) hideHint();
+}
+function showHint(kind){
+  const h=document.getElementById('qHint'); if(!h) return;
+  const txt = kind==='energy'
+    ? 'Je bent er bijna! Vertel ook nog even of je daar blij van wordt, dan gaan we verder.'
+    : 'Oei, deze vraag is nog niet ingevuld. Kies even het antwoord dat vandaag het best bij jou past. Er is geen fout antwoord, hoor.';
+  document.getElementById('qHintTxt').textContent = txt;
+  h.classList.add('show');
+  playVoice(kind==='energy' ? 'hint-energy.mp3' : 'hint-main.mp3');
+}
+function hideHint(){ const h=document.getElementById('qHint'); if(h) h.classList.remove('show'); }
+
+const VONK_MSG = {"opening": {"audio": "vonk-opening.mp3", "script": "Hey jij. Ik heb even goed naar je antwoorden gekeken. En weet je wat me opvalt? Een paar heel bijzondere dingen. Luister maar."}, "closing": {"audio": "vonk-closing.mp3", "script": "Dit is wat er vandaag bij jou uitspringt. Het is een momentopname, dus dit mag nog groeien en veranderen. Maar één ding is nu al duidelijk: jij kan echt iets bijzonders. Knap gedaan."}, "acc_Analyse": {"icon": "search", "title": "Jij wil eerst snappen hoe iets werkt", "body": "Voordat je begint, wil je echt begrijpen hoe iets in elkaar zit. Dat is goud waard. Jij bouwt op een stevige basis, en daar word je sterk van.", "audio": "vonk-analyse.mp3", "script": "Iets wat opvalt: jij wil eerst snappen hoe iets in elkaar zit voor je begint. Dat is goud waard. Jij bouwt op een stevige basis, en daar word je sterk van."}, "acc_Coaching": {"icon": "chat", "title": "Jij leert het liefst samen", "body": "Praten, uitleggen, samen ontdekken: zo komt het bij jou echt binnen. Mensen om je heen voelen zich gehoord bij jou. Dat is een echt talent.", "audio": "vonk-coaching.mp3", "script": "Iets wat opvalt: jij leert het liefst samen. Praten, uitleggen, samen ontdekken, zo komt het bij jou echt binnen. Mensen voelen zich gehoord bij jou, en dat is een echt talent."}, "acc_Facilitatie": {"icon": "people", "title": "Jij krijgt een groep mee", "body": "Jij laat een groep op een positieve manier samenwerken, soms zelfs zonder dat het moeite kost. En je voelt aan waar het echt om draait. Daar maak jij verschil.", "audio": "vonk-facilitatie.mp3", "script": "Iets wat opvalt: jij krijgt een groep mee. Jij laat mensen op een positieve manier samenwerken, soms zonder dat het moeite kost. En je voelt aan waar het echt om draait."}, "acc_Resultaat": {"icon": "target", "title": "Jij weet waar je naartoe wil", "body": "Jij ziet het eindplaatje voor je en werkt er gericht naartoe. Die helderheid is zeldzaam, en ze brengt je verder dan je denkt.", "audio": "vonk-resultaat.mp3", "script": "Iets wat opvalt: jij weet waar je naartoe wil. Jij ziet het eindplaatje voor je en werkt er gericht naartoe. Die helderheid is zeldzaam, en ze brengt je ver."}, "acc_Constructief onderscheidend": {"icon": "spark", "title": "Jij maakt er je eigen versie van", "body": "Jij neemt niet zomaar over wat er is, je hertekent het tot iets van jezelf. Die eigen kijk is precies wat jou laat opvallen.", "audio": "vonk-onderscheidend.mp3", "script": "Iets wat opvalt: jij maakt er graag je eigen versie van. Jij neemt niet zomaar over wat er is, je hertekent het tot iets van jezelf. Die eigen kijk laat jou opvallen."}, "focus_Bedenken/creatie": {"icon": "bulb", "title": "Jij zit vol ideeën", "body": "Nieuwe dingen bedenken geeft jou energie. Jouw verbeelding is een motor, gebruik hem, want daar zit veel van jou in.", "audio": "vonk-bedenken.mp3", "script": "Jij zit vol ideeën. Nieuwe dingen bedenken geeft jou energie. Jouw verbeelding is een motor, en daar zit veel van jou in."}, "focus_Uitzoeken/onderzoek": {"icon": "search", "title": "Jij wil het tot op de bodem uitzoeken", "body": "Vragen stellen, dingen uitpluizen, ontdekken hoe het echt zit: daar krijg jij energie van. Die nieuwsgierigheid brengt je ver.", "audio": "vonk-uitzoeken.mp3", "script": "Jij wil dingen tot op de bodem uitzoeken. Vragen stellen, uitpluizen, ontdekken hoe het echt zit, daar krijg jij energie van. Die nieuwsgierigheid brengt je ver."}, "focus_Doen/uitvoeren": {"icon": "bolt", "title": "Jij komt graag in actie", "body": "Niet eindeloos praten, maar gewoon doen: zo zit jij in elkaar. Die daadkracht zorgt dat dingen ook echt af raken.", "audio": "vonk-doen.mp3", "script": "Jij komt graag in actie. Niet eindeloos praten, maar gewoon doen, zo zit jij in elkaar. Die daadkracht zorgt dat dingen ook echt af raken."}, "focus_Leren/overdragen": {"icon": "book", "title": "Jij geeft graag door wat je weet", "body": "Iets leren en het dan aan iemand uitleggen: daar word jij blij van. Jij tilt anderen mee omhoog, en dat is een mooi talent.", "audio": "vonk-leren.mp3", "script": "Jij geeft graag door wat je weet. Iets leren en het dan uitleggen aan iemand, daar word jij blij van. Jij tilt anderen mee omhoog."}, "focus_Samenwerken": {"icon": "people", "title": "Jij bloeit op in een groep", "body": "Samen iets maken geeft jou energie. Jij verbindt mensen en zorgt dat het samen beter loopt. Dat voelt iedereen.", "audio": "vonk-samenwerken.mp3", "script": "Jij bloeit op in een groep. Samen iets maken geeft jou energie. Jij verbindt mensen en zorgt dat het samen beter loopt."}, "int_Realistisch": {"icon": "wrench", "title": "Jij houdt van iets concreets in je handen", "body": "Bouwen, maken, met je handen bezig zijn: dat trekt jou aan. En dat past mooi bij hoe je in elkaar zit.", "audio": "vonk-realistisch.mp3", "script": "Jij houdt van iets concreets in je handen. Bouwen, maken, bezig zijn, dat trekt jou aan, en dat past mooi bij hoe je in elkaar zit."}, "int_Investigative": {"icon": "search", "title": "Jij wil de wereld begrijpen", "body": "Onderzoeken, uitzoeken, snappen waarom: dat trekt jou aan. Jouw nieuwsgierigheid en hoe je in elkaar zit, wijzen dezelfde kant op.", "audio": "vonk-investigative.mp3", "script": "Jij wil de wereld begrijpen. Onderzoeken, uitzoeken, snappen waarom, dat trekt jou aan. Jouw nieuwsgierigheid en hoe je in elkaar zit wijzen dezelfde kant op."}, "int_Artistiek": {"icon": "palette", "title": "Jij hebt een creatieve antenne", "body": "Iets maken dat van jou is, vorm en verbeelding: daar voel jij je thuis. Die creatieve kant maakt jou echt bijzonder.", "audio": "vonk-artistiek.mp3", "script": "Jij hebt een creatieve antenne. Iets maken dat van jou is, vorm en verbeelding, daar voel jij je thuis. Die creatieve kant maakt jou bijzonder."}, "int_Sociaal": {"icon": "people", "title": "Jij wil iets voor mensen betekenen", "body": "Mensen helpen, begeleiden, er zijn voor anderen: dat trekt jou aan. En het past bij hoe warm je met mensen omgaat.", "audio": "vonk-sociaal.mp3", "script": "Jij wil iets voor mensen betekenen. Mensen helpen, er zijn voor anderen, dat trekt jou aan. En het past bij hoe warm je met mensen omgaat."}, "int_Ondernemend": {"icon": "rocket", "title": "Jij durft dingen op gang te trekken", "body": "Iets opstarten, anderen meekrijgen, kansen zien: dat trekt jou aan. Die ondernemende vonk heeft niet iedereen.", "audio": "vonk-ondernemend.mp3", "script": "Jij durft dingen op gang te trekken. Iets opstarten, anderen meekrijgen, kansen zien, dat trekt jou aan. Die ondernemende vonk heeft niet iedereen."}, "int_Conventioneel": {"icon": "grid", "title": "Jij houdt van overzicht en orde", "body": "Dingen netjes en geordend houden, structuur aanbrengen: daar voel jij je goed bij. Daar bouwen anderen graag op verder.", "audio": "vonk-conventioneel.mp3", "script": "Jij houdt van overzicht en orde. Dingen netjes en geordend houden, daar voel jij je goed bij. En daar bouwen anderen graag op verder."}, "driver_TryHard": {"icon": "star", "title": "Jij gaat ver voor wie in je gelooft", "body": "Als er iemand is die voor jou belangrijk is en die in je gelooft, dan haal jij het beste uit jezelf. Nu werkt dat als een gaspedaal: het duwt je recht naar je talenten.", "audio": "vonk-tryhard.mp3", "script": "Iets moois: jij gaat ver voor wie in je gelooft. Als er iemand belangrijk voor je is en in je gelooft, haal jij het beste uit jezelf. Nu werkt dat als een gaspedaal, het duwt je recht naar je talenten."}, "driver_BeStrong": {"icon": "shield", "title": "Jij neemt zelf verantwoordelijkheid", "body": "Jij neemt graag zelf het heft in handen, zeker als je gelooft dat je het tot een goed einde brengt. Nu werkt dat als een gaspedaal: het zet jou in beweging richting je talenten.", "audio": "vonk-bestrong.mp3", "script": "Iets wat opvalt: jij neemt zelf verantwoordelijkheid. Jij pakt graag zelf het heft in handen, zeker als je gelooft dat je het tot een goed einde brengt. Nu werkt dat als een gaspedaal richting je talenten."}, "driver_BePerfect": {"icon": "check", "title": "Jij wil alles zo juist mogelijk doen", "body": "Jij legt de lat hoog en wil dat iets echt klopt voor je het loslaat. Nu krijg je daar de ruimte voor, en dan werkt dat als een gaspedaal richting je talenten.", "audio": "vonk-beperfect.mp3", "script": "Iets wat opvalt: jij wil alles zo juist mogelijk doen. Jij legt de lat hoog en wil dat iets echt klopt. Nu krijg je daar de ruimte voor, en dan werkt dat als een gaspedaal richting je talenten."}, "driver_PleaseOthers": {"icon": "heart", "title": "Jij maakt het graag goed voor anderen", "body": "Jij voelt je het best tussen mensen die jou waarderen, en jij zorgt dat iedereen mee is. Nu werkt dat als een gaspedaal: je voelt je veilig en zet je talenten volop in.", "audio": "vonk-pleaseothers.mp3", "script": "Iets wat opvalt: jij maakt het graag goed voor anderen. Jij voelt je het best tussen mensen die jou waarderen, en je zorgt dat iedereen mee is. Nu werkt dat als een gaspedaal voor je talenten."}, "driver_HurryUp": {"icon": "bolt", "title": "Jij pakt graag veel tegelijk aan", "body": "Jij neemt graag veel op tegelijk en wil snel resultaat zien. Nu werkt dat als een gaspedaal: die vaart zet dingen in beweging en brengt je richting je talenten.", "audio": "vonk-hurryup.mp3", "script": "Iets wat opvalt: jij pakt graag veel tegelijk aan en wil snel resultaat zien. Nu werkt dat als een gaspedaal, die vaart zet dingen in beweging richting je talenten."}, "energy_full": {"icon": "battery", "title": "Jij bracht een volle batterij mee", "body": "Je zit lekker in je energie vandaag. Dat is een mooie kracht om mee te werken, gebruik ze voor wat jou blij maakt.", "audio": "vonk-energie.mp3", "script": "Iets moois: jij bracht vandaag een volle batterij mee. Je zit lekker in je energie. Dat is een mooie kracht, gebruik ze voor wat jou blij maakt."}, "meaning": {"icon": "compass", "title": "Jij wil iets betekenen", "body": "Naast wat je kan, wil je ook iets betekenen. Die richting in jou is misschien wel het mooiste van allemaal.", "audio": "vonk-betekenis.mp3", "script": "En misschien wel het mooiste: jij wil niet alleen iets kunnen, je wil ook iets betekenen. Die richting in jou is heel waardevol."}, "growth_thin": {"icon": "seedling", "title": "Dit is nog maar een eerste glimp", "body": "Je gaf vandaag een eerste blik op wie je bent. Er zit vast nog veel meer in jou, en dat ontdek je samen met je begeleider.", "audio": "vonk-groei.mp3", "script": "Dit is nog maar een eerste glimp. Je gaf vandaag een eerste blik op wie je bent. Er zit vast nog veel meer in jou, en dat ontdek je samen met je begeleider."}, "context_brake": {"icon": "compass", "title": "Eén ding mag je echt weten", "body": "Jouw belangrijkste motor staat vandaag een beetje op de rem. Niet omdat er iets mis is met jou, maar omdat er nu iets in je omgeving niet lekker zit. Praat hier zeker over met je begeleider, samen krijg je die motor weer aan het trekken.", "audio": "vonk-context.mp3", "script": "En eén ding mag je echt weten. Jouw belangrijkste motor staat vandaag een beetje op de rem. Niet omdat er iets mis is met jou, maar omdat er nu iets in je omgeving niet lekker zit. Praat hier zeker over met je begeleider. Samen krijg je die motor weer aan het trekken. En geloof me, dat lukt."}};
+// item -> construct mapping (vast, uit scoringslogica)
+// V4 (oud 'Impact') wordt nu OPGETELD bij Facilitatie = 'groepsondersteunend met impact'.
+const ACC_MAP = { V1:'Analyse', V2:'Coaching', V3:'Facilitatie', V4:'Facilitatie', V5:'Resultaat', V6:'Constructief onderscheidend' };
+const FOC_MAP = { F1:'Bedenken/creatie', F2:'Uitzoeken/onderzoek', F4:'Leren/overdragen' }; // F3/F5 via SJT
+const RIA_MAP = { R1:'Realistisch', R2:'Investigative', R3:'Artistiek', R4:'Sociaal', R5:'Ondernemend', R6:'Conventioneel' };
+
+function energyContrib(e){ return (typeof e === 'number') ? e/2 : 0; } // -2..+2 -> -1..+1
+
+function scoreVonk(answers, energy){
+  // ---- versnellers (5 categorieen; Impact opgenomen in Facilitatie)
+  const acc = { 'Analyse':0,'Coaching':0,'Facilitatie':0,'Resultaat':0,'Constructief onderscheidend':0 };
+  const accEnergy = {};
+  for(const id in ACC_MAP){
+    const c = ACC_MAP[id];
+    if(id in answers){ acc[c] += answers[id] + energyContrib(energy[id]); }
+    if(id in energy){
+      // bij Facilitatie kunnen V3 en V4 beide energie aanleveren -> gemiddelde houden we simpel: laatste/gecombineerd
+      accEnergy[c] = (c in accEnergy) ? (accEnergy[c] + energy[id]) / 2 : energy[id];
+    }
+  }
+  // SJT-bijladingen op versnellers
+  if(answers.D5 === 'b'){ acc['Coaching'] += 1; }
+  if(answers.F5 === 'a'){ acc['Coaching'] += 1; acc['Facilitatie'] += 1; } // F5 samen
+  const accRank = Object.keys(acc).sort((a,b)=>acc[b]-acc[a]);
+
+  // ---- foci
+  const foc = { 'Bedenken/creatie':0,'Uitzoeken/onderzoek':0,'Doen/uitvoeren':0,'Leren/overdragen':0,'Samenwerken':0 };
+  const focEnergy = {};
+  for(const id in FOC_MAP){
+    const c = FOC_MAP[id];
+    if(id in answers){ foc[c] += answers[id] + energyContrib(energy[id]); }
+    if(id in energy) focEnergy[c] = energy[id];
+  }
+  if(answers.F3 === 'a'){ foc['Doen/uitvoeren'] += 2 + energyContrib(energy.F3); if('F3' in energy) focEnergy['Doen/uitvoeren']=energy.F3; }
+  else if(answers.F3 === 'b'){ foc['Doen/uitvoeren'] -= 1; focEnergy['Doen/uitvoeren']=-1; }
+  if(answers.F5 === 'a'){ foc['Samenwerken'] += 2; }
+  if(answers.D5 === 'b'){ foc['Samenwerken'] += 1; }
+  const focRank = Object.keys(foc).sort((a,b)=>foc[b]-foc[a]);
+
+  // ---- interesse
+  const ria = {};
+  for(const id in RIA_MAP){ if(id in answers) ria[RIA_MAP[id]] = answers[id]; else ria[RIA_MAP[id]] = 0; }
+  const riaRank = Object.keys(ria).sort((a,b)=>ria[b]-ria[a]);
+
+  // ---- drivers (sterkte + energie). Energie bepaalt gaspedaal (>0) vs rem (<0).
+  const drv = { 'Be Perfect':0,'Please Others':0,'Try Hard':0,'Hurry Up':0,'Be Strong':0 };
+  const drvEnergy = { 'Be Perfect':null,'Please Others':null,'Try Hard':null,'Hurry Up':null,'Be Strong':null };
+  // sterkte
+  if('D1' in answers) drv['Be Perfect'] += answers.D1;
+  if('D2' in answers) drv['Please Others'] += answers.D2;
+  if('D3' in answers) drv['Try Hard'] += answers.D3;
+  if('D4' in answers) drv['Hurry Up'] += answers.D4;
+  if(answers.D5 === 'a') drv['Be Strong'] += 2;
+  if(answers.D5 === 'b') drv['Please Others'] += 2;
+  if(answers.D6 === 'a') drv['Be Strong'] += 2;
+  if(answers.D6 === 'b') drv['Hurry Up'] += 2;
+  // energie per driver (uit de bijbehorende energie-items, indien aanwezig)
+  const setDrvE = (cat, e)=>{ if(typeof e==='number'){ drvEnergy[cat] = (drvEnergy[cat]===null) ? e : (drvEnergy[cat]+e)/2; } };
+  setDrvE('Be Perfect',   energy.D1);
+  setDrvE('Please Others',energy.D2);
+  setDrvE('Try Hard',     energy.D3);
+  setDrvE('Hurry Up',     energy.D4);
+  // D5/D6 zijn keuze-items; eventuele energie-ankers meenemen indien meegegeven
+  if(answers.D5 === 'a') setDrvE('Be Strong', energy.D5);
+  if(answers.D5 === 'b') setDrvE('Please Others', energy.D5);
+  if(answers.D6 === 'a') setDrvE('Be Strong', energy.D6);
+  if(answers.D6 === 'b') setDrvE('Hurry Up', energy.D6);
+  const drvRank = Object.keys(drv).sort((a,b)=>drv[b]-drv[a]);
+
+  // ---- contextsignaal: rem op driver #1 of #2 (energie < 0 bij een dominante driver)
+  const drvDriverKey = {'Try Hard':'driver_TryHard','Be Strong':'driver_BeStrong','Be Perfect':'driver_BePerfect','Please Others':'driver_PleaseOthers','Hurry Up':'driver_HurryUp'};
+  let contextBrake = false;
+  for(let i=0;i<2;i++){
+    const d = drvRank[i];
+    if(d && drv[d] >= 3 && typeof drvEnergy[d] === 'number' && drvEnergy[d] < 0){ contextBrake = true; }
+  }
+
+  // ---- energie-ijkpunt
+  const battery = (typeof answers.I1 === 'number') ? answers.I1 : null;
+
+  // ---- volledigheid
+  const answered = Object.keys(answers).length;
+
+  return { acc, accEnergy, accRank, foc, focEnergy, focRank, ria, riaRank,
+           drv, drvEnergy, drvRank, drvDriverKey, contextBrake,
+           battery, answered, answers, energy };
+}
+
+/* selectie: max 5 boodschap-ids op sterkte, met drempels.
+   Drivers worden ALLEEN als gaspedaal-kaart getoond (energie >= 0).
+   Bij contextBrake komt onderaan een warme contextsignaal-kaart i.p.v. een driver-kaart. */
+function selectVonk(s){
+  const picks = [];
+  const used = new Set();
+  const push = (id, prio, strength) => { if(!used.has(id)){ picks.push({id, prio, strength}); used.add(id); } };
+
+  // 1. Topversneller
+  const acc1 = s.accRank[0];
+  if(s.acc[acc1] >= 2.5){ push('acc_'+acc1, 1, s.acc[acc1]); }
+
+  // 2. Top-focus met energie
+  const focMap = {
+    'Bedenken/creatie':'focus_Bedenken/creatie','Uitzoeken/onderzoek':'focus_Uitzoeken/onderzoek',
+    'Doen/uitvoeren':'focus_Doen/uitvoeren','Leren/overdragen':'focus_Leren/overdragen','Samenwerken':'focus_Samenwerken'
+  };
+  const foc1 = s.focRank[0];
+  if(s.foc[foc1] >= 2.5){ push(focMap[foc1], 2, s.foc[foc1]); }
+
+  // 3. Sterke interesse (RIASEC #1)
+  const ria1 = s.riaRank[0];
+  if(s.ria[ria1] >= 2){ push('int_'+ria1, 3, 2 + (s.ria[s.riaRank[1]]===2?0.3:0)); }
+
+  // 4. Driver ALS GASPEDAAL (top-driver, sterkte >= 3, energie >= 0).
+  //    Als de top-driver een rem is, tonen we hier GEEN gaspedaal-kaart.
+  const drv1 = s.drvRank[0];
+  if(s.drv[drv1] >= 3){
+    const e1 = s.drvEnergy[drv1];
+    if(e1 === null || e1 >= 0){ push(s.drvDriverKey[drv1], 4, s.drv[drv1]); }
+  }
+
+  // 5. Volle batterij
+  if(s.battery !== null && s.battery >= 7){ push('energy_full', 5, s.battery); }
+
+  // 6. tweede versneller of focus (opvulling)
+  const acc2 = s.accRank[1];
+  if(s.acc[acc2] >= 2.5){ push('acc_'+acc2, 6, s.acc[acc2]); }
+  const ria2 = s.riaRank[1];
+  if(s.ria[ria2] >= 2){ push('int_'+ria2, 7, 2); }
+  const foc2 = s.focRank[1];
+  if(s.foc[foc2] >= 2.0){ push(focMap[foc2], 8, s.foc[foc2]); }
+
+  // 7. betekenisspoor (B1)
+  if('B1' in s.answers){ push('meaning', 9, 1); }
+
+  // Sorteer op prio, dan sterkte
+  picks.sort((a,b)=> a.prio - b.prio || b.strength - a.strength);
+  let chosen = picks.slice(0,5).map(p=>p.id);
+
+  // Te dun? minstens iets tonen + groei-boodschap
+  if(chosen.length < 2){
+    if(!chosen.includes('meaning') && 'B1' in s.answers) chosen.push('meaning');
+    chosen.push('growth_thin');
+  }
+
+  // 'meaning' liefst als voorlaatste; contextsignaal (indien rem op #1/#2) ALTIJD als laatste, warme kaart.
+  chosen = chosen.filter(c=>c!=='meaning' && c!=='context_brake');
+  if(chosen.includes('meaning') === false && false){} // (no-op, leesbaarheid)
+  const tail = [];
+  // meaning toevoegen als hij eerder gekozen was
+  if(used.has('meaning')) tail.push('meaning');
+
+  // Contextsignaal: vervangt zo nodig de laatste plek zodat het ALTIJD meekomt.
+  if(s.contextBrake){
+    // zorg dat er ruimte is: max 5 totaal, contextsignaal laatst
+    chosen = chosen.concat(tail);
+    if(chosen.length >= 5) chosen = chosen.slice(0,4);
+    chosen.push('context_brake');
+    return chosen.slice(0,5);
+  }
+
+  chosen = chosen.concat(tail);
+  return chosen.slice(0,5);
+}
+
+let vonkSeq = [];      // [audiobestand...] in afspeelvolgorde
+let vonkSeqIdx = 0;
+let vonkPlaying = false;
+
+function escapeHtmlV(s){ return String(s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function renderVonk(){
+  document.body.style.overflow='';
+  const s = scoreVonk(answers, energy);
+  const sel = selectVonk(s);
+  const naam = (participant.name||'').trim();
+  const titleNaam = naam ? ('Wow, <span class="nm">'+escapeHtmlV(naam)+'</span>') : 'Wow';
+
+  // sfeerbeeld wisselend
+  const bg = 'img/danser-kleurpoeder.jpg';
+
+  let cards = '';
+  sel.forEach((id,i)=>{
+    const m = VONK_MSG[id]; if(!m) return;
+    const icon = VICON[m.icon] || VICON.spark;
+    cards += '<div class="vonk-card" data-vi="'+i+'" style="animation-delay:'+(0.25+i*0.22)+'s">'+
+      '<div class="vi">'+icon+'</div>'+
+      '<div class="vc"><h3>'+escapeHtmlV(m.title)+'</h3><p>'+escapeHtmlV(m.body)+'</p></div>'+
+    '</div>';
+  });
+
+  // confetti
+  let conf = '';
+  const cols = ['#ffc857','#01696F','#ffffff','#7fd4d4','#ffd98a'];
+  for(let i=0;i<26;i++){
+    const left = Math.random()*100, dur = 3.4+Math.random()*2.6, delay = Math.random()*1.8, col = cols[i%cols.length];
+    conf += '<i style="left:'+left.toFixed(1)+'%;background:'+col+';animation-duration:'+dur.toFixed(2)+'s;animation-delay:'+delay.toFixed(2)+'s"></i>';
+  }
+
+  root.innerHTML =
+    '<div class="vonk-screen">'+
+      '<div class="vonk-bg" style="background-image:url('+bg+')"></div>'+
+      '<div class="vonk-bg-scrim"></div>'+
+      '<div class="vonk-confetti">'+conf+'</div>'+
+      '<div class="vonk-inner">'+
+        '<div class="vonk-kicker"><span class="spark">&#10024;</span> Jouw vonk</div>'+
+        '<h1 class="vonk-title">'+titleNaam+' &mdash; kijk eens wat er opvalt</h1>'+
+        '<p class="vonk-sub">Ik keek even naar je antwoorden. Dit springt er vandaag bij jou uit.</p>'+
+        '<div class="vonk-listen"><button id="vonkListen"><span class="vic">'+ICON_PLAY+'</span><span class="vtx">Lees voor</span></button></div>'+
+        '<div class="vonk-cards">'+cards+'</div>'+
+        '<div class="vonk-foot">'+
+          '<p class="vonk-momentnote">Dit is een momentopname &mdash; een beeld van hoe jij het vandaag ziet. Het mag groeien en veranderen. Je begeleider vertelt je er straks nog veel meer over.</p>'+
+          '<button class="vonk-next" id="vonkNext">Verder <span>&rarr;</span></button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+  // bouw audiosequentie: opening -> geselecteerde -> closing
+  vonkSeq = ['vonk-opening.mp3'].concat(sel.map(id=>VONK_MSG[id] && VONK_MSG[id].audio).filter(Boolean)).concat(['vonk-closing.mp3']);
+  vonkSeqIdx = 0; vonkPlaying = false;
+
+  document.getElementById('vonkNext').onclick = ()=>{ stopVonkSeq(); idx = items.length + 1; render(); window.scrollTo({top:0}); };
+  document.getElementById('vonkListen').onclick = toggleVonkSeq;
+
+  // start de beleving automatisch (mag door browser geblokkeerd worden -> dan via knop)
+  setTimeout(()=>{ startVonkSeq(); }, 650);
+}
+
+function setVonkListenUI(playing){
+  const b = document.getElementById('vonkListen'); if(!b) return;
+  b.classList.toggle('playing', playing);
+  const ic=b.querySelector('.vic'), tx=b.querySelector('.vtx');
+  if(ic) ic.innerHTML = playing ? ICON_STOP : ICON_PLAY;
+  if(tx) tx.textContent = playing ? 'Stop' : 'Lees voor';
+}
+function highlightVonkCard(){
+  document.querySelectorAll('.vonk-card.playing').forEach(c=>c.classList.remove('playing'));
+  // seq: index 0 = opening, 1..n = kaarten, laatste = closing
+  const cardPos = vonkSeqIdx - 1;
+  const cards = document.querySelectorAll('.vonk-card');
+  if(cardPos>=0 && cardPos<cards.length){ cards[cardPos].classList.add('playing'); cards[cardPos].scrollIntoView({behavior:'smooth',block:'center'}); }
+}
+function startVonkSeq(){
+  if(vonkPlaying) return;
+  vonkPlaying = true; setVonkListenUI(true);
+  playVonkAt(vonkSeqIdx);
+}
+function playVonkAt(i){
+  if(i>=vonkSeq.length){ stopVonkSeq(); return; }
+  vonkSeqIdx = i;
+  highlightVonkCard();
+  player.onended = ()=>{ if(vonkPlaying){ playVonkAt(vonkSeqIdx+1); } };
+  player.src = 'audio/'+vonkSeq[i];
+  player.currentTime = 0;
+  player.play().catch(()=>{ /* autoplay geblokkeerd: wacht op knop */ vonkPlaying=false; setVonkListenUI(false); });
+}
+function stopVonkSeq(){
+  vonkPlaying = false;
+  player.onended = null;
+  player.pause(); try{ player.currentTime=0; }catch(e){}
+  setVonkListenUI(false);
+  document.querySelectorAll('.vonk-card.playing').forEach(c=>c.classList.remove('playing'));
+}
+function toggleVonkSeq(){
+  if(vonkPlaying){ stopVonkSeq(); }
+  else { if(vonkSeqIdx>=vonkSeq.length) vonkSeqIdx=0; startVonkSeq(); }
+}
+
+function renderDone(){
+  document.body.style.overflow='';
+  root.innerHTML =
+    '<div class="screen"><div class="card done">'+
+      '<div class="check">'+ICON_CHECK+'</div>'+
+      '<h1>Top. Je bent klaar.</h1>'+
+      '<img class="done-photo" src="img/thank-you.jpg" alt="Bedankt">'+
+      '<p>Je hebt zonet jouw momentopname ingevuld. Dit is een beeld van hoe jij het vandaag ziet, en dat mag groeien en veranderen.</p>'+
+      '<p>We kunnen je echt nog veel meer over jezelf vertellen. Dat doet jouw begeleider straks samen met jou.</p>'+
+      '<div class="next-actions">'+
+        '<a class="na-card primary" href="mijn.html"><span class="na-ic">\u{1F396}\u{FE0F}</span><span class="na-tx"><b>Mijn TA-PAS bekijken</b><span>Jouw oorkondes en wat vandaag bij jou uitspringt.</span></span><span class="na-arrow">&rarr;</span></a>'+
+        '<a class="na-card read" href="rapport.html"><span class="na-ic">\u{1F4D6}</span><span class="na-tx"><b>Lees of beluister je verkenning</b><span>Het volledige Studiekompas, met een stem die voorleest.</span></span><span class="na-arrow">&rarr;</span></a>'+
+        '<a class="na-card pdf" href="T4Teens-Studiekompas-Lana.pdf" download><span class="na-ic">\u{2B07}\u{FE0F}</span><span class="na-tx"><b>Bewaren als PDF</b><span>Download om te bewaren of te delen met iemand die je vertrouwt.</span></span><span class="na-arrow">&rarr;</span></a>'+
+      '</div>'+
+      '<p class="na-hint">Dit is een momentopname &mdash; geen eindpunt. Neem het gerust mee naar je begeleider.</p>'+
+    '</div></div>';
+}
+
+render();
+</script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>

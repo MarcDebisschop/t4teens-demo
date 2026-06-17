@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mijn TA-PAS — Lana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF4E7; --paper-2:#F6EAD6; --ink:#23303A; --ink-soft:#4A5B66;
+  --coral:#E2795C; --coral-deep:#C85F44; --peach:#F2B89A;
+  --sun:#F4C04B; --sun-deep:#E0A52E; --ocean:#3E7CA6; --ocean-deep:#2F6286;
+  --sage:#7E9B6E; --sage-deep:#5E7A50; --line:#E4D4BA;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+h1,h2,h3,.display{font-family:'Fraunces',serif}
+
+/* ---- Hero ---- */
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#E2795C 0%,#E0A52E 100%);color:#fff;padding:64px 0 72px;text-align:center}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(255,255,255,.18),transparent 45%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.hero .logo{display:inline-flex;align-items:center;gap:8px;font-family:'Fraunces';font-weight:600;font-size:1.05rem;letter-spacing:.02em;opacity:.95;margin-bottom:28px}
+.hero .logo .dot{width:11px;height:11px;border-radius:50%;background:#fff}
+.hero .seal{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:2rem;margin:0 auto 20px;border:2px solid rgba(255,255,255,.4)}
+.hero h1{font-size:clamp(2rem,6vw,3rem);font-weight:600;line-height:1.08;margin-bottom:14px}
+.hero h1 em{font-style:italic;color:#FBF4E7}
+.hero .sub{font-size:1.1rem;max-width:54ch;margin:0 auto;color:rgba(255,255,255,.94)}
+.hero .meta{margin-top:26px;font-size:.9rem;color:rgba(255,255,255,.85);font-weight:500}
+
+/* ---- Section shell ---- */
+.section{padding:56px 0}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-family:'Inter';font-weight:600;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-deep);margin-bottom:12px}
+.kicker .num{width:24px;height:24px;border-radius:7px;background:var(--coral);color:#fff;display:grid;place-items:center;font-size:.85rem}
+.section h2{font-size:1.9rem;font-weight:600;line-height:1.15;margin-bottom:10px}
+.section .lede{font-size:1.08rem;color:var(--ink-soft);max-width:62ch}
+
+/* ---- Oorkonde-tegels ---- */
+.oorkondes{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:34px}
+.oork{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 26px;overflow:hidden;box-shadow:0 4px 18px rgba(35,48,58,.05)}
+.oork::before{content:"";position:absolute;top:0;left:0;right:0;height:6px}
+.oork.c1::before{background:linear-gradient(90deg,var(--coral),var(--peach))}
+.oork.c2::before{background:linear-gradient(90deg,var(--ocean),#8FBEDC)}
+.oork.c3::before{background:linear-gradient(90deg,var(--sage),#A9C99A)}
+.oork.c4::before{background:linear-gradient(90deg,var(--sun-deep),var(--sun))}
+.oork .ribbon{display:inline-flex;align-items:center;gap:7px;font-family:'Inter';font-weight:700;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper-2);border-radius:999px;padding:5px 12px;margin-bottom:18px}
+.oork .badge-ic{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:1.9rem;margin-bottom:16px;border:2px solid}
+.oork.c1 .badge-ic{background:rgba(226,121,92,.12);border-color:rgba(226,121,92,.35)}
+.oork.c2 .badge-ic{background:rgba(62,124,166,.12);border-color:rgba(62,124,166,.35)}
+.oork.c3 .badge-ic{background:rgba(126,155,110,.14);border-color:rgba(126,155,110,.38)}
+.oork.c4 .badge-ic{background:rgba(244,192,75,.16);border-color:rgba(224,165,46,.4)}
+.oork h3{font-size:1.3rem;font-weight:600;margin-bottom:8px}
+.oork p{font-size:.95rem;color:var(--ink-soft);line-height:1.55}
+.oork .award{margin-top:14px;font-size:.82rem;color:var(--coral-deep);font-weight:600;font-style:italic}
+.oork-note{margin-top:22px;font-size:.9rem;color:var(--ink-soft);background:var(--paper-2);border-radius:14px;padding:16px 20px;line-height:1.55}
+.oork-note strong{color:var(--ink)}
+
+/* ---- Acties (rapport lezen / luisteren / pdf) ---- */
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.act{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 24px;transition:transform .15s ease,box-shadow .15s ease}
+.act:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(35,48,58,.10)}
+.act .a-ic{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:16px;color:#fff}
+.act.read .a-ic{background:var(--ocean)}
+.act.listen-a .a-ic{background:var(--coral)}
+.act.pdf .a-ic{background:var(--sage-deep)}
+.act h3{font-size:1.15rem;font-weight:600;margin-bottom:6px}
+.act p{font-size:.9rem;color:var(--ink-soft)}
+.act .go{margin-top:14px;font-size:.85rem;font-weight:600;color:var(--coral-deep);display:inline-flex;align-items:center;gap:6px}
+
+/* ---- Voorzichtigheidsbanner ---- */
+.gentle{background:var(--ink);color:#FBF4E7;border-radius:20px;padding:28px 30px;margin-top:40px}
+.gentle h3{color:var(--sun);font-size:1.2rem;margin-bottom:8px}
+.gentle p{color:rgba(251,244,231,.9);font-size:.96rem}
+
+.foot{padding:40px 0 56px;text-align:center;color:var(--ink-soft);font-size:.82rem;border-top:1px solid var(--line);margin-top:48px}
+
+@media(max-width:720px){
+  .oorkondes,.actions{grid-template-columns:1fr}
+  .section{padding:44px 0}
+  .section h2{font-size:1.55rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>T4Teens</div>
+    <div class="seal">&#127894;</div>
+    <h1>Welkom, Lana &mdash;<br>dit is <em>jouw</em> TA-PAS</h1>
+    <p class="sub">Je vulde alles in. Hieronder vind je de dingen die vandaag bij jou uitspringen, als kleine oorkondes. En je kan je volledige verkenning lezen, beluisteren of bewaren.</p>
+    <div class="meta">15 jaar &middot; 3de middelbaar &middot; code T4T-2026-0148</div>
+  </div>
+</header>
+
+<!-- ============ OORKONDES ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="kicker"><span class="num">&#127894;</span>Jouw oorkondes</span>
+    <h2>Wat er vandaag in jou uitspringt</h2>
+    <p class="lede">Dit zijn geen cijfers en geen oordeel. Het zijn de dingen waar jij vandaag energie van krijgt en je sterk in voelt &mdash; iets om trots op te zijn en te bewaren.</p>
+
+    <div class="oorkondes">
+      <div class="oork c1">
+        <span class="ribbon">&#10024; toegekend aan Lana</span>
+        <div class="badge-ic">&#128161;</div>
+        <h3>De Bedenker</h3>
+        <p>Jij krijgt energie van nieuwe dingen verzinnen die er nog niet zijn &mdash; en je kan erin opgaan. Dat is een echte kracht.</p>
+        <div class="award">Voor wie graag iets eigens maakt</div>
+      </div>
+      <div class="oork c2">
+        <span class="ribbon">&#10024; toegekend aan Lana</span>
+        <div class="badge-ic">&#128218;</div>
+        <h3>De Doorgever</h3>
+        <p>Je legt graag iets uit en geeft door wat je weet. Iemand iets aanleren geeft jou energie &mdash; daar word je blij van.</p>
+        <div class="award">Voor wie anderen verder helpt</div>
+      </div>
+      <div class="oork c3">
+        <span class="ribbon">&#10024; toegekend aan Lana</span>
+        <div class="badge-ic">&#129309;</div>
+        <h3>De Meedenker</h3>
+        <p>Je voelt mensen goed aan en denkt graag &eacute;&eacute;n-op-&eacute;&eacute;n met iemand mee om samen een oplossing te vinden.</p>
+        <div class="award">Voor wie er is voor een ander</div>
+      </div>
+      <div class="oork c4">
+        <span class="ribbon">&#10024; toegekend aan Lana</span>
+        <div class="badge-ic">&#10024;</div>
+        <h3>De Maker met Lat</h3>
+        <p>Je wil dingen graag echt goed doen en hebt oog voor kwaliteit. Als je daar tijd en ruimte voor krijgt, blink je uit.</p>
+        <div class="award">Voor wie het verschil maakt in de details</div>
+      </div>
+    </div>
+
+    <p class="oork-note">Deze oorkondes zijn een <strong>momentopname</strong>. Ze zeggen niet wie je voor altijd bent &mdash; ze laten zien wat vandaag in jou naar boven komt. Over een jaar kunnen er andere bijkomen. Dat is net het mooie eraan.</p>
+  </div>
+</section>
+
+<!-- ============ ACTIES ============ -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <span class="kicker"><span class="num">&#128214;</span>Jouw verkenning</span>
+    <h2>Lees, luister of bewaar je Studiekompas</h2>
+    <p class="lede">Je volledige verkenning staat klaar. Kies zelf hoe je het bekijkt &mdash; lezen mag, maar luisteren mag net zo goed.</p>
+
+    <div class="actions">
+      <a class="act read" href="rapport.html">
+        <div class="a-ic">&#128214;</div>
+        <h3>Lezen</h3>
+        <p>Bekijk je volledige Studiekompas, rustig op je eigen tempo.</p>
+        <span class="go">Open je rapport &rarr;</span>
+      </a>
+      <a class="act listen-a" href="rapport.html">
+        <div class="a-ic">&#128266;</div>
+        <h3>Luisteren</h3>
+        <p>Bij elke pagina kan je op &lsquo;Liever luisteren?&rsquo; klikken. Een rustige stem leest het voor.</p>
+        <span class="go">Beluister je rapport &rarr;</span>
+      </a>
+      <a class="act pdf" href="T4Teens-Studiekompas-Lana.pdf" download>
+        <div class="a-ic">&#11015;</div>
+        <h3>Bewaren als PDF</h3>
+        <p>Download je Studiekompas om te bewaren of te delen met iemand die je vertrouwt.</p>
+        <span class="go">Download PDF &rarr;</span>
+      </a>
+    </div>
+
+    <div class="gentle">
+      <h3>Eén ding om te onthouden</h3>
+      <p>Dit is een vertrekpunt, geen eindpunt. Niemand verwacht dat je nu al beslist. Neem het gerust mee naar je ouders, een leerkracht of je CLB &mdash; samen kijken maakt het rijker.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    T4Teens &middot; TaPasCity &mdash; een verkenning op jouw maat, vandaag.<br>
+    <a href="index.html" style="display:inline-block;margin-top:12px;color:var(--coral-deep);text-decoration:none;font-weight:600;font-size:.85rem">&#8635; Demo opnieuw starten</a>
+  </div>
+</footer>
+
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>

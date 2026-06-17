@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T4Teens · Jouw verkenning — Lana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Eigen warm palet — wetenschappelijk gemotiveerd (warmte = sociaal brein, esthetiek = geloofwaardigheid) */
+  --paper:#FBF4E7;          /* warm crème papier */
+  --paper-2:#F6EAD6;        /* iets dieper crème voor kaarten */
+  --ink:#23303A;            /* diepe inkt-navy, hoog contrast op crème (WCAG AA) */
+  --ink-soft:#4A5B66;       /* zachtere tekst */
+  --coral:#E2795C;          /* warme koraal (GEEN rood) */
+  --coral-deep:#C85F44;
+  --peach:#F2B89A;
+  --sun:#F4C04B;            /* zonnegeel */
+  --sun-deep:#E0A52E;
+  --ocean:#3E7CA6;          /* kalm oceaanblauw */
+  --ocean-deep:#2F6286;
+  --sage:#7E9B6E;           /* salie-groen */
+  --sage-deep:#5E7A50;
+  --line:#E4D4BA;
+  --shadow:rgba(60,40,20,.10);
+  --shadow-strong:rgba(60,40,20,.16);
+  --maxw:880px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+
+/* ---------- typografie ---------- */
+.display{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.05;letter-spacing:-.01em}
+h1{font-family:'Fraunces',serif;font-weight:600;line-height:1.02;letter-spacing:-.02em}
+h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.7rem,4.2vw,2.5rem);line-height:1.08;letter-spacing:-.015em;margin-bottom:.5em}
+h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.28rem;line-height:1.2;margin-bottom:.35em}
+p{margin-bottom:1em}
+p:last-child{margin-bottom:0}
+em{font-style:italic}
+strong{font-weight:600;color:var(--ink)}
+a{color:var(--ocean-deep)}
+
+/* ---------- layout ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.section{padding:64px 0;position:relative}
+.section + .section{border-top:1px solid var(--line)}
+
+/* sectiekop met nummer + kicker */
+.kicker{display:inline-flex;align-items:center;gap:10px;font-family:'Inter';font-weight:600;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-deep);margin-bottom:14px}
+/* ---- Luisterknop / audio-speler per sectie ---- */
+.listen{display:inline-flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 8px 7px 16px;margin:4px 0 22px;box-shadow:0 2px 10px rgba(35,48,58,.05);cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;user-select:none;max-width:100%}
+.listen:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(35,48,58,.10)}
+.listen .l-txt{font-family:'Inter';font-weight:600;font-size:.9rem;color:var(--ink)}
+.listen .l-sub{font-family:'Inter';font-weight:500;font-size:.76rem;color:var(--ink-soft)}
+.listen .l-btn{flex-shrink:0;width:42px;height:42px;border-radius:50%;background:var(--coral);display:grid;place-items:center;color:#fff;font-size:1.05rem;transition:background .15s ease}
+.listen.playing .l-btn{background:var(--coral-deep)}
+.listen .l-prog{flex-shrink:0;width:60px;height:5px;border-radius:3px;background:var(--line);overflow:hidden;margin-right:6px}
+.listen .l-prog>i{display:block;height:100%;width:0;background:var(--coral);border-radius:3px;transition:width .2s linear}
+.contextkey .listen{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.22)}
+.contextkey .listen .l-txt{color:#FBF4E7}
+.contextkey .listen .l-sub{color:rgba(251,244,231,.7)}
+.contextkey .listen .l-btn{background:var(--sun);color:var(--ink)}
+.contextkey .listen.playing .l-btn{background:var(--sun-deep)}
+.contextkey .listen .l-prog{background:rgba(255,255,255,.2)}
+.contextkey .listen .l-prog>i{background:var(--sun)}
+@media print{.listen{display:none !important}}
+.kicker .num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--coral);color:#fff;font-family:'Fraunces';font-weight:600;font-size:.95rem;letter-spacing:0}
+
+.lede{font-size:1.18rem;line-height:1.55;color:var(--ink-soft);max-width:40ch}
+
+/* ---------- COVER (full-bleed filmische foto) ---------- */
+.cover{
+  position:relative;overflow:hidden;
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:#1a232b;
+  page-break-after:always;
+}
+.cover-img{position:absolute;inset:0;z-index:0}
+.cover-img img{width:100%;height:100%;object-fit:cover;object-position:center 38%}
+/* leesbaarheids-gradiënten: subtiel donker bovenaan voor de titel, dieper onderaan voor de naam */
+.cover::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(20,28,36,.62) 0%, rgba(20,28,36,.12) 26%, rgba(20,28,36,0) 48%, rgba(20,28,36,.30) 72%, rgba(18,25,33,.86) 100%);}
+.cover-top{padding:46px 30px 0;text-align:center;position:relative;z-index:3}
+.brandmark{display:inline-flex;align-items:center;gap:9px;font-family:'Fraunces';font-weight:600;font-size:1.08rem;color:#fff;letter-spacing:.01em;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+.brandmark .dot{width:11px;height:11px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 4px rgba(226,121,92,.35)}
+.cover-title{margin-top:26px}
+.cover-title .eyebrow{font-family:'Inter';font-weight:600;font-size:.84rem;letter-spacing:.16em;text-transform:uppercase;color:var(--peach);text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.cover-title h1{font-size:clamp(2.5rem,7.6vw,4.4rem);margin:.16em 0 .12em;color:#fff;text-shadow:0 2px 26px rgba(0,0,0,.45)}
+.cover-title h1 .em{font-style:italic;color:var(--sun)}
+.cover-sub{font-size:1.08rem;color:rgba(255,255,255,.92);max-width:32ch;margin:0 auto;text-shadow:0 1px 14px rgba(0,0,0,.5)}
+.cover-name{position:relative;z-index:3;text-align:center;padding:0 30px 46px}
+.cover-name .who{font-family:'Fraunces';font-weight:600;font-size:1.65rem;color:#fff;text-shadow:0 1px 16px rgba(0,0,0,.55)}
+.cover-name .meta{font-size:.92rem;color:rgba(255,255,255,.85);margin-top:5px;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.cover-name .meta span{display:inline-block;margin:0 7px}
+
+/* ---------- kaarten ---------- */
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 26px;box-shadow:0 6px 22px var(--shadow)}
+.card-tinted{background:var(--paper-2)}
+
+/* battery */
+.battery-row{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.battery{flex:1;min-width:240px}
+.batt-track{height:30px;border-radius:16px;background:#EDE0C8;border:2px solid var(--line);position:relative;overflow:hidden}
+.batt-fill{height:100%;border-radius:14px 8px 8px 14px;background:linear-gradient(90deg,var(--sun) 0%,var(--coral) 100%);width:60%;position:relative}
+.batt-scale{display:flex;justify-content:space-between;font-size:.78rem;color:var(--ink-soft);margin-top:7px}
+.batt-num{font-family:'Fraunces';font-weight:600;font-size:3.4rem;line-height:1;color:var(--coral-deep)}
+.batt-num small{font-size:1.1rem;color:var(--ink-soft);font-family:'Inter';font-weight:500}
+
+/* energie geeft / kost — staafjes (geen radar) */
+.energy-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
+.energy-item{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:14px}
+.energy-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:1.1rem}
+.energy-label{font-weight:500}
+.energy-bar-wrap{grid-column:1 / -1;height:13px;border-radius:8px;background:#EFE3CC;overflow:hidden;position:relative}
+.energy-bar{height:100%;border-radius:8px}
+.give .energy-ic{background:rgba(126,155,110,.2);color:var(--sage-deep)}
+.give .energy-bar{background:linear-gradient(90deg,var(--sage) 0%, #9DBA8B 100%)}
+.cost .energy-ic{background:rgba(226,121,92,.18);color:var(--coral-deep)}
+.cost .energy-bar{background:linear-gradient(90deg,var(--peach) 0%, var(--coral) 100%)}
+.energy-tag{font-size:.82rem;font-weight:600}
+.give .energy-tag{color:var(--sage-deep)}
+.cost .energy-tag{color:var(--coral-deep)}
+
+/* twee-koloms */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cols-img{display:grid;grid-template-columns:1fr 240px;gap:30px;align-items:center}
+.spot{border-radius:18px;overflow:hidden;background:var(--paper-2)}
+
+/* driver / motor */
+.motor-box{display:grid;grid-template-columns:1fr;gap:18px}
+.pedal{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;border-radius:16px;border:1px solid var(--line)}
+.pedal .badge{flex-shrink:0;font-family:'Fraunces';font-weight:600;font-size:.8rem;padding:5px 12px;border-radius:999px;white-space:nowrap;margin-top:2px}
+.gas{background:rgba(126,155,110,.12)}
+.gas .badge{background:var(--sage);color:#fff}
+.brake{background:rgba(244,192,75,.14)}
+.brake .badge{background:var(--sun-deep);color:#fff}
+.pedal h3{margin-bottom:.15em}
+.pedal .sub{font-size:.86rem;color:var(--ink-soft);font-weight:500}
+
+/* contextsignaal */
+.signal{background:linear-gradient(135deg,#FCEFE0 0%, #F9E6CF 100%);border:1px solid var(--peach);border-radius:18px;padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.signal .star{flex-shrink:0;width:42px;height:42px;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:1.3rem;box-shadow:0 3px 10px var(--shadow)}
+.signal h3{color:var(--coral-deep)}
+
+/* versnellers rangorde */
+.rank{display:flex;flex-direction:column;gap:12px}
+.rank-item{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.rank-item.top{background:linear-gradient(135deg,#fff 0%, #FFF7E6 100%);border-color:var(--sun);box-shadow:0 5px 16px var(--shadow)}
+.rank-pos{flex-shrink:0;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-family:'Fraunces';font-weight:600;font-size:1.2rem;background:var(--paper-2);color:var(--ink-soft)}
+.rank-item.top .rank-pos{background:var(--sun);color:var(--ink)}
+.rank-body{flex:1}
+.rank-body .t{font-weight:600}
+.rank-body .d{font-size:.86rem;color:var(--ink-soft)}
+.chip{font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.chip.bal{background:rgba(126,155,110,.16);color:var(--sage-deep)}
+.chip.lat{background:rgba(62,124,166,.14);color:var(--ocean-deep)}
+.chip.tied{background:rgba(244,192,75,.18);color:var(--sun-deep)}
+
+/* strategie-belofte */
+.promise{background:var(--ink);color:#FBF4E7;border-radius:20px;padding:30px 30px;position:relative;overflow:hidden}
+.promise .q{font-family:'Fraunces';font-style:italic;font-weight:500;font-size:1.5rem;line-height:1.3;color:#FBF4E7}
+.promise .who{font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;color:var(--sun);margin-top:14px;font-weight:600}
+
+/* tags top-foci / interesse */
+.taggroup{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.bigtag{display:inline-flex;align-items:center;gap:9px;padding:11px 17px;border-radius:14px;background:#fff;border:1px solid var(--line);font-weight:600;box-shadow:0 3px 10px var(--shadow)}
+.bigtag .e{font-size:1.15rem}
+.bigtag.shared{border-color:var(--coral);background:linear-gradient(135deg,#fff,#FDF0E8)}
+
+/* STUDIEVERKENNING */
+.explore-hero{border-radius:22px;overflow:hidden;margin:6px 0 26px;border:1px solid var(--line);box-shadow:0 8px 26px var(--shadow)}
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.track{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 22px;display:flex;flex-direction:column;box-shadow:0 5px 16px var(--shadow)}
+.track-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.track-ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:1.35rem;flex-shrink:0}
+.t-creatief .track-ic{background:rgba(226,121,92,.16)}
+.t-sociaal .track-ic{background:rgba(62,124,166,.14)}
+.t-verbredend .track-ic{background:rgba(244,192,75,.16)}
+.track h3{margin-bottom:.1em;font-size:1.18rem}
+.track .conf{font-size:.74rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.conf.bevestigd{color:var(--sage-deep)}
+.conf.verbredend{color:var(--sun-deep)}
+.track .clusters{font-size:.94rem;color:var(--ink-soft);margin:4px 0 14px}
+.track .meta-row{display:flex;flex-direction:column;gap:9px;margin-top:auto;padding-top:14px;border-top:1px dashed var(--line)}
+.track .mr{display:flex;gap:10px;align-items:flex-start;font-size:.88rem}
+.track .mr .ic{flex-shrink:0;width:24px;text-align:center}
+.energy-pill{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;padding:5px 12px;border-radius:999px}
+.energy-pill.geeft{background:rgba(126,155,110,.16);color:var(--sage-deep)}
+.energy-pill.kost{background:rgba(226,121,92,.16);color:var(--coral-deep)}
+.energy-pill.neutraal{background:rgba(62,124,166,.12);color:var(--ocean-deep)}
+
+/* brug-spoor uitgelicht */
+.bridge{grid-column:1 / -1;background:linear-gradient(135deg,#FFF7E6 0%, #FCEFE0 100%);border:2px solid var(--sun);border-radius:20px;padding:26px 26px;position:relative;box-shadow:0 8px 24px var(--shadow-strong)}
+.bridge .flag{position:absolute;top:-14px;left:24px;background:var(--coral);color:#fff;font-family:'Fraunces';font-weight:600;font-size:.82rem;padding:6px 16px;border-radius:999px;box-shadow:0 4px 10px var(--shadow)}
+.bridge h3{font-size:1.4rem;margin-top:6px}
+
+/* opening-band studieverkenning */
+.openband{background:var(--ink);color:#FBF4E7;border-radius:18px;padding:22px 26px;font-family:'Fraunces';font-weight:500;font-size:1.18rem;line-height:1.4;font-style:italic}
+.openband strong{color:var(--sun);font-weight:600}
+
+/* begeleidingsslot */
+.guide{background:var(--paper-2);border:1px solid var(--line);border-radius:18px;padding:24px 26px}
+.guide ul{list-style:none;margin-top:10px}
+.guide li{display:flex;gap:12px;margin-bottom:10px;font-size:.95rem}
+.guide li .ic{flex-shrink:0;color:var(--ocean-deep)}
+
+/* slotboodschap */
+.closing{background:linear-gradient(160deg,#E2795C 0%, #C85F44 100%);color:#fff;text-align:center;padding:64px 28px;page-break-before:always}
+.closing .display{font-size:clamp(1.9rem,5.5vw,3rem);color:#fff;max-width:18ch;margin:0 auto .4em}
+.closing p{font-size:1.12rem;max-width:34ch;margin:0 auto;color:rgba(255,255,255,.92)}
+.closing .seal{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;margin:0 auto 24px;font-size:1.7rem}
+
+/* momentopname-noot */
+.note{font-size:.9rem;color:var(--ink-soft);background:rgba(62,124,166,.07);border-left:3px solid var(--ocean);border-radius:0 10px 10px 0;padding:14px 18px;margin-top:18px}
+
+/* uitklap "waarom we het zo tonen" */
+details.why{margin-top:18px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+details.why summary{cursor:pointer;padding:13px 18px;font-weight:600;font-size:.9rem;color:var(--ocean-deep);list-style:none;display:flex;align-items:center;gap:9px}
+details.why summary::-webkit-details-marker{display:none}
+details.why summary .tw{transition:transform .2s}
+details.why[open] summary .tw{transform:rotate(90deg)}
+details.why .body{padding:0 18px 16px;font-size:.88rem;color:var(--ink-soft)}
+
+/* WETENSCHAPSPAGINA */
+.science{background:#F3EAD9;page-break-before:always}
+.science .wrap{max-width:920px}
+.science .seal-row{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.science .seal-row .badge{font-family:'Inter';font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--ocean-deep);padding:6px 14px;border-radius:999px}
+.sci-intro{font-size:1.05rem;color:var(--ink-soft);max-width:60ch}
+.sci-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+.sci-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 22px}
+.sci-card h3{font-size:1.05rem;display:flex;align-items:center;gap:10px}
+.sci-card h3 .n{flex-shrink:0;width:26px;height:26px;border-radius:7px;background:var(--ocean);color:#fff;display:grid;place-items:center;font-size:.85rem;font-family:'Inter';font-weight:700}
+.sci-card p{font-size:.9rem;color:var(--ink-soft);margin-top:8px}
+.sci-card .src{font-size:.78rem;color:var(--ocean-deep);margin-top:10px;line-height:1.5}
+.sci-card .src a{color:var(--ocean-deep);word-break:break-word}
+.honesty{background:var(--ink);color:#FBF4E7;border-radius:18px;padding:26px 28px;margin-top:24px}
+.honesty h3{color:var(--sun);font-size:1.15rem}
+.honesty p{color:rgba(251,244,231,.9);font-size:.95rem;margin-top:8px}
+.reflist{margin-top:26px;font-size:.78rem;color:var(--ink-soft);line-height:1.7;columns:2;column-gap:34px}
+.reflist h4{font-family:'Inter';font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;column-span:all}
+.reflist a{color:var(--ocean-deep);word-break:break-word}
+.reflist p{margin-bottom:7px;break-inside:avoid}
+
+/* ---------- "DIT GAF JIJ AAN" — compact blok in secties ---------- */
+.saidblock{background:var(--paper-2);border:1px solid var(--line);border-left:4px solid var(--ocean);border-radius:0 16px 16px 0;padding:18px 22px;margin-top:22px}
+.saidblock .said-head{display:flex;align-items:center;gap:9px;font-family:'Inter';font-weight:700;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ocean-deep);margin-bottom:14px}
+.said-item{display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:start;padding:11px 0;border-top:1px dashed var(--line)}
+.said-item:first-of-type{border-top:none;padding-top:2px}
+.said-q{font-size:.95rem;color:var(--ink);font-style:italic;line-height:1.45}
+.said-a{justify-self:end;text-align:right;white-space:nowrap;font-size:.82rem;font-weight:700;padding:5px 12px;border-radius:999px;align-self:center}
+.said-a.pos{background:rgba(126,155,110,.18);color:var(--sage-deep)}
+.said-a.neg{background:rgba(226,121,92,.16);color:var(--coral-deep)}
+.said-a.neu{background:rgba(62,124,166,.12);color:var(--ocean-deep)}
+.said-a.pick{background:rgba(244,192,75,.20);color:var(--sun-deep)}
+.saidblock .said-foot{font-size:.86rem;color:var(--ink-soft);margin-top:13px;padding-top:12px;border-top:1px dashed var(--line)}
+
+/* ---------- "IN JOUW EIGEN WOORDEN" — overzichtssectie ---------- */
+.ownwords{background:#F6EEDD}
+.ownwords .wrap{max-width:880px}
+.ow-intro{font-size:1.08rem;color:var(--ink-soft);max-width:56ch;margin-top:6px}
+.ow-prompt{background:var(--ink);color:#FBF4E7;border-radius:16px;padding:20px 24px;margin:22px 0 30px;display:flex;gap:15px;align-items:flex-start}
+.ow-prompt .q{flex-shrink:0;width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.16);display:grid;place-items:center;font-size:1.3rem}
+.ow-prompt p{font-family:'Fraunces';font-style:italic;font-size:1.1rem;line-height:1.4;color:#FBF4E7}
+.ow-group{margin-bottom:22px}
+.ow-group > h3{display:flex;align-items:center;gap:11px;font-size:1.15rem;margin-bottom:4px}
+.ow-group > h3 .gic{flex-shrink:0;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:1.2rem;background:#fff;border:1px solid var(--line)}
+.ow-group .gsub{font-size:.9rem;color:var(--ink-soft);margin:0 0 14px 49px}
+.ow-list{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.ow-row{display:grid;grid-template-columns:1fr auto;gap:10px 18px;align-items:center;padding:14px 20px;border-top:1px solid var(--line)}
+.ow-row:first-child{border-top:none}
+.ow-q{font-size:.96rem;color:var(--ink);line-height:1.45}
+.ow-a{justify-self:end;text-align:right;white-space:nowrap;font-size:.8rem;font-weight:700;padding:5px 13px;border-radius:999px}
+.ow-a.pos{background:rgba(126,155,110,.18);color:var(--sage-deep)}
+.ow-a.neg{background:rgba(226,121,92,.16);color:var(--coral-deep)}
+.ow-a.neu{background:rgba(62,124,166,.12);color:var(--ocean-deep)}
+.ow-a.pick{background:rgba(244,192,75,.20);color:var(--sun-deep)}
+.ow-a.batt{background:var(--coral);color:#fff}
+.ow-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-size:.8rem;color:var(--ink-soft)}
+.ow-legend span{display:inline-flex;align-items:center;gap:7px}
+.ow-legend i{width:13px;height:13px;border-radius:4px;display:inline-block}
+
+/* ---------- KUNDE-BLOK: 'waar je vandaag goed in bent' ---------- */
+.kunde{margin-top:30px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;box-shadow:0 10px 30px var(--shadow)}
+.kunde .k-head{display:flex;align-items:center;gap:11px;margin-bottom:6px}
+.kunde .k-head .ic{flex-shrink:0;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;background:rgba(126,155,110,.16)}
+.kunde h3{font-size:1.22rem}
+.kunde .k-lede{font-size:.96rem;color:var(--ink-soft);margin:0 0 18px 53px}
+.kunde-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kunde-item{display:flex;gap:12px;align-items:flex-start;background:var(--paper-2);border-radius:13px;padding:14px 16px}
+.kunde-item .ki{flex-shrink:0;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:1.05rem;background:#fff;border:1px solid var(--line)}
+.kunde-item .kt{font-weight:600;font-size:.98rem;color:var(--ink);line-height:1.3}
+.kunde-item .kd{font-size:.86rem;color:var(--ink-soft);margin-top:2px;line-height:1.4}
+.kunde .k-foot{font-size:.9rem;color:var(--ink-soft);margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)}
+.kunde .k-foot strong{color:var(--ink)}
+
+/* ---------- CONTEXTSLEUTEL: motor op de rem & context ---------- */
+.contextkey{background:linear-gradient(160deg,#2B3A45 0%,#23303A 100%);color:#FBF4E7}
+.contextkey .wrap{max-width:820px}
+.contextkey .kicker{color:var(--sun)}
+.contextkey .kicker .num{background:var(--sun);color:var(--ink)}
+.contextkey h2{color:#FBF4E7}
+.contextkey .ck-lede{font-size:1.1rem;color:rgba(251,244,231,.86);max-width:60ch;margin-top:8px}
+.contextkey strong,.ck-case strong{color:var(--sun);font-weight:700}
+.contextkey em,.ck-case em{color:var(--peach);font-style:italic}
+.ck-control{margin:28px 0 8px}
+.ck-control h4{font-family:'Fraunces';font-weight:600;font-size:1.2rem;color:#FBF4E7;margin-bottom:6px}
+.ck-control-lede{font-size:.96rem;color:rgba(251,244,231,.82);max-width:62ch;line-height:1.55;margin-bottom:18px}
+.ck-ctrl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ck-ctrl-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:15px;padding:20px 22px}
+.cc-tag{display:inline-block;font-family:'Inter';font-weight:700;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.cc-tag.rem-tag{background:rgba(242,184,154,.18);color:var(--peach)}
+.cc-tag.gas-tag{background:rgba(169,201,154,.18);color:#A9C99A}
+.ck-ctrl-item h5{font-family:'Fraunces';font-weight:600;font-size:1.05rem;color:#FBF4E7;margin-bottom:10px;line-height:1.25}
+.cc-q{font-family:'Fraunces';font-style:italic;font-size:1rem;color:var(--sun);line-height:1.4;margin-bottom:10px}
+.cc-d{font-size:.9rem;color:rgba(251,244,231,.8);line-height:1.5}
+/* ---------- DRIVER-GIDS (begeleiderspagina) ---------- */
+.dguide{background:var(--paper-2)}
+.dguide .badge{display:inline-block;font-family:'Inter';font-weight:700;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ocean-deep);background:rgba(62,124,166,.12);border:1px solid rgba(62,124,166,.25);padding:6px 13px;border-radius:999px;margin-bottom:16px}
+.dg-lede{font-size:1.05rem;color:var(--ink-soft);max-width:68ch;line-height:1.6;margin-top:6px}
+.dg-what{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+.dg-what .dgw{background:#fff;border:1px solid var(--line);border-radius:15px;padding:22px 24px}
+.dg-what .dgw h4{font-family:'Fraunces';font-weight:600;font-size:1.1rem;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.dg-what .dgw .dgi{flex-shrink:0;width:34px;height:34px;border-radius:9px;background:rgba(62,124,166,.12);display:grid;place-items:center;font-size:1.05rem}
+.dg-what .dgw p{font-size:.92rem;color:var(--ink-soft);line-height:1.55}
+.dg-section-h{font-family:'Fraunces';font-weight:600;font-size:1.35rem;color:var(--ink);margin:38px 0 6px}
+.dg-section-sub{font-size:.95rem;color:var(--ink-soft);max-width:64ch;line-height:1.55;margin-bottom:20px}
+.dg-driver{background:#fff;border:1px solid var(--line);border-radius:16px;padding:0;margin-bottom:16px;overflow:hidden}
+.dg-driver .dd-head{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.dg-driver .dd-name{font-family:'Fraunces';font-weight:600;font-size:1.12rem;color:var(--ink)}
+.dg-driver .dd-need{font-size:.86rem;color:var(--ocean-deep);font-style:italic}
+.dg-driver .dd-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.dg-driver .dd-col{padding:18px 24px}
+.dg-driver .dd-col.gas{background:rgba(126,155,110,.07)}
+.dg-driver .dd-col.rem{background:rgba(226,121,92,.06);border-left:1px solid var(--line)}
+.dd-col .dd-lab{display:inline-flex;align-items:center;gap:7px;font-family:'Inter';font-weight:700;font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+.dd-col.gas .dd-lab{color:var(--sage-deep)}
+.dd-col.rem .dd-lab{color:var(--coral-deep)}
+.dd-col p{font-size:.89rem;color:var(--ink-soft);line-height:1.5}
+.dg-role{background:var(--ink);color:#FBF4E7;border-radius:18px;padding:28px 30px;margin-top:34px}
+.dg-role h3{color:var(--sun);font-family:'Fraunces';font-weight:600;font-size:1.25rem;margin-bottom:10px}
+.dg-role p{color:rgba(251,244,231,.88);font-size:.96rem;line-height:1.6;margin-bottom:12px}
+.dg-role strong{color:var(--sun);font-weight:700}
+.dg-role .dg-steps{list-style:none;margin-top:8px;display:grid;gap:11px}
+.dg-role .dg-steps li{display:flex;gap:13px;align-items:flex-start;font-size:.94rem;color:rgba(251,244,231,.88);line-height:1.5}
+.dg-role .dg-steps li .si{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:rgba(244,192,75,.2);display:grid;place-items:center;font-size:.9rem}
+.dg-care{font-size:.84rem;color:var(--ink-soft);background:rgba(62,124,166,.07);border-left:3px solid var(--ocean);border-radius:0 12px 12px 0;padding:16px 20px;margin-top:24px;line-height:1.55}
+.ck-toggle{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}
+.ck-state{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:15px;padding:18px 20px}
+.ck-state .lab{display:inline-flex;align-items:center;gap:8px;font-family:'Inter';font-weight:700;font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:9px}
+.ck-state.gas .lab{color:#A9C99A}
+.ck-state.rem .lab{color:var(--peach)}
+.ck-state p{font-size:.95rem;color:rgba(251,244,231,.82);line-height:1.5}
+.ck-case{background:rgba(244,192,75,.12);border:1px solid rgba(244,192,75,.32);border-left:4px solid var(--sun);border-radius:0 15px 15px 0;padding:20px 24px;margin-top:8px}
+.ck-case h3{color:#FBF4E7;font-size:1.12rem;margin-bottom:8px}
+.ck-case p{color:rgba(251,244,231,.88);font-size:.98rem;line-height:1.55;margin-bottom:10px}
+.ck-q{background:rgba(255,255,255,.10);border-radius:13px;padding:16px 20px;margin-top:18px;display:flex;gap:14px;align-items:flex-start}
+.ck-q .qi{flex-shrink:0;width:40px;height:40px;border-radius:11px;background:rgba(244,192,75,.22);display:grid;place-items:center;font-size:1.25rem}
+.ck-q p{font-family:'Fraunces';font-style:italic;font-size:1.12rem;line-height:1.42;color:#FBF4E7}
+.ck-handles{margin-top:22px}
+.ck-handles h4{font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--sun);margin-bottom:12px;font-family:'Inter'}
+.ck-handles ul{list-style:none;display:grid;gap:11px}
+.ck-handles li{display:flex;gap:12px;align-items:flex-start;font-size:.96rem;color:rgba(251,244,231,.86);line-height:1.5}
+.ck-handles li .hic{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.10);display:grid;place-items:center;font-size:.95rem}
+.ck-note{font-size:.84rem;color:rgba(251,244,231,.6);margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12)}
+
+/* footer */
+.foot{text-align:center;padding:40px 24px;font-size:.82rem;color:var(--ink-soft);border-top:1px solid var(--line)}
+.foot .bm{font-family:'Fraunces';font-weight:600;color:var(--ink);font-size:1rem}
+
+/* ---------- responsive ---------- */
+@media(max-width:680px){
+  body{font-size:16px}
+  .section{padding:48px 0}
+  .cols,.cols-img,.tracks,.sci-grid{grid-template-columns:1fr}
+  .dg-what,.dg-driver .dd-body{grid-template-columns:1fr}
+  .dg-driver .dd-col.rem{border-left:none;border-top:1px solid var(--line)}
+  .cols-img{gap:18px}
+  .bridge{grid-column:auto}
+  .reflist{columns:1}
+  .promise .q{font-size:1.25rem}
+  .cover{min-height:88vh}
+  .cover-title h1{font-size:clamp(2.2rem,9vw,3.2rem)}
+  .said-item,.ow-row{grid-template-columns:1fr;gap:8px}
+  .said-a,.ow-a{justify-self:start;text-align:left;white-space:normal;max-width:100%}
+  .kunde-grid,.ck-toggle,.ck-ctrl-grid{grid-template-columns:1fr}
+}
+
+/* ---------- PRINT (A4) ---------- */
+@media print{
+  @page{size:A4 portrait;margin:14mm 14mm}
+  html,body{background:#fff;font-size:10.5pt}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding:0}
+  .section{padding:10mm 0;border-top:none}
+  .section + .section{border-top:1px solid var(--line)}
+  .cover{min-height:auto;height:255mm;page-break-after:always}
+  .card,.track,.rank-item,.bridge,.sci-card,.signal,.promise{box-shadow:none}
+  .section, .card, .track, .bridge, .sci-card, .rank-item, .signal, .promise, .closing, .honesty, .guide, .dg-what .dgw, .dg-role, .dg-care{page-break-inside:avoid}
+  .dg-driver{page-break-inside:avoid;box-shadow:none}
+  .dguide{background:var(--paper-2) !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h2,h3{page-break-after:avoid}
+  details.why{display:none}            /* uitklap niet in print */
+  .closing{page-break-before:always}
+  .ownwords{page-break-before:always;background:#F6EEDD}
+  .ow-group,.ow-list,.saidblock,.kunde,.ck-toggle,.ck-case,.ck-q,.ck-handles,.ck-control,.ck-ctrl-item{page-break-inside:avoid}
+  .contextkey{page-break-before:always;background:#23303A !important;color:#FBF4E7 !important}
+  .dguide{page-break-before:always;background:#F6EAD6 !important}
+  .dg-role{background:#23303A !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .kunde{box-shadow:none}
+  .science{page-break-before:always;background:#F3EAD9}
+  .reflist{columns:2;font-size:8pt}
+  a{color:var(--ink);text-decoration:none}
+  .no-print{display:none}
+}
+</style>
+</head>
+<body>
+<!-- ============ COVER ============ -->
+<header class="cover">
+  <div class="cover-img">
+    <img src="img/cover-foto.png" alt="Een jongere kijkt van achteren uit over een hedendaagse stad bij zonsondergang">
+  </div>
+  <div class="cover-top">
+    <span class="brandmark"><span class="dot"></span>T4Teens</span>
+    <div class="cover-title">
+      <span class="eyebrow">Jouw verkenning &middot; een momentopname</span>
+      <h1>Waar jij <span class="em">vandaag</span><br>energie van krijgt</h1>
+      <p class="cover-sub">Een eerlijke blik op wat je energie geeft &eacute;n waar je vandaag goed in bent &mdash; en welke paden de moeite zijn om te verkennen.</p>
+    </div>
+  </div>
+  <div class="cover-name">
+    <div class="who">Lana Verstraeten</div>
+    <div class="meta"><span>15 jaar</span>&middot;<span>3de middelbaar</span>&middot;<span>code T4T-2026-0148</span></div>
+  </div>
+</header>
+
+<!-- ============ INTRO / MOMENTOPNAME ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="openband">
+      Dit is <strong>geen rapport dat zegt wie je bent</strong>. Het is een foto van hoe jij dingen vandaag ziet. Over een jaar kan het beeld verschuiven &mdash; en dat is precies goed, want jij bent volop in ontwikkeling.
+    </div>
+    <p style="margin-top:24px;font-size:1.08rem;color:var(--ink-soft)">Hallo Lana. Je beantwoordde alle 25 vragen, dus dit beeld is mooi compleet. Lees rustig. Er zijn geen goede of foute antwoorden, en niets staat hier vast. Pak dit gerust later opnieuw vast, en deel het met iemand die je vertrouwt.</p>
+    <div class="listen" data-audio="audio-rapport/s0-intro.mp3" role="button" tabindex="0" aria-label="Luister naar deze uitleg" style="margin-top:18px">
+      <span class="l-btn">&#9658;</span>
+      <span><span class="l-txt">Liever luisteren naar deze uitleg?</span><br><span class="l-sub">ong. 27 sec &middot; Vlaamse stem</span></span>
+      <span class="l-prog"><i></i></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 1: ENERGIE ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="kicker"><span class="num">1</span>Jouw energie</span>
+    <h2>Waar laad je van op, waar loop je van leeg?</h2>
+    <p class="lede">Dit is de rode draad door alles wat hierna komt. Niet wat je <em>kan</em>, maar wat je <em>energie geeft</em>.</p>
+    <div class="listen" data-audio="audio-rapport/s1-energie.mp3" role="button" tabindex="0" aria-label="Luister naar deze uitleg">
+      <span class="l-btn">&#9658;</span>
+      <span><span class="l-txt">Liever luisteren?</span><br><span class="l-sub">ong. 40 sec</span></span>
+      <span class="l-prog"><i></i></span>
+    </div>
+
+    <div class="cols-img" style="margin-top:28px">
+      <div>
+        <div class="card">
+          <div class="battery-row">
+            <div>
+              <div class="batt-num">6<small>/10</small></div>
+              <div style="font-size:.9rem;color:var(--ink-soft);font-weight:500">jouw batterij vandaag</div>
+            </div>
+            <div class="battery">
+              <div class="batt-track"><div class="batt-fill" style="width:60%"></div></div>
+              <div class="batt-scale"><span>leeg</span><span>vol</span></div>
+            </div>
+          </div>
+          <p style="margin-top:18px;font-size:.96rem;color:var(--ink-soft)">Dit is je persoonlijke ijkpunt. Alles hieronder lees je <strong>ten opzichte van deze 6</strong> &mdash; niet ten opzichte van iemand anders.</p>
+        </div>
+      </div>
+      <div class="spot"><img src="img/abstract-energie.png" alt="Warme abstracte vormen die energie verbeelden"></div>
+    </div>
+
+    <div class="cols" style="margin-top:24px">
+      <div class="card card-tinted">
+        <h3 style="color:var(--sage-deep)">Hier laad je van op</h3>
+        <div class="energy-grid">
+          <div class="energy-item give"><div class="energy-ic">&#9889;</div><div class="energy-label">Nieuwe dingen bedenken</div><div class="energy-tag">veel energie</div><div class="energy-bar-wrap"><div class="energy-bar" style="width:100%"></div></div></div>
+          <div class="energy-item give"><div class="energy-ic">&#128172;</div><div class="energy-label">Iemand iets aanleren</div><div class="energy-tag">veel energie</div><div class="energy-bar-wrap"><div class="energy-bar" style="width:100%"></div></div></div>
+          <div class="energy-item give"><div class="energy-ic">&#129309;</div><div class="energy-label">Eén-op-één meedenken</div><div class="energy-tag">veel energie</div><div class="energy-bar-wrap"><div class="energy-bar" style="width:96%"></div></div></div>
+          <div class="energy-item give"><div class="energy-ic">&#10024;</div><div class="energy-label">Ergens in uitblinken</div><div class="energy-tag">veel energie</div><div class="energy-bar-wrap"><div class="energy-bar" style="width:94%"></div></div></div>
+        </div>
+      </div>
+      <div class="card card-tinted">
+        <h3 style="color:var(--coral-deep)">Hier loop je van leeg</h3>
+        <div class="energy-grid">
+          <div class="energy-item cost"><div class="energy-ic">&#128259;</div><div class="energy-label">Routineklussen herhalen</div><div class="energy-tag">kost veel energie</div><div class="energy-bar-wrap"><div class="energy-bar" style="width:100%"></div></div></div>
+          <div class="energy-item cost"><div class="energy-ic">&#129496;</div><div class="energy-label">Jezelf wegcijferen voor een ander</div><div class="energy-tag">kost stilletjes energie</div><div class="energy-bar-wrap"><div class="energy-bar" style="width:72%"></div></div></div>
+        </div>
+        <p style="margin-top:14px;font-size:.9rem;color:var(--ink-soft)">Dat tweede is subtiel. Daarover lees je zo meer bij <em>jouw motor</em>.</p>
+      </div>
+    </div>
+
+    <div class="saidblock">
+      <div class="said-head"><span>&#128172;</span>Dit gaf jij aan</div>
+      <div class="said-item"><div class="said-q">&ldquo;Ik vind het leuk om nieuwe dingen te bedenken die er nog niet zijn &mdash; daar kan ik in opgaan.&rdquo;</div><div class="said-a pos">geeft veel energie</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Ik vind het fijn om iemand iets te leren of uit te leggen.&rdquo;</div><div class="said-a pos">geeft veel energie</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Er moet iets concreet uitgevoerd worden &mdash; voel jij je daar goed bij?&rdquo;</div><div class="said-a neg">liever niet, te veel herhaling</div></div>
+      <div class="said-foot">Dit zijn jouw eigen antwoorden &mdash; ze verklaren waarom je batterij vooral oplaadt bij bedenken en uitleggen, en leegloopt bij herhaling.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 2: FOCI ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="kicker"><span class="num">2</span>Waar je energie naartoe wil</span>
+    <h2>Twee dingen springen er vandaag samen uit</h2>
+    <p class="lede">Deze twee zijn ongeveer even sterk &mdash; geen rangorde, ze horen bij elkaar.</p>
+    <div class="listen" data-audio="audio-rapport/s2-focus.mp3" role="button" tabindex="0" aria-label="Luister naar deze uitleg">
+      <span class="l-btn">&#9658;</span>
+      <span><span class="l-txt">Liever luisteren?</span><br><span class="l-sub">ong. 45 sec</span></span>
+      <span class="l-prog"><i></i></span>
+    </div>
+    <div class="taggroup" style="margin-top:22px">
+      <span class="bigtag shared"><span class="e">&#128161;</span>Nieuwe dingen bedenken &amp; maken</span>
+      <span class="bigtag shared"><span class="e">&#128218;</span>Iets aan anderen doorgeven</span>
+    </div>
+    <p style="margin-top:22px;max-width:54ch">Je krijgt vooral energie als je <strong>iets nieuws verzint én het aan iemand kan overbrengen</strong>. Wat je vandaag eerder leegtrekt, is werk dat veel herhaling vraagt zonder eigen inbreng. Dat hoeft niet zo te blijven &mdash; het is hoe het nu voelt.</p>
+
+    <div class="kunde">
+      <div class="k-head"><span class="ic">&#128170;</span><h3>En waar vind je vandaag dat je goed in bent?</h3></div>
+      <p class="k-lede">Energie is maar de helft van het verhaal. Dit is de andere helft: dingen waarvan je zelf aangaf dat ze je vandaag goed afgaan. Niet voor altijd, niet beter of slechter dan een ander &mdash; gewoon waar jij je nu sterk in voelt.</p>
+      <div class="kunde-grid">
+        <div class="kunde-item"><span class="ki">&#128161;</span><div><div class="kt">Nieuwe dingen bedenken</div><div class="kd">Iets verzinnen dat er nog niet is &mdash; bruikbaar of kunstzinnig.</div></div></div>
+        <div class="kunde-item"><span class="ki">&#128218;</span><div><div class="kt">Iemand iets aanleren</div><div class="kd">Uitleggen of voordoen, zeker wat je zelf goed snapt.</div></div></div>
+        <div class="kunde-item"><span class="ki">&#129309;</span><div><div class="kt">&Eacute;&eacute;n-op-&eacute;&eacute;n meedenken</div><div class="kd">Je inleven in iemand en mee een oplossing zoeken.</div></div></div>
+        <div class="kunde-item"><span class="ki">&#10024;</span><div><div class="kt">Ergens in uitblinken</div><div class="kd">Een aanpak vinden waar mensen van opkijken.</div></div></div>
+      </div>
+      <p class="k-foot"><strong>Dit is het TA-PAS-idee:</strong> niet alleen wat je energie geeft (je passie), maar ook wat je al kan (je kunde). Pas als die twee samenkomen, voelt een keuze echt als de jouwe. Daar gaat de volgende pagina over.</p>
+    </div>
+
+    <div class="saidblock">
+      <div class="said-head"><span>&#128172;</span>Dit gaf jij aan</div>
+      <div class="said-item"><div class="said-q">&ldquo;Ik vind het leuk om nieuwe dingen te bedenken die er nog niet zijn &mdash; daar kan ik in opgaan.&rdquo;</div><div class="said-a pos">helemaal ik &middot; veel energie</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Ik vind het fijn om iemand iets te leren of uit te leggen.&rdquo;</div><div class="said-a pos">helemaal ik &middot; veel energie</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Ik krijg er energie van om iets uit te zoeken of een probleem te ontrafelen.&rdquo;</div><div class="said-a neu">soms ik &middot; neutraal</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Iets alleen of samen met anderen doen &mdash; wat geeft jou meer energie?&rdquo;</div><div class="said-a pick">samen</div></div>
+      <div class="said-foot">Deze antwoorden tekenen samen je twee sterkste sporen: <strong>bedenken</strong> en <strong>doorgeven</strong> &mdash; het liefst samen met anderen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 3: MOTOR / DRIVERS ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="kicker"><span class="num">3</span>Jouw motor</span>
+    <h2>Soms een gaspedaal, soms een rem</h2>
+    <p class="lede">Een motor is geen bewuste keuze. Het is een patroon dat zich vanzelf aanzet &mdash; vaak zonder dat je het doorhebt. Soms stuwt het je voort, z&oacute;dat je je talenten volop kan inzetten. Soms zet het zich vast als een rem, waardoor net die talenten veel moeilijker bereikbaar worden.</p>
+    <div class="listen" data-audio="audio-rapport/s3-motor.mp3" role="button" tabindex="0" aria-label="Luister naar deze uitleg">
+      <span class="l-btn">&#9658;</span>
+      <span><span class="l-txt">Liever luisteren?</span><br><span class="l-sub">ong. 47 sec</span></span>
+      <span class="l-prog"><i></i></span>
+    </div>
+
+    <div class="cols-img" style="margin-top:26px">
+      <div class="motor-box">
+        <div class="pedal gas">
+          <span class="badge">gaspedaal</span>
+          <div>
+            <h3>Je wil dingen graag goed doen</h3>
+            <p class="sub">geeft je richting &middot; helpt je vooruit</p>
+            <p style="margin-top:8px;font-size:.95rem;color:var(--ink-soft)">Deze motor zet je in beweging: je hebt oog voor kwaliteit en wil dingen kloppend maken. Zolang die je vooruit duwt, is dat een kracht.</p>
+          </div>
+        </div>
+        <div class="pedal brake">
+          <span class="badge">soms een rem</span>
+          <div>
+            <h3>Je wil het voor anderen goed maken</h3>
+            <p class="sub">mooi &mdash; maar het kan je vandaag energie kosten</p>
+            <p style="margin-top:8px;font-size:.95rem;color:var(--ink-soft)">Je houdt rekening met anderen, en dat is waardevol. Vandaag merk je wel dat je jezelf daarbij soms wegcijfert &mdash; en dat trekt stilletjes aan je batterij.</p>
+          </div>
+        </div>
+      </div>
+      <div class="spot"><img src="img/abstract-motor.png" alt="Abstracte verstrengelde vormen die innerlijke drivers verbeelden"></div>
+    </div>
+
+    <div class="signal" style="margin-top:24px">
+      <div class="star">&#10024;</div>
+      <div>
+        <h3>Een zacht signaal, geen waarschuwing</h3>
+        <p>Je sterkste motor &mdash; het goed willen maken voor anderen &mdash; staat vandaag een beetje op de rem. Dat betekent niet dat er iets mis is met j&oacute;u. Het is vaak een teken dat je omgeving je op dit moment net niet geeft wat deze motor nodig heeft. De volgende pagina laat zien wat dat precies is &mdash; en wat je eraan kan doen.</p>
+      </div>
+    </div>
+
+    <div class="saidblock">
+      <div class="said-head"><span>&#128172;</span>Dit gaf jij aan</div>
+      <p style="font-size:.92rem;color:var(--ink-soft);margin:-4px 0 14px;line-height:1.5">Dit is <strong>geen oordeel en geen test</strong>. Het zijn gewoon jouw eigen antwoorden, zodat je herkent waar je motor vandaan komt. Lees ze rustig &mdash; en pik eruit wat klopt.</p>
+      <div class="said-item"><div class="said-q">&ldquo;Ik wil dat iets echt klopt voordat ik het loslaat &mdash; ook al kost dat meer tijd.&rdquo;</div><div class="said-a neu">vaak ik</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Ik vind het fijn als iedereen om me heen het naar zijn zin heeft, soms zet ik mezelf daarvoor opzij.&rdquo;</div><div class="said-a neu">helemaal ik</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Jullie moeten met de groep iets oplossen en het loopt vast. Wat doe jij het liefst?&rdquo;</div><div class="said-a pick">&ldquo;Ik vraag of we het samen kunnen aanpakken.&rdquo;</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Je hebt iemand iets beloofd, maar er komt iets leukers tussen. Wat doe jij?&rdquo;</div><div class="said-a pick">&ldquo;Ik doe wat ik beloofd had &mdash; een belofte is een belofte.&rdquo;</div></div>
+      <div class="said-foot">Je wil dingen goed doen <em>en</em> goed maken voor anderen. Allebei mooi &mdash; let er enkel op dat het tweede je vandaag niet stilletjes leegtrekt.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTEXTSLEUTEL: motor op de rem & context ============ -->
+<section class="section contextkey">
+  <div class="wrap">
+    <span class="kicker"><span class="num">&#128273;</span>Waarom de omgeving alles verandert</span>
+    <h2>Wanneer je motor je voortstuwt &mdash; en wanneer hij remt</h2>
+    <p class="ck-lede">Dit is misschien wel het belangrijkste van dit hele rapport. Een motor is een <strong>onbewust patroon</strong>: iets dat zich vanzelf aanzet, zonder dat je het kiest. En hij heeft &eacute;&eacute;n ding nodig om je vooruit te helpen &mdash; het gevoel dat je <strong>genoeg controle</strong> hebt in de situatie waarin je zit. Krijgt hij dat gevoel, dan stuwt hij je voort. Krijgt hij het niet, dan slaat dezelfde motor om in een rem.</p>
+    <div class="listen" data-audio="audio-rapport/s4-controle.mp3" role="button" tabindex="0" aria-label="Luister naar deze uitleg">
+      <span class="l-btn">&#9658;</span>
+      <span><span class="l-txt">Liever luisteren?</span><br><span class="l-sub">ong. 54 sec</span></span>
+      <span class="l-prog"><i></i></span>
+    </div>
+
+    <div class="ck-toggle">
+      <div class="ck-state gas">
+        <span class="lab"><span>&#9889;</span>voelt hij genoeg controle</span>
+        <p>Geeft je omgeving je het gevoel dat je grip hebt op wat je doet, dan stuwt je motor je voort &mdash; en kan je je talenten volop inzetten. Je voelt je sterk, kiezen gaat makkelijker, en dingen gaan vanzelf wat vlotter.</p>
+      </div>
+      <div class="ck-state rem">
+        <span class="lab"><span>&#128721;</span>voelt hij die controle niet</span>
+        <p>Mist dat gevoel van controle, dan zet diezelfde motor zich vast als een rem. Vaak zonder dat je het doorhebt, worden net je talenten dan veel moeilijker bereikbaar &mdash; en voelt bijna alles zwaarder dan het zou moeten.</p>
+      </div>
+    </div>
+
+    <div class="ck-control">
+      <h4>Elke motor zoekt een ander soort controle</h4>
+      <p class="ck-control-lede">Daarom remt niet iedereen in dezelfde situatie. Het hangt ervan af wat j&oacute;uw motor nodig heeft. Bij jou spelen er vandaag twee &mdash; en elk stelt onbewust een eigen vraag aan je omgeving:</p>
+      <div class="ck-ctrl-grid">
+        <div class="ck-ctrl-item">
+          <span class="cc-tag rem-tag">vandaag op de rem</span>
+          <h5>Het goed willen maken voor anderen</h5>
+          <p class="cc-q">&ldquo;Voelt het hier veilig genoeg, en is er een beetje harmonie om me heen?&rdquo;</p>
+          <p class="cc-d">Deze motor stuwt je voort in een sfeer waar je je veilig en gewaardeerd voelt. Voel je spanning of moet je het iedereen naar de zin maken, dan cijfer je jezelf weg &mdash; en gaat hij remmen.</p>
+        </div>
+        <div class="ck-ctrl-item">
+          <span class="cc-tag gas-tag">vandaag voortstuwend</span>
+          <h5>Dingen zo juist mogelijk willen doen</h5>
+          <p class="cc-q">&ldquo;Is dit een plek waar ik de tijd en ruimte krijg om iets echt goed te doen?&rdquo;</p>
+          <p class="cc-d">Deze motor stuwt je voort als je mag uitblinken in kwaliteit. Krijg je daar geen ruimte voor &mdash; alles snel-snel, geen tijd om het kloppend te maken &mdash; dan zou ook hij kunnen gaan remmen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ck-case">
+      <h3>Wat dit voor jou betekent, Lana</h3>
+      <p>Jouw sterkste motor is vandaag <strong>het goed willen maken voor anderen</strong> &mdash; en die staat nu een beetje op de rem. Dat is geen fout en niets om je zorgen over te maken. Maar het is wel iets om te kennen.</p>
+      <p>Want als die motor remt, bestaat het risico dat je keuzes maakt om <em>iemand anders niet teleur te stellen</em>, eerder dan vanuit wat jij zelf wil of kan. Stel je voor dat iemand die je graag ziet hoopt dat je een bepaalde richting kiest. Dan kan je &mdash; zonder het echt te willen &mdash; ja zeggen, omdat nee zeggen moeilijk voelt. Dat is precies waar deze motor je vandaag kwetsbaar maakt.</p>
+      <div class="ck-q">
+        <div class="qi">&#128173;</div>
+        <p>&ldquo;Is deze keuze echt van mij &mdash; of kies ik vooral om iemand anders niet teleur te stellen?&rdquo;</p>
+      </div>
+    </div>
+
+    <div class="ck-handles">
+      <h4>Hoe je hiermee aan de slag gaat &mdash; samen</h4>
+      <ul>
+        <li><span class="hic">&#128172;</span><span>Leg deze pagina eens naast iemand die je vertrouwt &mdash; een ouder, leerkracht of je CLB &mdash; en bespreek die ene vraag hierboven eerlijk.</span></li>
+        <li><span class="hic">&#129504;</span><span>Merk je dat een richting vooral van iemand anders komt? Dat mag je benoemen. Het hoeft geen ruzie te zijn &mdash; het is net een teken dat je jezelf serieus neemt.</span></li>
+        <li><span class="hic">&#127793;</span><span>En aan wie meeleest: de sterkste hulp die je een jongere kan geven, is ruimte om vanuit zichzelf te kiezen. Niet wat &eacute;cht moet, maar wat echt past.</span></li>
+      </ul>
+    </div>
+
+    <p class="ck-note">Dit is een momentopname, geen diagnose &mdash; en zeker geen oordeel over wie dan ook. Een motor die vandaag remt, kan morgen weer voortstuwen zodra de omgeving meebeweegt. Wil je (of iemand die met je meekijkt) precies begrijpen hoe deze motoren werken en wat elke motor nodig heeft? Achteraan in dit rapport staat een pagina die dat helemaal uitlegt.</p>
+  </div>
+</section>
+
+
+<!-- ============ TOPIC 5: VERSNELLERS / STUDIESTRATEGIE ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="kicker"><span class="num">4</span>Hoe jij het best leert</span>
+    <h2>Jouw manier om sneller en met minder gedoe te studeren</h2>
+    <p class="lede">Wat er vandaag het meest uitspringt staat bovenaan. Daaronder twee dingen die ongeveer even sterk zijn.</p>
+    <div class="listen" data-audio="audio-rapport/s5-studeren.mp3" role="button" tabindex="0" aria-label="Luister naar deze uitleg">
+      <span class="l-btn">&#9658;</span>
+      <span><span class="l-txt">Liever luisteren?</span><br><span class="l-sub">ong. 39 sec</span></span>
+      <span class="l-prog"><i></i></span>
+    </div>
+
+    <div class="rank" style="margin-top:24px">
+      <div class="rank-item top">
+        <div class="rank-pos">1</div>
+        <div class="rank-body">
+          <div class="t">Samen leren &amp; uitleggen</div>
+          <div class="d">Dit springt vandaag duidelijk vooraan uit.</div>
+        </div>
+        <span class="chip bal">geeft energie</span>
+      </div>
+      <div class="rank-item">
+        <div class="rank-pos">2</div>
+        <div class="rank-body">
+          <div class="t">Er je eigen versie van maken</div>
+          <div class="d">Ongeveer even sterk als #3 &mdash; samen een middengroep.</div>
+        </div>
+        <span class="chip tied">ongeveer gelijk</span>
+      </div>
+      <div class="rank-item">
+        <div class="rank-pos">3</div>
+        <div class="rank-body">
+          <div class="t">Mee orde &amp; overzicht brengen</div>
+          <div class="d">Ongeveer even sterk als #2 &mdash; nog wat op de achtergrond.</div>
+        </div>
+        <span class="chip lat">latent</span>
+      </div>
+    </div>
+
+    <div class="promise" style="margin-top:26px">
+      <div class="q">&ldquo;Leer samen, leg het aan iemand uit, en praat erover. En maak er gerust je eigen versie van &mdash; hertekenen mag.&rdquo;</div>
+      <div class="who">Jouw studiestrategie, op dit moment</div>
+    </div>
+    <div class="note">Dit is geen vaste volgorde. Wat hier &ldquo;ongeveer even sterk&rdquo; is, kan een volgende keer net anders liggen. Dat hoort erbij.</div>
+
+    <div class="saidblock">
+      <div class="said-head"><span>&#128172;</span>Dit gaf jij aan</div>
+      <div class="said-item"><div class="said-q">&ldquo;Ik leer het best als ik er met iemand over kan praten of het mag uitleggen.&rdquo;</div><div class="said-a pos">helemaal ik &middot; veel energie</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Ik bedenk vaak een eigen, andere manier om iets aan te pakken.&rdquo;</div><div class="said-a pos">helemaal ik &middot; veel energie</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Ik help graag dat alles vlot en geordend loopt voor de groep.&rdquo;</div><div class="said-a neu">vaak ik &middot; neutraal</div></div>
+      <div class="said-foot">Hieruit komt je studiestrategie: <strong>samen leren en uitleggen</strong> staat vooraan, en je maakt er graag je eigen versie van.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 4: INTERESSE + STUDIEVERKENNING ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="kicker"><span class="num">5</span>Welke studieomgeving past bij jou &mdash; vandaag?</span>
+    <h2>Geen keuze die je nu moet maken. Paden om te gaan verkennen.</h2>
+    <div class="listen" data-audio="audio-rapport/s6-verkennen.mp3" role="button" tabindex="0" aria-label="Luister naar deze uitleg">
+      <span class="l-btn">&#9658;</span>
+      <span><span class="l-txt">Liever luisteren?</span><br><span class="l-sub">ong. 42 sec</span></span>
+      <span class="l-prog"><i></i></span>
+    </div>
+
+    <div class="openband" style="margin:18px 0 26px">
+      Dit zijn <strong>geen &ldquo;jouw richtingen&rdquo;</strong>. Het zijn omgevingen die vandaag passen bij hoe jij dingen ziet &mdash; de moeite om eens van dichtbij te bekijken. Niets is uitgesloten, en je mag zelf kiezen.
+    </div>
+
+    <div class="explore-hero"><img src="img/abstract-paden.png" alt="Abstracte gekleurde linten die samenkomen en uitwaaieren als paden om te verkennen"></div>
+
+    <div class="tracks">
+
+      <div class="track t-creatief">
+        <div class="track-head">
+          <div class="track-ic">&#127912;</div>
+          <div>
+            <h3>Iets eigens maken</h3>
+            <span class="conf bevestigd">springt duidelijk uit</span>
+          </div>
+        </div>
+        <div class="clusters">Kunst, vormgeving, media, architectuur, talen &amp; cultuur &mdash; omgevingen waar je iets nieuws of eigens mag maken.</div>
+        <div class="meta-row">
+          <div class="mr"><span class="ic">&#128161;</span><span><strong>Jouw stijl hierin:</strong> je verzint graag iets nieuws en maakt er je eigen versie van.</span></div>
+          <div class="mr"><span class="energy-pill geeft">&#9889; geeft je waarschijnlijk energie</span></div>
+          <div class="mr"><span class="ic">&#129517;</span><span>Ontdek dit eens: kijk rond op Onderwijskiezer of praat met iemand die in zo&rsquo;n richting zit.</span></div>
+        </div>
+      </div>
+
+      <div class="track t-sociaal">
+        <div class="track-head">
+          <div class="track-ic">&#128172;</div>
+          <div>
+            <h3>Iets betekenen voor mensen</h3>
+            <span class="conf bevestigd">springt duidelijk uit</span>
+          </div>
+        </div>
+        <div class="clusters">Onderwijs, communicatie, begeleiding, zorg &amp; welzijn &mdash; omgevingen waar je anderen iets aanleert of helpt.</div>
+        <div class="meta-row">
+          <div class="mr"><span class="ic">&#128218;</span><span><strong>Jouw stijl hierin:</strong> je legt graag uit en leert samen met anderen.</span></div>
+          <div class="mr"><span class="energy-pill geeft">&#9889; geeft je waarschijnlijk energie</span></div>
+          <div class="mr"><span class="ic">&#129517;</span><span>Ontdek dit eens: vraag een leerkracht hoe zo&rsquo;n richting eruitziet, of zoek een workshop.</span></div>
+        </div>
+      </div>
+
+      <!-- BRUG-SPOOR -->
+      <div class="bridge">
+        <span class="flag">&#128279; waar jouw twee sporen samenkomen</span>
+        <h3>Iets maken &eacute;n het doorgeven</h3>
+        <p style="margin-top:8px;max-width:60ch">Je twee sterkste sporen ontmoeten elkaar hier: omgevingen waar <strong>creatie en overdracht samenkomen</strong>. Denk aan (kunst)educatie, communicatie &amp; media, of vormgeving met een didactische kant &mdash; iets bedenken en het aan anderen overbrengen. Dit is wellicht het meest motiverende spoor, want het toont hoe jouw twee kanten in elkaar passen.</p>
+        <div style="margin-top:16px"><span class="energy-pill geeft">&#9889; sluit aan bij allebei je energiebronnen</span></div>
+      </div>
+
+      <div class="track t-verbredend" style="grid-column:1 / -1">
+        <div class="track-head">
+          <div class="track-ic">&#127757;</div>
+          <div>
+            <h3>Misschien ook interessant</h3>
+            <span class="conf verbredend">verbredend &mdash; nooit afgesloten</span>
+          </div>
+        </div>
+        <div class="clusters">Richtingen rond <strong>onderzoek met een creatieve invalshoek</strong> (uitzoeken hoe iets in elkaar zit, op je eigen manier) zijn vandaag minder uitgesproken, maar zeker het bekijken waard. En denk eraan: een richting die nu niet oplicht, kan later wél bij je passen. Niets staat hier dicht.</div>
+      </div>
+
+    </div>
+
+    <div class="guide" style="margin-top:26px">
+      <h3>Wat doe je hier nu mee?</h3>
+      <ul>
+        <li><span class="ic">&#128172;</span><span>Leg dit naast je <strong>eigen ervaring</strong> &eacute;n de blik van mensen die je vertrouwt &mdash; ouders, een leerkracht, je CLB of een mentor.</span></li>
+        <li><span class="ic">&#128270;</span><span>Verken concrete opleidingen verder op <strong>Onderwijskiezer</strong>, het Vlaamse platform van de CLB&rsquo;s.</span></li>
+        <li><span class="ic">&#128197;</span><span>Doe deze verkenning over ongeveer een jaar gerust opnieuw. Verschuift het beeld? Dat is normaal &mdash; jij groeit.</span></li>
+      </ul>
+    </div>
+
+    <details class="why">
+      <summary><span class="tw">&#9654;</span> Waarom we het zó tonen (voor wie het wil weten)</summary>
+      <div class="body">
+        <p>We tonen bewust <strong>meerdere paden, geen ranglijst en geen &ldquo;jouw richting&rdquo;</strong>. De sterkste, breedst onderzochte basis voor welk studiedomein bij iemand past, zijn interesses (het RIASEC-model). Jouw manier van werken en je energie verfijnen daarbij <em>hoe</em> een omgeving zou aanvoelen &mdash; dat is een onderbouwde hypothese, geen voorspelling. Daarom verkennen we, in plaats van te voorspellen. Meer hierover lees je op de laatste pagina.</p>
+      </div>
+    </details>
+
+    <div class="saidblock">
+      <div class="said-head"><span>&#127919;</span>Dit gaf jij aan</div>
+      <div class="said-item"><div class="said-q">&ldquo;Iets creatiefs doen: film, muziek, toneel, schilderen of vormgeven.&rdquo;</div><div class="said-a pos">ja, trekt me aan</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Met en voor mensen bezig zijn: helpen, verzorgen, begeleiden.&rdquo;</div><div class="said-a pos">ja, trekt me aan</div></div>
+      <div class="said-item"><div class="said-q">&ldquo;Uitzoeken hoe iets werkt: onderzoek, computers, meten of berekenen.&rdquo;</div><div class="said-a neu">een beetje</div></div>
+      <div class="said-foot">Deze twee &ldquo;ja&rsquo;s&rdquo; geven de richting aan van de sporen hierboven &mdash; iets eigens maken, en iets betekenen voor mensen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 6: ZELFBEELD ============ -->
+<section class="section">
+  <div class="wrap">
+    <span class="kicker"><span class="num">6</span>Jouw beeld, even samengevat</span>
+    <h2>Twee kanten die mooi samenhangen</h2>
+    <div class="listen" data-audio="audio-rapport/s7-slot.mp3" role="button" tabindex="0" aria-label="Luister naar deze uitleg">
+      <span class="l-btn">&#9658;</span>
+      <span><span class="l-txt">Liever luisteren?</span><br><span class="l-sub">ong. 27 sec</span></span>
+      <span class="l-prog"><i></i></span>
+    </div>
+    <div class="cols-img" style="margin-top:22px">
+      <div>
+        <p style="font-size:1.05rem">Twee dingen lopen als een rode draad door je antwoorden, en ze versterken elkaar:</p>
+        <div class="taggroup" style="margin:16px 0">
+          <span class="bigtag"><span class="e">&#127912;</span>de maker</span>
+          <span class="bigtag"><span class="e">&#128172;</span>de doorgever</span>
+        </div>
+        <p style="color:var(--ink-soft)">Je verzint graag iets nieuws, &eacute;n je wil het delen met anderen. Die twee komen op meerdere plekken in je antwoorden samen naar boven &mdash; dat maakt dit een stevig stuk van hoe je vandaag in elkaar zit. Andere kanten van jou zijn nog volop in beweging, en dat hoort er helemaal bij.</p>
+      </div>
+      <div class="spot"><img src="img/abstract-samen.png" alt="Twee warme en koele vormen die elkaar ontmoeten en samenkomen"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IN JOUW EIGEN WOORDEN ============ -->
+<section class="section ownwords">
+  <div class="wrap">
+    <span class="kicker"><span class="num">&#9998;</span>In jouw eigen woorden</span>
+    <h2>Alles wat je koos, op een rij</h2>
+    <p class="ow-intro">Hierboven las je wat jouw antwoorden <em>betekenen</em>. Hier zie je ze gewoon zoals jij ze koos &mdash; per thema gebundeld. Niet om te scoren, wel om iets concreets in handen te hebben als je hierover wil praten.</p>
+
+    <div class="ow-prompt">
+      <div class="q">&#128172;</div>
+      <p>Welke stelling herken je het sterkst? En is er er &eacute;&eacute;n die je verbaast? Neem die mee in een gesprek met je ouders, een leerkracht of je CLB.</p>
+    </div>
+
+    <div class="ow-group">
+      <h3><span class="gic">&#128267;</span>Jouw energie vandaag</h3>
+      <p class="gsub">Je persoonlijke ijkpunt waartegen je de rest leest.</p>
+      <div class="ow-list">
+        <div class="ow-row"><div class="ow-q">&ldquo;Hoe vol zit je batterij vandaag?&rdquo;</div><div class="ow-a batt">6 / 10</div></div>
+      </div>
+    </div>
+
+    <div class="ow-group">
+      <h3><span class="gic">&#9889;</span>Waar je energie naartoe wil</h3>
+      <p class="gsub">Wat je wil doen &mdash; en wat je vandaag eerder leegtrekt.</p>
+      <div class="ow-list">
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik vind het leuk om nieuwe dingen te bedenken die er nog niet zijn.&rdquo;</div><div class="ow-a pos">helemaal ik &middot; veel energie</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik vind het fijn om iemand iets te leren of uit te leggen.&rdquo;</div><div class="ow-a pos">helemaal ik &middot; veel energie</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik krijg er energie van om iets uit te zoeken of een probleem te ontrafelen.&rdquo;</div><div class="ow-a neu">soms ik &middot; neutraal</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Er moet iets concreet gemaakt of uitgevoerd worden &mdash; voel jij je daar goed bij?&rdquo;</div><div class="ow-a neg">liever niet, te veel herhaling</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Iets alleen of samen met anderen doen &mdash; wat geeft jou meer energie?&rdquo;</div><div class="ow-a pick">samen</div></div>
+      </div>
+    </div>
+
+    <div class="ow-group">
+      <h3><span class="gic">&#9881;</span>Jouw motor</h3>
+      <p class="gsub">Wat het soms even van je overneemt &mdash; geen oordeel, gewoon hoe jij het aangaf.</p>
+      <div class="ow-list">
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik wil dat iets echt klopt voordat ik het loslaat &mdash; ook al kost dat meer tijd.&rdquo;</div><div class="ow-a neu">vaak ik</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik vind het fijn als iedereen om me heen het naar zijn zin heeft, soms zet ik mezelf daarvoor opzij.&rdquo;</div><div class="ow-a neu">helemaal ik</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Er is iemand naar wie ik opkijk &mdash; als die in mij gelooft, doe ik alles om te tonen wat ik kan.&rdquo;</div><div class="ow-a neu">soms wel</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Wachten en traag vooruitgaan vind ik lastig &mdash; het mag voor mij snel gaan.&rdquo;</div><div class="ow-a neu">soms wel</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;De groep loopt vast &mdash; wat doe jij het liefst?&rdquo;</div><div class="ow-a pick">&ldquo;Samen aanpakken&rdquo;</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Je hebt iets beloofd, maar er komt iets leukers tussen.&rdquo;</div><div class="ow-a pick">&ldquo;Ik doe wat ik beloofd had&rdquo;</div></div>
+      </div>
+    </div>
+
+    <div class="ow-group">
+      <h3><span class="gic">&#128218;</span>Hoe jij het best leert</h3>
+      <p class="gsub">Jouw manier om met minder gedoe te studeren.</p>
+      <div class="ow-list">
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik leer het best als ik er met iemand over kan praten of het mag uitleggen.&rdquo;</div><div class="ow-a pos">helemaal ik &middot; veel energie</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik bedenk vaak een eigen, andere manier om iets aan te pakken.&rdquo;</div><div class="ow-a pos">helemaal ik &middot; veel energie</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik help graag dat alles vlot en geordend loopt voor de groep.&rdquo;</div><div class="ow-a neu">vaak ik &middot; neutraal</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik wil eerst snappen hoe iets in elkaar zit voor ik begin.&rdquo;</div><div class="ow-a neu">soms ik</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik wil dat wat ik doe echt iets verandert of betekent &mdash; dan zet ik door.&rdquo;</div><div class="ow-a neu">soms ik &middot; geeft energie</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Ik wil vooral zien wat het oplevert; ik werk graag naar een duidelijk eindresultaat toe.&rdquo;</div><div class="ow-a neu">soms ik &middot; neutraal</div></div>
+      </div>
+    </div>
+
+    <div class="ow-group">
+      <h3><span class="gic">&#127919;</span>Wat je aantrekt</h3>
+      <p class="gsub">Soorten dingen waar je vandaag warm voor loopt.</p>
+      <div class="ow-list">
+        <div class="ow-row"><div class="ow-q">&ldquo;Iets creatiefs doen: film, muziek, toneel, schilderen of vormgeven.&rdquo;</div><div class="ow-a pos">ja, trekt me aan</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Met en voor mensen bezig zijn: helpen, verzorgen, begeleiden.&rdquo;</div><div class="ow-a pos">ja, trekt me aan</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Dingen maken, bouwen, herstellen of met je handen en machines werken.&rdquo;</div><div class="ow-a neu">een beetje</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Uitzoeken hoe iets werkt: onderzoek, computers, meten of berekenen.&rdquo;</div><div class="ow-a neu">een beetje</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;De leiding nemen, overtuigen, iets organiseren of ondernemen.&rdquo;</div><div class="ow-a neu">een beetje</div></div>
+        <div class="ow-row"><div class="ow-q">&ldquo;Orde en overzicht houden: plannen, administratie, alles op zijn plek.&rdquo;</div><div class="ow-a neg">niet voor mij</div></div>
+      </div>
+    </div>
+
+    <div class="ow-group">
+      <h3><span class="gic">&#127757;</span>Wat je wil betekenen</h3>
+      <p class="gsub">Waar je iets zou willen betekenen.</p>
+      <div class="ow-list">
+        <div class="ow-row"><div class="ow-q">&ldquo;Waar zou jij iets willen betekenen voor anderen of voor de wereld?&rdquo;</div><div class="ow-a pick">iets betekenen voor anderen</div></div>
+      </div>
+    </div>
+
+    <div class="ow-legend">
+      <span><i style="background:rgba(126,155,110,.6)"></i> geeft je energie</span>
+      <span><i style="background:rgba(226,121,92,.6)"></i> kost je energie / minder voor jou</span>
+      <span><i style="background:rgba(62,124,166,.5)"></i> neutraal of tussenin</span>
+      <span><i style="background:rgba(244,192,75,.7)"></i> jouw keuze in een situatie</span>
+    </div>
+
+    <p style="margin-top:22px;font-size:.9rem;color:var(--ink-soft);max-width:60ch">Onthoud: dit is een <strong>momentopname</strong>. Niets hiervan staat vast, en over een jaar kan je sommige antwoorden anders invullen. Dat is precies de bedoeling.</p>
+  </div>
+</section>
+
+<!-- ============ TOPIC 7: SLOTBOODSCHAP ============ -->
+<section class="closing">
+  <div class="seal">&#10024;</div>
+  <div class="display">Jij kan iets &mdash; en je betekent iets.</div>
+  <p>Je kan nieuwe dingen bedenken en ze aan anderen doorgeven. En je betekent iets, juist voor de mensen om je heen. Dat neem je mee, vandaag en verder.</p>
+</section>
+
+<!-- ============ BEGELEIDERSPAGINA: HET VOLLEDIGE MOTOR-VERHAAL ============ -->
+<section class="section dguide">
+  <div class="wrap">
+    <span class="badge">Verdieping &middot; voor jou en wie met je meekijkt</span>
+    <h2>Het volledige verhaal van je motoren</h2>
+    <p class="dg-lede">Iedereen heeft van jongs af aan een paar &lsquo;motoren&rsquo; geleerd: manieren om met de wereld om te gaan die ooit hielpen om erbij te horen en gewaardeerd te worden. Hieronder lees je rustig wat een motor precies is, waar hij vandaan komt, en &mdash; het belangrijkste &mdash; wanneer hij je vooruit duwt en wanneer hij juist op de rem gaat staan. Deze pagina is er net zo goed voor je ouders, leerkrachten en coaches, want net zij kunnen je hierin enorm helpen.</p>
+
+    <div class="dg-what">
+      <div class="dgw">
+        <h4><span class="dgi">&#9881;</span>Wat is een motor?</h4>
+        <p>Een motor is een <strong>onbewust gedragspatroon</strong> &mdash; geen bewuste keuze en zeker geen karaktertrekje dat je voor altijd vastlegt. Het is een soort automatische reactie die in actie schiet zonder dat je het doorhebt. Daarom voelt het soms alsof iets je &lsquo;overkomt&rsquo;.</p>
+      </div>
+      <div class="dgw">
+        <h4><span class="dgi">&#127793;</span>Waar komt hij vandaan?</h4>
+        <p>Een motor is meestal <strong>vroeg in je leven aangeleerd</strong>: je merkte dat je waardering, rust of erkenning kreeg als je je op een bepaalde manier gedroeg. Dat patroon ging je herhalen. Het is dus iets wat je hebt gel&eacute;&eacute;rd &mdash; en wat je dus ook anders kunt leren hanteren.</p>
+      </div>
+      <div class="dgw">
+        <h4><span class="dgi">&#9888;</span>Wat zet hem op de rem?</h4>
+        <p>Een motor gaat pas <strong>remmen</strong> wanneer de omgeving je geen gevoel van controle geeft. Dan wordt het patroon overactief en kost het zoveel energie dat je talenten veel moeilijker aanspreekbaar worden. Krijg je dat gevoel van controle w&eacute;l, dan duwt diezelfde motor je juist vooruit.</p>
+      </div>
+      <div class="dgw">
+        <h4><span class="dgi">&#128161;</span>Waarom is dit belangrijk?</h4>
+        <p>Als je je motor leert herkennen, hoef je er niet meer door &lsquo;gestuurd&rsquo; te worden. Je kunt dan zelf merken: &lsquo;ah, mijn motor wordt nu onrustig&rsquo; &mdash; en bewust kiezen wat je doet. Dat noemen we <strong>zelfregulatie</strong>, en het is iets wat je beetje bij beetje kunt opbouwen.</p>
+      </div>
+    </div>
+
+    <h3 class="dg-section-h">De vijf motoren en wat elk nodig heeft</h3>
+    <p class="dg-section-sub">Iedereen draagt deze motoren in zich, de een sterker dan de ander. Voor elke motor geldt: dezelfde motor stuwt je voort &eacute;n kan je afremmen &mdash; het verschil zit in of de omgeving je dat ene gevoel van controle geeft dat die motor nodig heeft.</p>
+
+    <div class="dg-driver">
+      <div class="dd-head">
+        <span class="dd-name">Dingen zo juist mogelijk willen doen</span>
+        <span class="dd-need">onbewuste vraag: &ldquo;Is dit een plek waar ik tijd en ruimte krijg om iets echt goed te doen?&rdquo;</span>
+      </div>
+      <div class="dd-body">
+        <div class="dd-col gas"><span class="dd-lab">&#9650; stuwt voort als&hellip;</span><p>er ruimte en tijd is om iets zorgvuldig te doen. Dan worden talenten als nauwkeurigheid en oog voor kwaliteit maximaal aanspreekbaar.</p></div>
+        <div class="dd-col rem"><span class="dd-lab">&#9632; remt als&hellip;</span><p>alles overhaast moet of slordigheid wordt verwacht. De motor blijft dan maar checken of het wel goed genoeg is, en dat put uit.</p></div>
+      </div>
+    </div>
+
+    <div class="dg-driver">
+      <div class="dd-head">
+        <span class="dd-name">Het goed willen maken voor anderen</span>
+        <span class="dd-need">onbewuste vraag: &ldquo;Voelt het hier veilig en is er harmonie om mij heen?&rdquo;</span>
+      </div>
+      <div class="dd-body">
+        <div class="dd-col gas"><span class="dd-lab">&#9650; stuwt voort als&hellip;</span><p>de sfeer veilig en warm is. Dan komen talenten als aanvoelen, verbinden en samenwerken helemaal tot leven.</p></div>
+        <div class="dd-col rem"><span class="dd-lab">&#9632; remt als&hellip;</span><p>er spanning of conflict hangt. De motor gaat dan zichzelf wegcijferen om de vrede te bewaren, waardoor eigen talenten op de achtergrond raken.</p></div>
+      </div>
+    </div>
+
+    <div class="dg-driver">
+      <div class="dd-head">
+        <span class="dd-name">Willen schitteren voor iemand die je vertrouwt</span>
+        <span class="dd-need">onbewuste vraag: &ldquo;Voor wie mag ik laten zien wat ik kan &mdash; wie geeft mij dat vertrouwen?&rdquo;</span>
+      </div>
+      <div class="dd-body">
+        <div class="dd-col gas"><span class="dd-lab">&#9650; stuwt voort als&hellip;</span><p>er iemand is die echt in je gelooft. Voor die persoon haal je het beste uit jezelf en groeien je talenten zichtbaar.</p></div>
+        <div class="dd-col rem"><span class="dd-lab">&#9632; remt als&hellip;</span><p>dat vertrouwen er niet is of wegvalt. Dan zoekt de motor naar bevestiging in plaats van naar wat je eigenlijk wil doen, en dat kost energie.</p></div>
+      </div>
+    </div>
+
+    <div class="dg-driver">
+      <div class="dd-head">
+        <span class="dd-name">Veel tegelijk willen en snel resultaat</span>
+        <span class="dd-need">onbewuste vraag: &ldquo;Is er genoeg afwisseling en duurt dit niet te lang?&rdquo;</span>
+      </div>
+      <div class="dd-body">
+        <div class="dd-col gas"><span class="dd-lab">&#9650; stuwt voort als&hellip;</span><p>er tempo en variatie is. Dan komen talenten als snel schakelen, energie brengen en knopen doorhakken helemaal tot hun recht.</p></div>
+        <div class="dd-col rem"><span class="dd-lab">&#9632; remt als&hellip;</span><p>iets traag of eentonig wordt. De motor wordt ongeduldig en jaagt door, waardoor dingen half afgemaakt blijven.</p></div>
+      </div>
+    </div>
+
+    <div class="dg-driver">
+      <div class="dd-head">
+        <span class="dd-name">Zelf de verantwoordelijkheid willen nemen</span>
+        <span class="dd-need">onbewuste vraag: &ldquo;Krijg ik hier ruimte om zelf te beslissen &mdash; krijg ik autonomie?&rdquo;</span>
+      </div>
+      <div class="dd-body">
+        <div class="dd-col gas"><span class="dd-lab">&#9650; stuwt voort als&hellip;</span><p>je zelf mag bepalen hoe je iets aanpakt. Dan komen talenten als doorzetten, zelfstandig werken en betrouwbaar zijn naar voren.</p></div>
+        <div class="dd-col rem"><span class="dd-lab">&#9632; remt als&hellip;</span><p>alles wordt voorgeschreven of je wordt te veel gecontroleerd. De motor sluit zich af en je laat minder van jezelf zien.</p></div>
+      </div>
+    </div>
+
+    <div class="dg-role">
+      <h3>De rol van ouders, leerkrachten en coaches</h3>
+      <p>Het is verleidelijk om te denken dat een motor &lsquo;weg&rsquo; moet. Maar een motor verdwijnt niet &mdash; en dat hoeft ook niet. Wat helpt, is niet de motor weghalen, maar <strong>de nood erachter invullen</strong>. Geef je de motor het gevoel van controle dat hij zoekt, dan ontspant hij en komt de jongere weer bij zijn talenten.</p>
+      <p>Daarin spelen ouders, leerkrachten en coaches een sleutelrol. Door eerst van buitenaf wat structuur en veiligheid te bieden, leert een jongere stap voor stap om dat zelf te gaan doen. Zo bouwt die de eigen <strong>zelfregulatie</strong> op &mdash; en kan die op den duur zijn motor zelf in energie houden.</p>
+      <ul class="dg-steps">
+        <li><span class="si">&#128064;</span><span><strong>Herken het patroon &mdash; en zie het niet als fout.</strong> Een overactieve motor is een signaal dat de nood aan controle niet vervuld is, niet dat de jongere iets verkeerd doet.</span></li>
+        <li><span class="si">&#128172;</span><span><strong>Benoem het samen, zonder oordeel.</strong> &lsquo;Ik merk dat je onrustig wordt &mdash; klopt het dat je niet goed weet of dit wel veilig genoeg voelt?&rsquo; Zo wordt het bespreekbaar.</span></li>
+        <li><span class="si">&#129309;</span><span><strong>Vul de nood in.</strong> Geef tijd waar perfectie speelt, veiligheid waar harmonie speelt, vertrouwen, afwisseling of ruimte om zelf te beslissen &mdash; afhankelijk van welke motor onrustig is.</span></li>
+        <li><span class="si">&#127793;</span><span><strong>Geef de regie geleidelijk terug.</strong> Laat de jongere steeds meer zelf merken wanneer de motor opspeelt en zelf kiezen wat te doen. Dat is hoe zelfregulatie groeit.</span></li>
+      </ul>
+    </div>
+
+    <p class="dg-care">Deze beschrijving van &lsquo;motoren&rsquo; bouwt voort op het werk rond gedragspatronen binnen de transactionele analyse (Kahler, 1975) en op inzichten over zelfregulatie en het belang van een ondersteunende, autonomie-gevende omgeving. Het blijft een <strong>momentopname ter bespreking</strong> &mdash; nooit een diagnose of een vaststaand oordeel over wie iemand is. De wetenschappelijke bronnen vind je op de volgende pagina.</p>
+  </div>
+</section>
+
+<!-- ============ WETENSCHAPPELIJKE ONDERBOUWING ============ -->
+<section class="section science">
+  <div class="wrap">
+    <div class="seal-row">
+      <span class="badge">Wetenschappelijke verantwoording</span>
+    </div>
+    <h2>Waarom dit rapport eruitziet zoals het eruitziet</h2>
+    <p class="sci-intro">Deze pagina is bedoeld voor wie meekijkt over Lana&rsquo;s schouder: ouders, leerkrachten, directies, CLB en pedagogen. Elke keuze in dit rapport &mdash; de toon, de kleuren, de grafiekvorm, en vooral wat we wel en niet beweren &mdash; rust op peer-reviewed onderzoek. Kort uitgelegd, met de bron erbij.</p>
+
+    <div class="sci-grid">
+
+      <div class="sci-card">
+        <h3><span class="n">1</span>Waarom &ldquo;momentopname&rdquo;, geen oordeel</h3>
+        <p>Beroepsinteresses bij 13&ndash;17-jarigen zijn slechts matig stabiel (r &asymp; .51) en stabiliseren pas rond 18&ndash;22 jaar. Identiteit is in deze fase volop in vorming. Daarom spreekt het rapport consequent over &ldquo;vandaag&rdquo; en adviseert het een herafname.</p>
+        <div class="src">Low, Yoon, Roberts &amp; Rounds (2005), <a href="https://pubmed.ncbi.nlm.nih.gov/16187855/">Psychological Bulletin</a> &middot; Marcia (1966) &middot; Blakemore &amp; Robbins (2012), <a href="https://www.nature.com/articles/nn.3177">Nature Neuroscience</a></div>
+      </div>
+
+      <div class="sci-card">
+        <h3><span class="n">2</span>Waarom verkennen, niet voorspellen</h3>
+        <p>RIASEC-congruentie voorspelt studiekeuze en -succes wél, maar met matige effectgroottes (r &asymp; .20&ndash;.32). Eerlijk zijn over die grens is de kern van verantwoord testgebruik &mdash; daarom &ldquo;paden om te verkennen&rdquo;, niet &ldquo;jouw richting&rdquo;.</p>
+        <div class="src">Nye, Su, Rounds &amp; Drasgow (2012), <a href="https://doi.org/10.1177/1745691612449021">Persp. on Psych. Science</a> &middot; Tracey &amp; Robbins (2006), <a href="https://doi.org/10.1016/j.jvb.2005.11.003">JVB</a></div>
+      </div>
+
+      <div class="sci-card">
+        <h3><span class="n">3</span>Waarom altijd meerdere paden</h3>
+        <p>Eén richting voorschrijven riskeert <em>foreclosure</em>: een te vroege keuze zonder exploratie, ongunstig voor jongeren. De best gevalideerde instrumenten (O*NET, Self-Directed Search) tonen daarom bewust meerdere &ldquo;careers to explore&rdquo;. Dit rapport toont nooit minder dan drie sporen en sluit niets uit.</p>
+        <div class="src">Batool &amp; Ghayas (2020), <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7498750/">Heliyon</a> &middot; Gottfredson (2002) &middot; <a href="https://www.onetcenter.org/IP.html">O*NET Interest Profiler</a></div>
+      </div>
+
+      <div class="sci-card">
+        <h3><span class="n">4</span>Waarom we energie centraal zetten</h3>
+        <p>Of een omgeving energie geeft of leegtrekt, raakt de echte vraag van jongeren. Dit verankeren we in person-environment fit: mensen floreren in omgevingen die bij hen passen (ASA-theorie, fit-onderzoek).</p>
+        <div class="src">Schneider (1987), <a href="https://www.benschneiderphd.com/People_Make_the_Place_PP_1987.pdf">Personnel Psychology</a> &middot; Kristof-Brown et al. (2005), <a href="https://doi.org/10.1111/j.1744-6570.2005.00672.x">Personnel Psychology</a></div>
+      </div>
+
+      <div class="sci-card">
+        <h3><span class="n">5</span>Waarom deze taal en toon</h3>
+        <p>Stellige labels (&ldquo;jij bent&hellip;&rdquo;) kunnen een jongere vastzetten en versterken een vaste mindset. Groeitaal en autonomie-taal (&ldquo;je mag&rdquo;, &ldquo;je kan&rdquo;) versterken motivatie en veerkracht. Daarom vermijdt dit rapport vaste-eigenschap-taal en spreekt het de jongere recht aan.</p>
+        <div class="src">Mueller &amp; Dweck (1998), <a href="https://pubmed.ncbi.nlm.nih.gov/9686450/">JPSP</a> &middot; Yeager, Dahl &amp; Dweck (2018), <a href="https://pubmed.ncbi.nlm.nih.gov/29232535/">Persp. on Psych. Science</a> &middot; Ryan &amp; Deci (2000), <a href="https://selfdeterminationtheory.org/SDT/documents/2000_RyanDeci_SDT.pdf">SDT</a></div>
+      </div>
+
+      <div class="sci-card">
+        <h3><span class="n">6</span>Waarom staafjes &amp; warme kleuren, geen rood en geen vergelijking</h3>
+        <p>Het adolescente brein is hypergevoelig voor sociale vergelijking, dus tonen we geen normscores of ranglijsten t.o.v. anderen &mdash; enkel het eigen beeld. Staafvormen lezen nauwkeuriger dan radar/spinnenweb. Warme esthetiek vergroot de ervaren geloofwaardigheid, en rood vermijden we omdat het als &ldquo;fout/gevaar&rdquo; leest (oranje voor &ldquo;kost energie&rdquo;).</p>
+        <div class="src">Frontiers in Psychology (2025), <a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1625771/full">staaf &gt; radar &amp; sociale feedback</a> &middot; Fogg (2003), geloofwaardigheid &amp; esthetiek &middot; WCAG 2.1 (contrast AA)</div>
+      </div>
+
+      <div class="sci-card">
+        <h3><span class="n">7</span>Waarom de omgeving meetelt &mdash; en wanneer dat een signaal wordt</h3>
+        <p>Of een keuze van binnenuit komt (autonome motivatie) of vooral van buitenaf wordt opgelegd &mdash; ouderdruk, &ldquo;moeten&rdquo;, niemand willen teleurstellen (gecontroleerde motivatie) &mdash; maakt een groot verschil. Autonome keuzes hangen samen met meer exploratie, zelfvertrouwen en welbevinden; gecontroleerde keuzes met twijfel, uitstel en spanning. Daarom signaleert dit rapport het wanneer een sterke innerlijke motor juist energie kost: niet als oordeel, maar als uitnodiging om samen te kijken of de context past bij wie de jongere is.</p>
+        <div class="src">Ratelle, Guay, Vallerand, Larose &amp; Sen&eacute;cal (2007), <a href="https://selfdeterminationtheory.org/SDT/documents/2007_RatelleGuayVallerandSenecal_JEP.pdf">J. of Educational Psychology</a> &middot; Gu&eacute; et al. &mdash; parental need-support &amp; loopbaankeuze, <a href="https://estudogeral.sib.uc.pt/bitstream/10316/46956/1/Parent,%20cognition%20and%20motivation%20in%20career%20decision-making.docx">Univ. Coimbra</a></div>
+      </div>
+
+      <div class="sci-card">
+        <h3><span class="n">8</span>Waarom we &ldquo;motoren&rdquo; zo beschrijven &mdash; en wat de omgeving ermee kan</h3>
+        <p>De vijf gedragspatronen die we &lsquo;motoren&rsquo; noemen, gaan terug op werk binnen de transactionele analyse (Kahler, 1975), waar ze worden beschreven als grotendeels <em>onbewuste</em> patronen die in ons actief worden onder druk. Datzelfde werk beschrijft per patroon ook een &lsquo;toestemming&rsquo; die het kalmeert &mdash; bijvoorbeeld &lsquo;het is ok&eacute; om jezelf te zijn&rsquo; of &lsquo;het is ok&eacute; om je tijd te nemen&rsquo;. Wij vertalen die toestemmingen naar wat een jongere nodig heeft om controle te ervaren. Dat sluit aan bij onderzoek naar zelfregulatie en autonomie-ondersteuning: door eerst van buitenaf veiligheid en structuur te bieden (ouders, leerkrachten, coaches) leert een jongere die regulatie geleidelijk te internaliseren. Daarom beschrijven we een motor nooit als &ldquo;wie je bent&rdquo;, maar als een patroon dat ruimte vraagt &mdash; en dat de omgeving mee in energie kan houden.</p>
+        <div class="src">Kahler &amp; Capers (1974); Kahler (1975), drivers/working styles in transactionele analyse, samengevat door <a href="https://juliehay.org/wp-content/uploads/2020/01/drivers__working_stlyes_-_an_essay.pdf">Julie Hay</a> &middot; Soenens &amp; Vansteenkiste (2005), parental autonomy support, <a href="https://selfdeterminationtheory.org/SDT/documents/2005_SoenensVansteenkiste_JYA.pdf">J. of Adolescence</a></div>
+      </div>
+
+    </div>
+
+    <div class="honesty">
+      <h3>Twee eerlijke kanttekeningen die we nooit weglaten</h3>
+      <p><strong>1.</strong> De koppeling tussen onze eigen assen (manier van werken &amp; energie) en studierichtingen is een <em>onderbouwde hypothese</em>, geen gevalideerd verband &mdash; er bestaat nog geen literatuur die ze specifiek aan studierichtingen koppelt. We presenteren ze daarom expliciet als &ldquo;manier van werken die hierbij zou kunnen passen&rdquo;, en bouwen aan eigen validatieonderzoek.</p>
+      <p><strong>2.</strong> De RIASEC-ruggengraat is sterk onderbouwd, maar met matige effectgroottes. Precies daarom verkent dit instrument in plaats van te voorspellen. Transparantie hierover is geen zwakte, maar de kern van verantwoord instrumentontwerp.</p>
+      <p style="margin-top:12px;font-size:.85rem;color:rgba(251,244,231,.7)">Positionering: T4Teens-studieverkenning is een oriëntatie- en gesprekstrigger, complementair aan Onderwijskiezer en Columbus &mdash; geen vervanging en geen selectie-instrument (conform ITC Guidelines 2013 en de AERA/APA/NCME Standards 2014).</p>
+    </div>
+
+    <div class="reflist">
+      <h4>Volledige bronnen</h4>
+      <p>Low, K.S.D., Yoon, M., Roberts, B.W. &amp; Rounds, J. (2005). The stability of vocational interests from early adolescence to middle adulthood. <em>Psychological Bulletin</em> 131(5). <a href="https://pubmed.ncbi.nlm.nih.gov/16187855/">pubmed.ncbi.nlm.nih.gov/16187855</a></p>
+      <p>Gfrörer, T. et al. (2022). The development of vocational interests in early adolescence. <em>European Journal of Personality</em> 36(3). <a href="https://journals.sagepub.com/doi/10.1177/08902070211035630">sagepub</a></p>
+      <p>Nye, C.D., Su, R., Rounds, J. &amp; Drasgow, F. (2012). Vocational interests and performance. <em>Persp. on Psych. Science</em> 7(4). <a href="https://doi.org/10.1177/1745691612449021">doi.org/10.1177/1745691612449021</a></p>
+      <p>Tracey, T.J.G. &amp; Robbins, S.B. (2006). Interest&ndash;major congruence and college success. <em>JVB</em> 69(1). <a href="https://doi.org/10.1016/j.jvb.2005.11.003">doi.org/10.1016/j.jvb.2005.11.003</a></p>
+      <p>Rounds, J. &amp; Su, R. (2014). The nature and power of interests. <em>Current Directions in Psych. Science</em> 23(2). <a href="https://education.illinois.edu/docs/default-source/edpsy-documents/rounds-pub.pdf">PDF</a></p>
+      <p>Lent, R.W., Brown, S.D. &amp; Hackett, G. (1994). Social Cognitive Career Theory. <em>JVB</em> 45. <a href="https://www.sciencedirect.com/science/article/pii/S000187918471027X">ScienceDirect</a></p>
+      <p>Schneider, B. (1987). The people make the place (ASA). <em>Personnel Psychology</em> 40(3). <a href="https://www.benschneiderphd.com/People_Make_the_Place_PP_1987.pdf">PDF</a></p>
+      <p>Kristof-Brown, A.L., Zimmerman, R.D. &amp; Johnson, E.C. (2005). Consequences of individuals&rsquo; fit at work. <em>Personnel Psychology</em> 58(2). <a href="https://doi.org/10.1111/j.1744-6570.2005.00672.x">doi</a></p>
+      <p>Nauta, M.M. (2010). Holland&rsquo;s theory of vocational personalities. <em>JCP</em> 57(1). <a href="https://openbooks.library.baylor.edu/app/uploads/sites/23/2020/09/Nauta-2010.pdf">PDF</a></p>
+      <p>Batool, S.S. &amp; Ghayas, S. (2020). Career identity formation among adolescents. <em>Heliyon</em> 6(9). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7498750/">PMC7498750</a></p>
+      <p>Gottfredson, L.S. (2002). Circumscription, compromise, and self-creation. <a href="https://www1.udel.edu/educ/gottfredson/reprints/2004CCCentry.htm">samenvatting</a></p>
+      <p>Su, R., Rounds, J. &amp; Armstrong, P.I. (2009). Men and things, women and people. <em>Psych. Bulletin</em> 135(6). <a href="https://pubmed.ncbi.nlm.nih.gov/19883140/">pubmed 19883140</a></p>
+      <p>Mueller, C.M. &amp; Dweck, C.S. (1998). Praise for intelligence can undermine motivation. <em>JPSP</em> 75(1). <a href="https://pubmed.ncbi.nlm.nih.gov/9686450/">pubmed 9686450</a></p>
+      <p>Yeager, D.S., Dahl, R.E. &amp; Dweck, C.S. (2018). Why interventions to influence adolescent behavior often fail but could succeed. <em>Persp. on Psych. Science</em> 13(1). <a href="https://pubmed.ncbi.nlm.nih.gov/29232535/">pubmed 29232535</a></p>
+      <p>Ryan, R.M. &amp; Deci, E.L. (2000). Self-Determination Theory. <em>American Psychologist</em> 55(1). <a href="https://selfdeterminationtheory.org/SDT/documents/2000_RyanDeci_SDT.pdf">PDF</a></p>
+      <p>Ratelle, C.F., Guay, F., Vallerand, R.J., Larose, S. &amp; Sen&eacute;cal, C. (2007). Autonomous, controlled, and amotivated types of academic motivation. <em>Journal of Educational Psychology</em> 99(4). <a href="https://selfdeterminationtheory.org/SDT/documents/2007_RatelleGuayVallerandSenecal_JEP.pdf">PDF</a></p>
+      <p>Gu&eacute;, V. et al. Parental need-support, cognition and motivation in adolescents&rsquo; career decision-making. <em>Univ. de Coimbra</em>. <a href="https://estudogeral.sib.uc.pt/bitstream/10316/46956/1/Parent,%20cognition%20and%20motivation%20in%20career%20decision-making.docx">estudogeral.sib.uc.pt</a></p>
+      <p>Kahler, T. &amp; Capers, H. (1974). The miniscript. <em>Transactional Analysis Journal</em> 4(1); Kahler, T. (1975). Drivers: the key to the process of scripts. <em>TAJ</em> 5(3). Overzicht via Hay, J. (2009), <a href="https://juliehay.org/wp-content/uploads/2020/01/drivers__working_stlyes_-_an_essay.pdf">Drivers &amp; Working Styles (essay, PDF)</a></p>
+      <p>Soenens, B. &amp; Vansteenkiste, M. (2005). Antecedents and outcomes of self-determination in 3 life domains: the role of parents&rsquo; and teachers&rsquo; autonomy support. <em>Journal of Youth and Adolescence</em> 34(6). <a href="https://selfdeterminationtheory.org/SDT/documents/2005_SoenensVansteenkiste_JYA.pdf">PDF</a></p>
+      <p>Blakemore, S.-J. &amp; Robbins, T.W. (2012). Decision-making in the adolescent brain. <em>Nature Neuroscience</em> 15. <a href="https://www.nature.com/articles/nn.3177">nature.com</a></p>
+      <p>Frontiers in Psychology (2025). State self-esteem and social feedback in adolescents. <a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1625771/full">doi:10.3389/fpsyg.2025.1625771</a></p>
+      <p>International Test Commission (2013). ITC Guidelines on Test Use. <a href="https://www.intestcom.org/files/guideline_test_use.pdf">PDF</a></p>
+      <p>AERA, APA &amp; NCME (2014). Standards for Educational and Psychological Testing. <a href="https://www.aera.net/publications/books/standards-for-educational-psychological-testing-2014-edition">AERA</a></p>
+      <p>O*NET Resource Center. Interest Profiler. <a href="https://www.onetcenter.org/IP.html">onetcenter.org</a></p>
+      <p>Onderwijskiezer (CLB Vlaanderen). <a href="https://www.onderwijskiezer.be/v2/extra/over_ons.php">onderwijskiezer.be</a> &middot; RIASOC-vragenlijst KU Leuven, <a href="https://lirias.kuleuven.be/retrieve/651273">Lirias</a> &middot; SIMON-jr UGent, <a href="https://users.ugent.be/~wduyck/articles/DutrySchelfhoutDerousDuyckDirixInPress.pdf">preprint</a></p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="bm">T4Teens</div>
+  <p style="margin-top:6px">Een instrument van TaPasCity &middot; dit is een momentopname, geen vaststaand oordeel &middot; bespreek het beeld met mensen die je vertrouwt.</p>
+</footer>
+
+<script>
+(function(){
+  var current=null, currentEl=null;
+  function stopCurrent(){
+    if(current){ current.pause(); current.currentTime=0; }
+    if(currentEl){ currentEl.classList.remove('playing'); currentEl.querySelector('.l-btn').innerHTML='\u25B6'; currentEl.querySelector('.l-prog>i').style.width='0'; }
+    current=null; currentEl=null;
+  }
+  document.querySelectorAll('.listen').forEach(function(el){
+    var src=el.getAttribute('data-audio');
+    var audio=new Audio(src);
+    var bar=el.querySelector('.l-prog>i');
+    var btn=el.querySelector('.l-btn');
+    audio.addEventListener('timeupdate',function(){ if(audio.duration){ bar.style.width=(audio.currentTime/audio.duration*100)+'%'; } });
+    audio.addEventListener('ended',function(){ el.classList.remove('playing'); btn.innerHTML='\u25B6'; bar.style.width='0'; current=null; currentEl=null; });
+    function toggle(){
+      if(current===audio){
+        if(audio.paused){ audio.play(); el.classList.add('playing'); btn.innerHTML='\u275A\u275A'; }
+        else { audio.pause(); el.classList.remove('playing'); btn.innerHTML='\u25B6'; }
+        return;
+      }
+      stopCurrent();
+      current=audio; currentEl=el;
+      audio.play(); el.classList.add('playing'); btn.innerHTML='\u275A\u275A';
+    }
+    el.addEventListener('click',toggle);
+    el.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+  });
+})();
+</script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>
