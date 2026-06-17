@@ -1,0 +1,11 @@
+# Render Blueprint voor de T4Teens demo (flat-structuur)
+services:
+  - type: web
+    name: t4teens-demo
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: ADMIN_KEY
+        sync: false        # vul je geheime sleutel in via het Render-dashboard

@@ -1,0 +1,15 @@
+{
+  "name": "t4teens-demo",
+  "version": "1.0.0",
+  "description": "T4Teens demo - Ontdek jouw vonk - met tijdslot-poort",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
