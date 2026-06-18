@@ -35,23 +35,36 @@ const GUEST_CODE = process.env.GUEST_CODE || '';
 const DATA_DIR = process.env.DATA_DIR || (fs.existsSync('/var/data') ? '/var/data' : __dirname);
 const CONFIG_PATH = path.join(DATA_DIR, 't4teens-config.json');
 
+// BELANGRIJK (Render free tier heeft GEEN persistente schijf):
+// het config-bestand wordt bij elke cold-start gewist, waardoor een handmatig
+// gezette 'open' verdween en de demo terugviel op dicht. Daarom is de
+// standaardmodus nu 'open' en kan die hard worden afgedwongen via de
+// omgevingsvariabele DEMO_MODE (open | window | closed). Een env-var overleeft
+// elke herstart en heeft altijd voorrang op het (vluchtige) bestand.
+const ENV_MODE = (process.env.DEMO_MODE || '').trim().toLowerCase();
+const MODE_FORCED = ['open', 'window', 'closed'].includes(ENV_MODE);
+
 const DEFAULT_CONFIG = {
-  mode: 'window',      // 'window' = volgens tijdvenster | 'open' = altijd open | 'closed' = altijd dicht
+  mode: MODE_FORCED ? ENV_MODE : 'open',  // standaard OPEN zodat testers er altijd in kunnen
   startISO: null,      // begin van het venster (UTC ISO) of null
   endISO: null,        // einde van het venster (UTC ISO) of null
   closedMessage: ''    // optionele extra regel op de gesloten-pagina
 };
 
 function loadConfig() {
+  let cfg = { ...DEFAULT_CONFIG };
   try {
     if (fs.existsSync(CONFIG_PATH)) {
       const raw = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
-      return { ...DEFAULT_CONFIG, ...raw };
+      cfg = { ...DEFAULT_CONFIG, ...raw };
     }
   } catch (e) {
     console.error('Kon config niet lezen, gebruik standaard:', e.message);
   }
-  return { ...DEFAULT_CONFIG };
+  // Een via DEMO_MODE afgedwongen modus heeft ALTIJD voorrang, ook op een
+  // bestaand bestand. Zo kan de demo nooit per ongeluk dicht vallen na herstart.
+  if (MODE_FORCED) cfg.mode = ENV_MODE;
+  return cfg;
 }
 
 function saveConfig(cfg) {
